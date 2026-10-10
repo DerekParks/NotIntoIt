@@ -1,0 +1,102 @@
+{
+  "taxpayer": "Jane Doe",
+  "tax_year": 2025,
+  "headline": {
+    "total_tax": 3292,
+    "withheld": 6980,
+    "refund": 3688
+  },
+  "forms": {
+    "f1040": {
+      "required": true,
+      "fields": {
+        "Head of household (H O H).": true,
+        "Filing Status. Check only one box. Single.": false,
+        "Row: (1) First name. Column: Dependent 1.": "Leo",
+        "Row: (3) S S N. Column: Dependent 1.": "000345678",
+        "Row: (7) Credits. Column: Dependent 1. Child tax credit.": true,
+        "1a. Total amount from Form(s) W-2, box 1": 72805,
+        "1e. Taxable dependent care benefits from Form 2441, line 26.": 0,
+        "1z. Add lines 1a through 1h.": 72805,
+        "2b. Taxable interest.": 665,
+        "3a. Qualified dividends.": 413,
+        "3b. Ordinary dividends.": 486,
+        "7a. Capital gain or (loss).": 2532,
+        "9. Add lines 1z, 2b, 3b": 76488,
+        "10. Adjustments to income from Schedule 1, line 26.": 1185,
+        "11a. Subtract line 10 from line 9.": 75303,
+        "12e. Standard deduction or itemized deductions": 23625,
+        "15. Subtract line 14 from line 11b.": 51678,
+        "16. Amount.": 5507,
+        "19. Child tax credit or credit for other dependents from Schedule 8812.": 2200,
+        "20. Amount from Schedule 3, line 8.": 15,
+        "24. Add lines 22 and 23. This is your total tax.": 3292,
+        "Payments and Refundable Credits. 25. Federal income tax withheld from: a. Form(s) W-2.": 6980,
+        "33. Add lines 25d, 26, and 32.": 6980,
+        "Refund. 34.": 3688
+      }
+    },
+    "f1040s1": {
+      "required": true,
+      "fields": {
+        "21. Student loan interest deduction.": 1185,
+        "26. Add lines 11 through 23 and 25.": 1185
+      }
+    },
+    "f1040s3": {
+      "required": true,
+      "fields": {
+        "Part I. Nonrefundable Credits. 1. Foreign tax credit.": 15,
+        "8. Add lines 1 through 4, 5a, 5b, and 7.": 15
+      }
+    },
+    "f1040s8": {
+      "required": true,
+      "fields": {
+        "5. Multiply line 4 by $2,200.": 2200,
+        "14. Enter the smaller of line 12 or line 13.": 2200
+      }
+    },
+    "f2441": {
+      "required": true,
+      "fields": {
+        "1. Row: 1. Column: (a) Care provider's name.": {
+          "contains": "little sprouts"
+        },
+        "Row: 1. Column: (b) Address (number, street, apt. no., city, state, and Z I P code).": {
+          "contains": "2215 larkspur"
+        },
+        "Row: 1. Column: (c) Identifying number (S S N or E I N).": "00-9753108",
+        "Row: 1. Column: (d) Was the care provider your household employee in 2025? For example, this generally includes nannies but not daycare centers. (see instructions). No.": true,
+        "Row: 1. Column: (a) Qualifying person's name. First.": "Leo",
+        "Row: 1. Column: (b) Qualifying person's social security number.": "000-34-5678",
+        "Page 2. Part I I I. Dependent Care Benefits. 12.": 5000,
+        "25. Excluded benefits.": 5000,
+        "26. Taxable benefits.": 0
+      }
+    },
+    "f1040sd": {
+      "required": true,
+      "fields": {
+        "7. Net short-term capital gain or (loss).": -136,
+        "13. Capital gain distributions.": 63,
+        "15. Net long-term capital gain or (loss).": 2668,
+        "Page 2. Part I I I. Summary. 16.": 2532
+      }
+    },
+    "f8949": {
+      "required": true,
+      "fields": {
+        "(A) Short-term transactions reported on Form(s) 1099-B showing basis was reported": true,
+        "p1|2. Totals. Adjustment, if any, to gain or loss. If you enter an amount in column (g), enter a code in column (f). See the separate instructions. (g) Amount of adjustment.": 1040,
+        "p1|2. Totals. (h) Gain or (loss).": -136
+      }
+    }
+  },
+  "not_required": [
+    "f1040sb",
+    "f1116",
+    "f1040s2"
+  ],
+  "tolerance_dollars": 1
+}

@@ -1,0 +1,14 @@
+[package]
+name = "nii-corpus"
+edition.workspace = true
+version.workspace = true
+license.workspace = true
+
+[dependencies]
+anyhow.workspace = true
+nii-core = { version = "0.1.0", path = "../core" }
+quick-xml = "0.41.0"
+regex = "1.13.1"
+scraper = "0.27.0"
+ureq = "3.3.0"
+zip = "8.6.0"

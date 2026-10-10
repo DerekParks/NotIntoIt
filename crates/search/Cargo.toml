@@ -1,0 +1,11 @@
+[package]
+name = "nii-search"
+edition.workspace = true
+version.workspace = true
+license.workspace = true
+
+[dependencies]
+anyhow.workspace = true
+nii-core = { version = "0.1.0", path = "../core" }
+rusqlite = { version = "0.40.1", features = ["bundled"] }
+sqlite-vec = "0.1.9"

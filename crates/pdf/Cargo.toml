@@ -1,0 +1,16 @@
+[package]
+name = "nii-pdf"
+edition.workspace = true
+version.workspace = true
+license.workspace = true
+
+[dependencies]
+anyhow.workspace = true
+flate2 = "1.1.10"
+image = { version = "0.25", default-features = false, features = ["png"] }
+lopdf = "0.43.0"
+pdfium-render = { version = "0.9.4", features = ["image_latest", "thread_safe", "pdfium_latest"] }
+quick-xml = "0.41.0"
+serde = { version = "1.0.229", features = ["derive"] }
+tar = "0.4.46"
+ureq = "3.3.0"

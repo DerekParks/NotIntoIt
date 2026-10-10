@@ -1,0 +1,11 @@
+/target
+/data
+.fastembed_cache
+
+# Output from running the assistant against an example workspace
+/examples/*/*/forms/
+/examples/*/*/extracted/
+
+# TaxBench run outputs
+/bench/runs/
+__pycache__/

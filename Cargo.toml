@@ -1,0 +1,16 @@
+[workspace]
+resolver = "3"
+members = ["crates/*", "apps/*", "spikes"]
+
+[workspace.package]
+edition = "2024"
+version = "0.1.0"
+license = "MIT"
+rust-version = "1.89"
+
+[workspace.dependencies]
+anyhow = "1"
+
+[profile.dev.package."*"]
+# Keep dependency compilation tolerable; spikes are I/O and FFI heavy anyway.
+opt-level = 2

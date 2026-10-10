@@ -1,0 +1,15 @@
+[package]
+name = "spikes"
+edition.workspace = true
+version.workspace = true
+license.workspace = true
+
+[dependencies]
+anyhow.workspace = true
+fastembed = "5.17.2"
+image = "0.25.10"
+lopdf = "0.43.0"
+pdfium-render = "0.9.2"
+rand = "0.10.2"
+rusqlite = { version = "0.40.1", features = ["bundled"] }
+sqlite-vec = "0.1.9"
