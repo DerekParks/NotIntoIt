@@ -232,10 +232,7 @@ fn walk(
 
     let ff = here.ff.unwrap_or(0);
     let kind = field_kind(&here, &widgets);
-    let value = here.value.as_ref().and_then(|v| match v {
-        Object::Name(n) => Some(name_str(n)),
-        v => lopdf::decode_text_string(v).ok(),
-    });
+    let value = here.value.as_ref().and_then(value_text);
     let description = dict.get(b"TU").ok().and_then(|tu| lopdf::decode_text_string(tu).ok());
 
     out.push(FieldNode {
@@ -361,6 +358,14 @@ fn xfa_template(doc: &Document) -> Result<Option<Vec<u8>>> {
         }
         Object::Stream(_) => Ok(Some(stream_bytes(xfa)?)),
         _ => Ok(None),
+    }
+}
+
+/// A `/V` as text: a button state's name, or a text string.
+fn value_text(v: &Object) -> Option<String> {
+    match v {
+        Object::Name(n) => Some(name_str(n)),
+        v => lopdf::decode_text_string(v).ok(),
     }
 }
 
