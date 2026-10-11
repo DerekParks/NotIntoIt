@@ -166,7 +166,16 @@ pub fn search(
             Ok(Hit {
                 id,
                 score,
-                source: SourceKind::parse(&r.get::<_, String>(0)?).unwrap_or(SourceKind::Usc),
+                source: {
+                    let raw: String = r.get(0)?;
+                    SourceKind::parse(&raw).ok_or_else(|| {
+                        rusqlite::Error::FromSqlConversionFailure(
+                            0,
+                            rusqlite::types::Type::Text,
+                            format!("unknown chunk source {raw:?}").into(),
+                        )
+                    })?
+                },
                 citation: r.get(1)?,
                 section_path: r.get(2)?,
                 heading: r.get(3)?,
@@ -346,5 +355,16 @@ mod tests {
             get_meta(&conn, "model").unwrap().as_deref(),
             Some("bge-small-en-v1.5-q")
         );
+
+        // A chunk whose source this build doesn't know is an error, never relabelled as statute.
+        conn.execute(
+            "UPDATE chunks SET source = 'treaty' WHERE citation = '26 U.S.C. § 401'",
+            [],
+        )
+        .unwrap();
+        let err = search(&conn, "401(k) plan", &fake_embedding(1), None, 3)
+            .unwrap_err()
+            .to_string();
+        assert!(err.contains("unknown chunk source \"treaty\""), "{err}");
     }
 }

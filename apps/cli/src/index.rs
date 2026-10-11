@@ -154,6 +154,7 @@ pub fn build(
     nii_search::set_meta(&conn, "chunks", &chunks.len().to_string())?;
     conn.close().map_err(|(_, e)| e).context("closing new index")?;
 
+    remove_db(db_path);
     std::fs::rename(&partial, db_path).with_context(|| format!("moving {} into place", partial.display()))?;
     Ok(Built {
         chunks: chunks.len(),
