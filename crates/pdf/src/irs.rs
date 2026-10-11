@@ -24,8 +24,15 @@ pub fn form_stem(form: &str) -> Result<String> {
     Ok(s)
 }
 
+/// Where irs.gov keeps every published revision of each form.
+pub const IRS_PRIOR: &str = "https://www.irs.gov/pub/irs-prior";
+
 pub fn form_url(stem: &str, tax_year: u16) -> String {
-    format!("https://www.irs.gov/pub/irs-prior/{stem}--{tax_year}.pdf")
+    revision_url(IRS_PRIOR, stem, tax_year)
+}
+
+fn revision_url(base: &str, stem: &str, revision: u16) -> String {
+    format!("{base}/{stem}--{revision}.pdf")
 }
 
 /// Revisions older than this many years before the tax year are not considered.
@@ -41,8 +48,13 @@ pub struct Download {
 
 /// Download the newest revision of a form published at or before `tax_year`.
 pub fn download(stem: &str, tax_year: u16) -> Result<Download> {
+    download_from(IRS_PRIOR, stem, tax_year)
+}
+
+/// [`download`] from a mirror laid out like [`IRS_PRIOR`].
+pub fn download_from(base: &str, stem: &str, tax_year: u16) -> Result<Download> {
     for revision in (tax_year.saturating_sub(REVISION_LOOKBACK)..=tax_year).rev() {
-        let url = form_url(stem, revision);
+        let url = revision_url(base, stem, revision);
         let mut response = match ureq::get(&url).call() {
             Ok(r) => r,
             Err(ureq::Error::StatusCode(404)) => continue,
