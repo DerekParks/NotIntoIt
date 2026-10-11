@@ -87,13 +87,37 @@ pub fn is_ready(db_path: &Path) -> bool {
 pub fn build(
     data_dir: &Path,
     db_path: &Path,
-    _lock: &BuildLock,
+    lock: &BuildLock,
     options: &BuildOptions,
     on_progress: &mut dyn FnMut(Progress),
 ) -> Result<Built> {
     if options.cuda_device.is_some() && !nii_embed::CUDA_ENABLED {
         anyhow::bail!("a CUDA device was requested but this binary was built without the cuda feature");
     }
+    build_with(data_dir, db_path, lock, options, on_progress, &mut || {
+        let mut embedder = nii_embed::Embedder::new(
+            &data_dir.join("models"),
+            nii_embed::Device {
+                cuda_device_id: options.cuda_device,
+            },
+        )?;
+        let batch_size = options.batch_size;
+        Ok(Box::new(move |texts: &[String]| embedder.embed_docs(texts, batch_size)))
+    })
+}
+
+/// Turns a batch of chunk texts into one vector each.
+pub type Embed = Box<dyn FnMut(&[String]) -> Result<Vec<Vec<f32>>>>;
+
+/// [`build`] with `make_embed` supplying the embedding function once the corpus is chunked.
+pub fn build_with(
+    data_dir: &Path,
+    db_path: &Path,
+    _lock: &BuildLock,
+    options: &BuildOptions,
+    on_progress: &mut dyn FnMut(Progress),
+    make_embed: &mut dyn FnMut() -> Result<Embed>,
+) -> Result<Built> {
     let started = Instant::now();
 
     on_progress(Progress::Downloading);
@@ -116,12 +140,7 @@ pub fn build(
         chunks.truncate(n);
     }
 
-    let mut embedder = nii_embed::Embedder::new(
-        &data_dir.join("models"),
-        nii_embed::Device {
-            cuda_device_id: options.cuda_device,
-        },
-    )?;
+    let mut embed = make_embed()?;
 
     let partial = sibling(db_path, "partial");
     remove_db(&partial);
@@ -134,7 +153,7 @@ pub fn build(
     });
     for (i, batch) in chunks.chunks(options.batch_size).enumerate() {
         let texts: Vec<String> = batch.iter().map(|c| c.embed_text()).collect();
-        let embeddings = embedder.embed_docs(&texts, options.batch_size)?;
+        let embeddings = embed(&texts)?;
         nii_search::add_chunks(&mut conn, batch, &embeddings)?;
         let done = (i * options.batch_size + batch.len()).min(chunks.len());
         on_progress(Progress::Embedding {
