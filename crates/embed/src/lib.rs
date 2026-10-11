@@ -1,6 +1,5 @@
-//! Local embeddings via fastembed (bge-small-en-v1.5 int8 ONNX).
-//! Model downloads on first use into the given cache dir; offline after that.
-//! Build with `--features cuda` to run on GPU via onnxruntime's CUDA EP.
+//! Local embeddings via fastembed (bge-small-en-v1.5 int8 ONNX), downloaded into the cache dir
+//! on first use. `--features cuda` adds onnxruntime's CUDA execution provider.
 
 use anyhow::Result;
 use fastembed::{EmbeddingModel, TextEmbedding, TextInitOptions};
@@ -28,14 +27,12 @@ impl Embedder {
             .with_cache_dir(cache_dir.to_path_buf())
             .with_show_download_progress(true);
 
-        // GPU is opt-in per call site: only when a device id was requested.
-        // (Search embeds one query at a time — CPU is the right tool there.)
+        // The GPU is used only when a device id is given.
         #[cfg(feature = "cuda")]
         let options = match device.cuda_device_id {
             Some(id) => {
                 use ort::execution_providers::CUDAExecutionProvider;
                 let ep = CUDAExecutionProvider::default().with_device_id(id);
-                // Fail loudly: a silent CPU fallback would waste hours in an index build.
                 options.with_execution_providers(vec![ep.build().error_on_failure()])
             }
             None => options,
