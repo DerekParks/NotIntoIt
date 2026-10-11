@@ -10,6 +10,9 @@ const PADDING: f32 = 2.0;
 const AUTO_SIZE_MAX: f32 = 12.0;
 const AUTO_SIZE_MIN: f32 = 4.0;
 const LINE_SPACING: f32 = 1.15;
+/// `/Q` quadding values.
+const QUAD_CENTER: i64 = 1;
+const QUAD_RIGHT: i64 = 2;
 /// Helvetica widths for ASCII 32..=126, used when a font has no `/Widths`.
 const HELVETICA_WIDTHS: [u16; 95] = [
     278, 278, 355, 556, 556, 889, 667, 191, 333, 333, 389, 584, 278, 333, 278, 278, 556, 556, 556, 556, 556, 556, 556,
@@ -42,8 +45,8 @@ pub(crate) fn set_text_appearance(doc: &mut Document, widget: ObjectId, style: &
     let size = font_size(size, multiline, w, h, &metrics, &bytes);
     let text_w = |b: &[u8]| metrics.width(b) * size / 1000.0;
     let x_for = |b: &[u8]| match style.quadding {
-        1 => (w - text_w(b)) / 2.0,
-        2 => w - PADDING - text_w(b),
+        QUAD_CENTER => (w - text_w(b)) / 2.0,
+        QUAD_RIGHT => w - PADDING - text_w(b),
         _ => PADDING,
     };
 
@@ -81,6 +84,18 @@ pub(crate) fn set_text_appearance(doc: &mut Document, widget: ObjectId, style: &
     }
     ops.push_str("ET Q EMC");
 
+    attach_appearance(doc, widget, &font_name, font_ref, [w, h], ops)
+}
+
+/// Wrap content-stream `ops` in a form XObject using `font_ref` and make it `widget`'s `/AP /N`.
+fn attach_appearance(
+    doc: &mut Document,
+    widget: ObjectId,
+    font_name: &str,
+    font_ref: Object,
+    [w, h]: [f32; 2],
+    ops: String,
+) -> Result<()> {
     let mut resources = Dictionary::new();
     resources.set(
         "Font",
