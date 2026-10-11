@@ -1,5 +1,7 @@
 # NotIntoIt
 
+<p align="center"><img src="docs/logo.png" alt="You wouldn't vibe your taxes" width="640"></p>
+
 > [!WARNING]
 > **NotIntoIt is a proof of concept, not tax software, and not tax advice.**
 > AI models make mistakes, including ones that change what you owe. Review
