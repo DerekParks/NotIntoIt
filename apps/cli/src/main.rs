@@ -135,7 +135,10 @@ enum CorpusCommand {
 }
 
 fn main() -> Result<()> {
-    let cli = Cli::parse();
+    run(Cli::parse())
+}
+
+fn run(cli: Cli) -> Result<()> {
     let data_dir = match cli.data_dir {
         Some(d) => d,
         None => dirs::data_dir()
