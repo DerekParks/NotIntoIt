@@ -1,5 +1,12 @@
 # NotIntoIt
 
+> [!WARNING]
+> **NotIntoIt is a proof of concept, not tax software, and not tax advice.**
+> AI models make mistakes, including ones that change what you owe. Review
+> every form it fills against your documents and the IRS instructions before
+> you sign or file anything. You are solely responsible for what you send to
+> the IRS. NotIntoIt never e-files.
+
 LLM-assisted tax prep for people who are not into it. NotIntoIt is an MCP
 server that gives an AI assistant what it needs to prepare a US federal return
 on real IRS forms: it reads your documents, fetches and fills the actual
@@ -14,10 +21,9 @@ W-2, 1099s, and notes: seven forms, about 25 tool calls, two minutes (sped up
 
 [![The filled 2025 Form 1040, pages 1 and 2](docs/filled-1040.png)](docs/filled-1040.png)
 
-**Not tax advice, and nothing is e-filed.** You get filled PDFs to review,
-print, and file yourself. Tax data you share with an assistant goes to that
-assistant's model provider (or stays on your machine with a local model);
-everything else runs locally.
+You get filled PDFs to review, print, and file yourself. Tax data you share
+with an assistant goes to that assistant's model provider (or stays on your
+machine with a local model); everything else runs locally.
 
 ## Status
 
