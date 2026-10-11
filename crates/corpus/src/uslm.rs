@@ -147,8 +147,7 @@ pub fn parse_usc_reader<R: BufRead>(input: R) -> Result<Vec<Section>> {
     let mut note: Option<NoteCapture> = None;
 
     loop {
-        // Text arrives as Text events plus GeneralRef events for entities
-        // (quick-xml 0.41 no longer inlines them); both feed one sink below.
+        // Text and entity references (GeneralRef) both feed the text sink below.
         let piece: Option<String> = match reader.read_event_into(&mut buf)? {
             Event::Start(e) => {
                 let name = local_name(&e);
@@ -180,7 +179,6 @@ pub fn parse_usc_reader<R: BufRead>(input: R) -> Result<Vec<Section>> {
                     } else if section.is_none() && CONTAINERS.contains(&name.as_str()) {
                         containers.push(Container { label: String::new() });
                     } else if name == "num" && section.is_some() && parent_is(&elem_stack, "section") {
-                        // Prefer the clean @value ("61") over printed text ("§ 61.").
                         if let (Some(s), Some(v)) = (section.as_mut(), attr(&e, "value")) {
                             s.num_value = v;
                         }
