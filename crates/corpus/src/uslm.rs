@@ -142,8 +142,7 @@ pub fn parse_usc_reader<R: BufRead>(input: R) -> Result<Vec<Section>> {
     let mut sections = Vec::new();
     let mut elem_stack: Vec<String> = Vec::new();
     let mut containers: Vec<Container> = Vec::new();
-    // Depth (elem_stack length) at which an EXCLUDED element began.
-    let mut excluded_at: Option<usize> = None;
+    let mut excluded_from_depth: Option<usize> = None;
     let mut section: Option<PendingSection> = None;
     let mut note: Option<NoteCapture> = None;
 
@@ -168,10 +167,10 @@ pub fn parse_usc_reader<R: BufRead>(input: R) -> Result<Vec<Section>> {
                     }
                 }
 
-                if excluded_at.is_none() && EXCLUDED.contains(&name.as_str()) {
-                    excluded_at = Some(elem_stack.len());
+                if excluded_from_depth.is_none() && EXCLUDED.contains(&name.as_str()) {
+                    excluded_from_depth = Some(elem_stack.len());
                 }
-                if excluded_at.is_none() {
+                if excluded_from_depth.is_none() {
                     if name == "section" && section.is_none() {
                         section = Some(PendingSection {
                             identifier: attr(&e, "identifier").unwrap_or_default(),
@@ -202,9 +201,9 @@ pub fn parse_usc_reader<R: BufRead>(input: R) -> Result<Vec<Section>> {
                         n.current.push(' ');
                     }
                 }
-                if excluded_at == Some(elem_stack.len() + 1) {
-                    excluded_at = None;
-                } else if excluded_at.is_none() {
+                if excluded_from_depth == Some(elem_stack.len() + 1) {
+                    excluded_from_depth = None;
+                } else if excluded_from_depth.is_none() {
                     match name.as_str() {
                         "section" => {
                             if let Some(s) = section.take()
@@ -254,7 +253,7 @@ pub fn parse_usc_reader<R: BufRead>(input: R) -> Result<Vec<Section>> {
                 } else {
                     n.current.push_str(&text);
                 }
-            } else if excluded_at.is_some() {
+            } else if excluded_from_depth.is_some() {
                 // skip
             } else if let Some(s) = section.as_mut() {
                 match (elem_stack.last().map(String::as_str), parent_is(&elem_stack, "section")) {
