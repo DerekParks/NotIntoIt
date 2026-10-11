@@ -433,6 +433,92 @@ mod tests {
         );
     }
 
+    /// A data dir whose corpus caches are already filled, so building downloads nothing.
+    fn cached_corpus() -> PathBuf {
+        let data = crate::testutil::scratch("corpus");
+        nii_testkit::put(
+            &data,
+            "corpus/usc26.xml",
+            r#"<uscDoc><main><title><section identifier="/us/usc/t26/s61"><num value="61">§ 61.</num>
+               <heading>Gross income defined</heading><content>Gross income means all income.</content></section>
+               </title></main></uscDoc>"#,
+        );
+        nii_testkit::put(&data, "corpus/usc26.release.txt", "119-100");
+        for path in nii_corpus::irs_html::DOCUMENTS {
+            let name = path.rsplit('/').next().unwrap();
+            nii_testkit::put(
+                &data,
+                &format!("corpus/irs/{name}.html"),
+                format!("<html><head><title>{name} | IRS</title></head><body><article><h2>A</h2><p>Text.</p></article></body></html>"),
+            );
+        }
+        data
+    }
+
+    #[test]
+    fn build_indexes_the_cached_corpus_and_records_provenance() {
+        let data = cached_corpus();
+        let db = data.join("index.db");
+        let lock = try_lock(&db).unwrap().unwrap();
+        let mut events = Vec::new();
+        let unit = |i: usize| -> Vec<f32> {
+            let mut v = vec![0.0; nii_search::DIM];
+            v[i % nii_search::DIM] = 1.0;
+            v
+        };
+        let built = build_with(
+            &data,
+            &db,
+            &lock,
+            &BuildOptions { batch_size: 4, ..BuildOptions::default() },
+            &mut |p| {
+                events.push(match p {
+                    Progress::Fetching { .. } => "fetching".to_string(),
+                    Progress::Downloading => "downloading".into(),
+                    Progress::Parsing => "parsing".into(),
+                    Progress::Embedding { done, total } => format!("{done}/{total}"),
+                })
+            },
+            &mut || Ok(Box::new(move |texts: &[String]| Ok((0..texts.len()).map(unit).collect()))),
+        )
+        .unwrap();
+
+        assert_eq!(built.chunks, 1 + nii_corpus::irs_html::DOCUMENTS.len());
+        assert_eq!(built.release_point, "119-100");
+        assert_eq!(events, ["downloading", "parsing", "0/10", "4/10", "8/10", "10/10"]);
+        assert!(is_ready(&db) && !sibling(&db, "partial").exists());
+        let conn = nii_search::open(&db).unwrap();
+        let meta = |k| nii_search::get_meta(&conn, k).unwrap();
+        assert_eq!(meta("chunks").as_deref(), Some("10"));
+        assert_eq!(meta("usc_release_point").as_deref(), Some("119-100"));
+        assert!(meta("guidance").unwrap().starts_with("Instructions for Form i1040gi; "));
+    }
+
+    #[test]
+    fn build_honors_the_chunk_limit_and_surfaces_embedder_failures() {
+        let data = cached_corpus();
+        let db = data.join("index.db");
+        let lock = try_lock(&db).unwrap().unwrap();
+        let options = BuildOptions { limit_chunks: Some(2), ..BuildOptions::default() };
+        let built = build_with(&data, &db, &lock, &options, &mut |_| {}, &mut || {
+            Ok(Box::new(|texts: &[String]| Ok(vec![vec![1.0; nii_search::DIM]; texts.len()])))
+        })
+        .unwrap();
+        assert_eq!(built.chunks, 2);
+
+        let err = build_with(&data, &db, &lock, &options, &mut |_| {}, &mut || anyhow::bail!("no model")).err().unwrap();
+        assert_eq!(err.to_string(), "no model");
+    }
+
+    #[test]
+    fn cuda_requests_fail_without_the_cuda_feature() {
+        let dir = crate::testutil::scratch("cuda");
+        let lock = try_lock(&dir.join("index.db")).unwrap().unwrap();
+        let options = BuildOptions { cuda_device: Some(0), ..BuildOptions::default() };
+        let err = build(&dir, &dir.join("index.db"), &lock, &options, &mut |_| {}).err().unwrap();
+        assert_eq!(err.to_string(), "a CUDA device was requested but this binary was built without the cuda feature");
+    }
+
     #[test]
     fn missing_or_incomplete_index_is_not_ready() {
         let dir = std::env::temp_dir().join(format!("nii-ready-test-{}", std::process::id()));
