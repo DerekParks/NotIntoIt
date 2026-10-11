@@ -37,11 +37,24 @@ what a vision model can read.
 
 ## Install
 
-Prebuilt binaries for Linux (x86_64, arm64; glibc 2.38+, e.g. Ubuntu 24.04),
-macOS (Apple Silicon), and Windows (x86_64; needs the Visual C++ runtime) are on
-the [releases page](https://github.com/DerekParks/NotIntoIt/releases).
+Linux and macOS:
 
-Or build from source (Rust 1.89+):
+```sh
+curl -LsSf https://github.com/DerekParks/NotIntoIt/releases/latest/download/nii-installer.sh | sh
+```
+
+Windows (PowerShell):
+
+```powershell
+powershell -ExecutionPolicy Bypass -c "irm https://github.com/DerekParks/NotIntoIt/releases/latest/download/nii-installer.ps1 | iex"
+```
+
+![Installing nii on a fresh Ubuntu container and fetching a Form 1040](docs/install.gif)
+
+Prebuilt for Linux x86_64 and arm64 (glibc 2.38+, e.g. Ubuntu 24.04), macOS
+on Apple Silicon, and Windows x86_64 (needs the Visual C++ runtime); archives
+are on the [releases page](https://github.com/DerekParks/NotIntoIt/releases).
+Elsewhere, build from source with Rust 1.89+:
 
 ```sh
 cargo install --git https://github.com/DerekParks/NotIntoIt nii --locked
