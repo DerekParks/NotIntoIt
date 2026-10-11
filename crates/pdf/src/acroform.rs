@@ -161,6 +161,40 @@ struct Inherited {
     quadding: Option<i64>,
 }
 
+impl Inherited {
+    /// These attributes as seen by a child `dict`, which may set or override each one.
+    fn inherited_by(&self, doc: &Document, dict: &Dictionary) -> Result<Inherited> {
+        let mut here = self.clone();
+        if let Ok(t) = dict.get(b"T") {
+            let partial = lopdf::decode_text_string(t)?;
+            here.name = if self.name.is_empty() {
+                partial
+            } else {
+                format!("{}.{partial}", self.name)
+            };
+        }
+        if let Ok(ft) = dict.get(b"FT").and_then(Object::as_name) {
+            here.ft = Some(ft.to_vec());
+        }
+        if let Ok(ff) = dict.get_deref(b"Ff", doc).and_then(Object::as_i64) {
+            here.ff = Some(ff);
+        }
+        if let Ok(max_len) = dict.get_deref(b"MaxLen", doc).and_then(Object::as_i64) {
+            here.max_len = Some(max_len);
+        }
+        if let Ok(v) = dict.get(b"V") {
+            here.value = Some(v.clone());
+        }
+        if let Ok(da) = dict.get_deref(b"DA", doc).and_then(lopdf::decode_text_string) {
+            here.da = Some(da);
+        }
+        if let Ok(q) = dict.get_deref(b"Q", doc).and_then(Object::as_i64) {
+            here.quadding = Some(q);
+        }
+        Ok(here)
+    }
+}
+
 fn walk(
     doc: &Document,
     obj: &Object,
@@ -173,33 +207,7 @@ fn walk(
     };
     let dict = doc.get_dictionary(*id)?;
 
-    let mut here = parent.clone();
-    if let Ok(t) = dict.get(b"T") {
-        let partial = lopdf::decode_text_string(t)?;
-        here.name = if parent.name.is_empty() {
-            partial
-        } else {
-            format!("{}.{partial}", parent.name)
-        };
-    }
-    if let Ok(ft) = dict.get(b"FT").and_then(Object::as_name) {
-        here.ft = Some(ft.to_vec());
-    }
-    if let Ok(ff) = dict.get_deref(b"Ff", doc).and_then(Object::as_i64) {
-        here.ff = Some(ff);
-    }
-    if let Ok(max_len) = dict.get_deref(b"MaxLen", doc).and_then(Object::as_i64) {
-        here.max_len = Some(max_len);
-    }
-    if let Ok(v) = dict.get(b"V") {
-        here.value = Some(v.clone());
-    }
-    if let Ok(da) = dict.get_deref(b"DA", doc).and_then(lopdf::decode_text_string) {
-        here.da = Some(da);
-    }
-    if let Ok(q) = dict.get_deref(b"Q", doc).and_then(Object::as_i64) {
-        here.quadding = Some(q);
-    }
+    let here = parent.inherited_by(doc, dict)?;
 
     let kids: Vec<Object> = dict
         .get(b"Kids")
