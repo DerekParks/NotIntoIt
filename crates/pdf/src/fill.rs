@@ -24,36 +24,7 @@ pub fn fill(pdf: &[u8], values: &BTreeMap<String, Value>) -> Result<Vec<u8>> {
         .map(|n| (n.field.name.clone(), n))
         .collect();
 
-    let mut texts: Vec<(&FieldNode, &str)> = Vec::new();
-    let mut buttons: Vec<(&FieldNode, Vec<u8>)> = Vec::new();
-    let mut problems: Vec<String> = Vec::new();
-    let mut claimed: HashMap<&str, &str> = HashMap::new();
-    for (name, value) in values {
-        let node = match resolve_name(&nodes, name) {
-            Ok(node) => node,
-            Err(e) => {
-                problems.push(format!("{name}: {e}"));
-                continue;
-            }
-        };
-        if let Some(other) = claimed.insert(node.field.name.as_str(), name) {
-            problems.push(format!("{name}: same field as {other}"));
-            continue;
-        }
-        match resolve(&node.field.kind, value) {
-            Ok(Resolved::Text) => {
-                let Value::Text(s) = value else {
-                    unreachable!("resolve checked the variant")
-                };
-                texts.push((node, s));
-            }
-            Ok(Resolved::Button(state)) => buttons.push((node, state)),
-            Err(e) => problems.push(format!("{name}: {e}")),
-        }
-    }
-    if !problems.is_empty() {
-        bail!("nothing written; fix these fields:\n  {}", problems.join("\n  "));
-    }
+    let Plan { texts, buttons } = plan(&nodes, values)?;
 
     let default_da = acroform::default_da(&doc);
     for (node, text) in &texts {
@@ -105,6 +76,47 @@ fn resolve_name<'a>(nodes: &'a HashMap<String, FieldNode>, name: &str) -> Result
             bail!("ambiguous; matches {}", names.join(", "))
         }
     }
+}
+
+/// What `fill` will write, once every value has been checked.
+struct Plan<'a> {
+    texts: Vec<(&'a FieldNode, &'a str)>,
+    buttons: Vec<(&'a FieldNode, Vec<u8>)>,
+}
+
+/// Match each value to its field and check it fits, reporting every problem at once.
+fn plan<'a>(nodes: &'a HashMap<String, FieldNode>, values: &'a BTreeMap<String, Value>) -> Result<Plan<'a>> {
+    let mut texts: Vec<(&FieldNode, &str)> = Vec::new();
+    let mut buttons: Vec<(&FieldNode, Vec<u8>)> = Vec::new();
+    let mut problems: Vec<String> = Vec::new();
+    let mut claimed: HashMap<&str, &str> = HashMap::new();
+    for (name, value) in values {
+        let node = match resolve_name(nodes, name) {
+            Ok(node) => node,
+            Err(e) => {
+                problems.push(format!("{name}: {e}"));
+                continue;
+            }
+        };
+        if let Some(other) = claimed.insert(node.field.name.as_str(), name) {
+            problems.push(format!("{name}: same field as {other}"));
+            continue;
+        }
+        match resolve(&node.field.kind, value) {
+            Ok(Resolved::Text) => {
+                let Value::Text(s) = value else {
+                    unreachable!("resolve checked the variant")
+                };
+                texts.push((node, s));
+            }
+            Ok(Resolved::Button(state)) => buttons.push((node, state)),
+            Err(e) => problems.push(format!("{name}: {e}")),
+        }
+    }
+    if !problems.is_empty() {
+        bail!("nothing written; fix these fields:\n  {}", problems.join("\n  "));
+    }
+    Ok(Plan { texts, buttons })
 }
 
 /// Set a text field's `/V` and draw its value on every widget.
