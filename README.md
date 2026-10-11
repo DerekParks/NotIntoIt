@@ -32,7 +32,7 @@ machine with a local model); everything else runs locally.
 Working end to end for tax year 2025 (and 2024 tax computation). Claude Sonnet
 prepares the [example taxpayer's](examples/jane-doe) complete return —
 Form 1040 with Schedules 1, 3, D, 8812 and Forms 8949 and 2441 — at 46/46
-on [TaxBench](#taxbench), and so do smaller hosted and local models. Not yet: state returns, and scanned documents beyond
+on [TaxBench](#taxbench), and so do cheaper hosted, open-weights, and local models. Not yet: state returns, and scanned documents beyond
 what a vision model can read.
 
 ## Install
@@ -142,27 +142,34 @@ fictional taxpayer in an isolated workspace (only the taxpayer's notes and
 documents, only NotIntoIt's tools) and grades the filled PDFs line by line
 against an answer key.
 
-![TaxBench results: form lines correct out of 46 and refunds right, for 19 models](docs/taxbench.png)
+![TaxBench results: form lines correct out of 46 and refunds right, for 24 models](docs/taxbench.png)
 
 | model | lines (mean /46) | refund right | $ per run |
 |---|---|---|---|
-| Claude Sonnet 5.5 (Claude Code) | 46.0 | 3/3 | 0.42 |
-| Claude Haiku 5.5 | 45.7 | 3/3 | 0.09 |
+| Claude Sonnet 5.5 (Claude Code) | 46.0 | 3/3 | 0.52 |
+| DeepSeek V4 Pro | 46.0 | 2/2 | 0.30 |
+| Qwen3.8 Flash-Next, local Q4 | 46.0 | 3/3 | — |
 | GPT-6 Luna | 45.7 | 3/3 | 0.03 |
-| Qwen3.8 Flash-Next, local Q4 | 44.7 | 3/3 | — |
-| Gemini 3.5 Flash-Lite | 41.3 | 1/3 | — |
-| DeepSeek V4 Flash | 35.0 | 0/3 | 0.06 |
-| Qwen 3.6 35B-A3B | 25.0 | 0/3 | 0.24 |
-| Qwen3-Next 80B-A3B | 12.0 | 0/3 | 0.16 |
-| Gemma 4 26B-A4B | 10.5 | 0/2 | 0.08 |
-| Mistral Small 3.2 24B | 8.0 | 0/1 | 0.11 |
-| 9 more models under 5 lines | 0–4.5 | none | — |
+| GLM 5.3 | 45.0 | 3/3 | 0.24 |
+| Claude Haiku 5.5 | 43.3 | 2/3 | 0.10 |
+| Qwen3.8 27B, local FP8 | 40.0 | 1/3 | — |
+| Gemini 3.5 Flash-Lite | 39.0 | 1/3 | 0.14 |
+| DeepSeek V4 Flash | 37.3 | 0/3 | 0.05 |
+| Qwen 3.6 35B-A3B | 25.7 | 0/3 | 0.26 |
+| Gemma 4 26B-A4B | 19.7 | 0/3 | 0.07 |
+| Ministral 8B | 17.3 | 0/3 | 0.04 |
+| Qwen3-Next 80B-A3B | 16.0 | 0/3 | 0.15 |
+| Gemma 4 31B | 13.7 | 0/3 | 0.12 |
+| Nemotron 3 Nano 30B | 11.3 | 0/3 | 0.04 |
+| 9 more models under 7 lines | 0–6.3 | none | — |
 
-The models above 44 lines all get Jane's refund right to the dollar; below
-that, the usual misses are Form 2441 Part I/II and the $15 foreign tax credit.
-The gpt-oss models plan the return and then stop without filling a form.
-Timeouts and provider errors are excluded from the means, so Gemma 4 26B,
-Mistral Small, and Ministral 3B rest on fewer than three runs. Every model
+Every model at 45 lines or more gets Jane's refund right to the dollar, and
+two of them (DeepSeek V4 Pro, GLM 5.3) are open weights. The most common miss
+just below that is filing Jane as Single instead of head of household, which
+flows through the standard deduction to the refund; further down, Form 2441
+Part I/II and the $15 foreign tax credit go wrong. The gpt-oss models plan the
+return and then stop without filling a form. Timeouts and provider errors are
+excluded from the means, so DeepSeek V4 Pro rests on two runs. Every model
 except Sonnet ran under pi; `bench/card/make_card.py` redraws the card from
 `bench/runs/`.
 

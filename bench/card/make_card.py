@@ -45,8 +45,11 @@ NAMES = {
     "openrouter/nvidia/nemotron-3-super-120b-a12b": "Nemotron 3 Super 120B",
     "openrouter/openai/gpt-oss-120b": "gpt-oss-120b",
     "openrouter/openai/gpt-oss-20b": "gpt-oss-20b",
+    "openrouter/z-ai/glm-5.3": "GLM 5.3",
+    "openrouter/deepseek/deepseek-v4-pro-0813": "DeepSeek V4 Pro",
+    "vllm-local/qwen3.8-27b": "Qwen3.8 27B (local, FP8)",
 }
-LOCAL_MODELS = {"flash-next-hybrid"}
+LOCAL_MODELS = {"flash-next-hybrid", "vllm-local/qwen3.8-27b"}
 
 
 def results() -> list[dict]:
