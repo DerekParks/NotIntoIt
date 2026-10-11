@@ -91,6 +91,41 @@ mod tests {
         let _ = std::fs::remove_dir_all(dir);
     }
 
+    /// A .tgz holding `files` (archive path, contents), as pdfium-binaries publishes.
+    fn tgz(files: &[(&str, &[u8])]) -> Vec<u8> {
+        let mut archive = tar::Builder::new(flate2::write::GzEncoder::new(Vec::new(), flate2::Compression::fast()));
+        for (path, bytes) in files {
+            let mut header = tar::Header::new_gnu();
+            header.set_size(bytes.len() as u64);
+            header.set_mode(0o644);
+            archive.append_data(&mut header, path, *bytes).unwrap();
+        }
+        archive.into_inner().unwrap().finish().unwrap()
+    }
+
+    #[test]
+    fn installs_from_a_mirror_and_rejects_archives_without_the_library() {
+        let (asset, lib) = platform_asset().unwrap();
+        let mirror = nii_testkit::scratch("pdfium-mirror");
+        let release = format!("chromium/{PDFIUM_RELEASE}/{asset}.tgz");
+        nii_testkit::put(&mirror, &release, tgz(&[(lib, b"library"), ("LICENSE", b"BSD")]));
+        let base = nii_testkit::serve(mirror.clone());
+
+        let data = nii_testkit::scratch("pdfium-data");
+        let installed = install_from(&base, &data).unwrap();
+        assert_eq!(std::fs::read(&installed).unwrap(), b"library");
+        assert_eq!(installed, data.join("pdfium").join(format!("chromium-{PDFIUM_RELEASE}")).join(lib));
+        assert_eq!(std::fs::read_dir(data.join("pdfium")).unwrap().count(), 1, "staging dir left behind");
+
+        nii_testkit::put(&mirror, &release, tgz(&[("README", b"no library here")]));
+        let empty = nii_testkit::scratch("pdfium-empty");
+        let err = install_from(&base, &empty).unwrap_err().to_string();
+        assert_eq!(err, format!("{base}/{release} has no {lib}"));
+
+        let err = install_from("http://127.0.0.1:9", &nii_testkit::scratch("pdfium-down")).unwrap_err();
+        assert!(format!("{err:#}").starts_with("downloading http://127.0.0.1:9/chromium/"), "{err:#}");
+    }
+
     #[test]
     fn this_platform_has_a_prebuilt_library() {
         let (asset, lib) = platform_asset().unwrap();
