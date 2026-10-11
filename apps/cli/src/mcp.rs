@@ -475,7 +475,7 @@ fn money(v: f64) -> String {
     }
 }
 
-/// The longest dotted prefix shared by every name, e.g. "topmostSubform[0].".
+/// The longest dotted prefix shared by every name, e.g. `topmostSubform[0].`.
 fn common_prefix(names: &[String]) -> &str {
     let Some(first) = names.first() else { return "" };
     let mut end = 0;

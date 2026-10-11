@@ -1,5 +1,5 @@
 //! Hybrid retrieval over one SQLite file: `chunks` content, `chunks_fts` (FTS5), `chunks_vec`
-//! (sqlite-vec int8[384], cosine), and `meta` provenance, fused with reciprocal rank fusion.
+//! (sqlite-vec `int8[384]`, cosine), and `meta` provenance, fused with reciprocal rank fusion.
 
 use anyhow::{Context, Result};
 use nii_core::{DocChunk, SourceKind};
