@@ -32,7 +32,8 @@ def load(case: str) -> list[dict]:
 def summarize(runs: list[dict]) -> list[str]:
     by_model = defaultdict(list)
     for r in runs:
-        by_model[f"{r['agent']}:{r['model']}"].append(r)
+        upstream = f"@{r['upstream']}" if r.get("upstream") else ""
+        by_model[f"{r['agent']}:{r['model']}{upstream}"].append(r)
     rows = [("model", "runs", "scored", "lines", "refund right", "median $ off", "secs", "$ spent", "other")]
     for model, rs in sorted(by_model.items()):
         done = [r for r in rs if r.get("status", "completed") == "completed"]

@@ -16,7 +16,12 @@
         "Row: (3) S S N. Column: Dependent 1.": "000345678",
         "Row: (7) Credits. Column: Dependent 1. Child tax credit.": true,
         "1a. Total amount from Form(s) W-2, box 1": 72805,
-        "1e. Taxable dependent care benefits from Form 2441, line 26.": 0,
+        "1e. Taxable dependent care benefits from Form 2441, line 26.": {
+          "any_of": [
+            0,
+            ""
+          ]
+        },
         "1z. Add lines 1a through 1h.": 72805,
         "2b. Taxable interest.": 665,
         "3a. Qualified dividends.": 413,
@@ -68,11 +73,26 @@
         },
         "Row: 1. Column: (c) Identifying number (S S N or E I N).": "00-9753108",
         "Row: 1. Column: (d) Was the care provider your household employee in 2025? For example, this generally includes nannies but not daycare centers. (see instructions). No.": true,
-        "Row: 1. Column: (a) Qualifying person's name. First.": "Leo",
-        "Row: 1. Column: (b) Qualifying person's social security number.": "000-34-5678",
+        "Row: 1. Column: (a) Qualifying person's name. First.": {
+          "any_of": [
+            "Leo",
+            ""
+          ]
+        },
+        "Row: 1. Column: (b) Qualifying person's social security number.": {
+          "any_of": [
+            "000-34-5678",
+            ""
+          ]
+        },
         "Page 2. Part I I I. Dependent Care Benefits. 12.": 5000,
         "25. Excluded benefits.": 5000,
-        "26. Taxable benefits.": 0
+        "26. Taxable benefits.": {
+          "any_of": [
+            0,
+            ""
+          ]
+        }
       }
     },
     "f1040sd": {
@@ -89,7 +109,12 @@
       "fields": {
         "(A) Short-term transactions reported on Form(s) 1099-B showing basis was reported": true,
         "p1|2. Totals. Adjustment, if any, to gain or loss. If you enter an amount in column (g), enter a code in column (f). See the separate instructions. (g) Amount of adjustment.": 1040,
-        "p1|2. Totals. (h) Gain or (loss).": -136
+        "p1|2. Totals. (h) Gain or (loss).": {
+          "any_of": [
+            -136,
+            0
+          ]
+        }
       }
     }
   },
