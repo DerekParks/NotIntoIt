@@ -7,6 +7,7 @@ use scraper::{ElementRef, Html, Node, Selector};
 use std::path::{Path, PathBuf};
 
 use crate::chunk::chunk_section_text;
+use crate::uslm::normalize_ws;
 
 /// The guidance documents indexed, by irs.gov path. irs.gov serves the current edition only.
 pub const DOCUMENTS: &[&str] = &[
@@ -201,9 +202,6 @@ fn tidy_cells(s: &str) -> String {
         .to_string()
 }
 
-fn normalize_ws(s: &str) -> String {
-    s.split_whitespace().collect::<Vec<_>>().join(" ")
-}
 
 #[cfg(test)]
 mod tests {
