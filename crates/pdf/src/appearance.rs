@@ -30,14 +30,7 @@ pub(crate) struct TextStyle {
 /// Build and attach a normal appearance for `value` on one text widget.
 pub(crate) fn set_text_appearance(doc: &mut Document, widget: ObjectId, style: &TextStyle, value: &str) -> Result<()> {
     let (font_name, size, color) = parse_da(&style.da)?;
-    let font_ref = doc
-        .catalog()?
-        .get_deref(b"AcroForm", doc)?
-        .as_dict()?
-        .get_deref(b"DR", doc)
-        .and_then(|dr| dr.as_dict()?.get_deref(b"Font", doc))
-        .and_then(|fonts| fonts.as_dict()?.get(font_name.as_bytes()).cloned())
-        .with_context(|| format!("font /{font_name} not in the form's /DR"))?;
+    let font_ref = form_font(doc, &font_name)?;
     let metrics = FontMetrics::read(doc, &font_ref)?;
 
     let rect = rect(doc.get_dictionary(widget)?, doc)?;
@@ -113,6 +106,17 @@ pub(crate) fn set_text_appearance(doc: &mut Document, widget: ObjectId, style: &
         .as_dict_mut()?
         .set("AP", Dictionary::from_iter([("N", Object::Reference(stream_id))]));
     Ok(())
+}
+
+/// The form's `/DR` font resource named `font_name`.
+fn form_font(doc: &Document, font_name: &str) -> Result<Object> {
+    doc.catalog()?
+        .get_deref(b"AcroForm", doc)?
+        .as_dict()?
+        .get_deref(b"DR", doc)
+        .and_then(|dr| dr.as_dict()?.get_deref(b"Font", doc))
+        .and_then(|fonts| fonts.as_dict()?.get(font_name.as_bytes()).cloned())
+        .with_context(|| format!("font /{font_name} not in the form's /DR"))
 }
 
 struct FontMetrics {
