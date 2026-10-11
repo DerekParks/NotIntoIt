@@ -2,7 +2,7 @@
 //! states use each widget's own on-state; pdfium flattens.
 
 use anyhow::{Context, Result, bail};
-use lopdf::{Document, Object};
+use lopdf::{Document, Object, ObjectId};
 use pdfium_render::prelude::*;
 use std::collections::{BTreeMap, HashMap};
 
@@ -57,31 +57,7 @@ pub fn fill(pdf: &[u8], values: &BTreeMap<String, Value>) -> Result<Vec<u8>> {
 
     let default_da = acroform::default_da(&doc);
     for (node, text) in &texts {
-        doc.get_object_mut(node.id)?
-            .as_dict_mut()?
-            .set("V", lopdf::text_string(text));
-        for widget in &node.widgets {
-            let own_da = doc
-                .get_dictionary(widget.id)?
-                .get(b"DA")
-                .ok()
-                .and_then(|d| lopdf::decode_text_string(d).ok());
-            let style = TextStyle {
-                da: own_da
-                    .or(node.da.clone())
-                    .or(default_da.clone())
-                    .context("text field has no /DA")?,
-                quadding: doc
-                    .get_dictionary(widget.id)?
-                    .get(b"Q")
-                    .and_then(Object::as_i64)
-                    .unwrap_or(node.quadding),
-                flags: node.flags,
-                max_len: node.max_len,
-            };
-            set_text_appearance(&mut doc, widget.id, &style, text)
-                .with_context(|| format!("drawing {}", node.field.name))?;
-        }
+        write_text(&mut doc, node, text, default_da.as_deref())?;
     }
     for (node, state) in &buttons {
         acroform::set_button_state(&mut doc, node, state)?;
@@ -129,6 +105,33 @@ fn resolve_name<'a>(nodes: &'a HashMap<String, FieldNode>, name: &str) -> Result
             bail!("ambiguous; matches {}", names.join(", "))
         }
     }
+}
+
+/// Set a text field's `/V` and draw its value on every widget.
+fn write_text(doc: &mut Document, node: &FieldNode, text: &str, default_da: Option<&str>) -> Result<()> {
+    doc.get_object_mut(node.id)?
+        .as_dict_mut()?
+        .set("V", lopdf::text_string(text));
+    for widget in &node.widgets {
+        let style = widget_style(doc, widget.id, node, default_da)?;
+        set_text_appearance(doc, widget.id, &style, text).with_context(|| format!("drawing {}", node.field.name))?;
+    }
+    Ok(())
+}
+
+/// A widget's text style: its own `/DA` and `/Q`, else the field's, else the form's default `/DA`.
+fn widget_style(doc: &Document, widget: ObjectId, node: &FieldNode, default_da: Option<&str>) -> Result<TextStyle> {
+    let own = doc.get_dictionary(widget)?;
+    let own_da = own.get(b"DA").ok().and_then(|d| lopdf::decode_text_string(d).ok());
+    Ok(TextStyle {
+        da: own_da
+            .or(node.da.clone())
+            .or(default_da.map(String::from))
+            .context("text field has no /DA")?,
+        quadding: own.get(b"Q").and_then(Object::as_i64).unwrap_or(node.quadding),
+        flags: node.flags,
+        max_len: node.max_len,
+    })
 }
 
 enum Resolved {
