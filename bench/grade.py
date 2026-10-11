@@ -69,7 +69,30 @@ def grade(answers: dict, forms_dir: Path, nii: str) -> dict:
             results.append((stem, key, want, got, ok))
     extra = [s for s in answers.get("not_required", []) if (Path(forms_dir) / f"{s}.pdf").exists()]
     passed = sum(r[4] for r in results)
-    return {"passed": passed, "total": len(results), "results": results, "unneeded_forms": extra, "key_problems": problems}
+    return {
+        "passed": passed,
+        "total": len(results),
+        **outcome(answers, Path(forms_dir), nii, tol),
+        "results": results,
+        "unneeded_forms": extra,
+        "key_problems": problems,
+    }
+
+
+def outcome(answers: dict, forms_dir: Path, nii: str, tol: float) -> dict:
+    """The return's bottom line: refund minus amount owed, against the expected value."""
+    spec = answers.get("outcome")
+    pdf = forms_dir / f"{spec['form']}.pdf" if spec else None
+    if not spec or not pdf.exists():
+        return {"net_refund": None, "outcome_error": None, "outcome_correct": False}
+    ff = fields(nii, pdf)
+    value = lambda key: (lambda hits: amount(hits[0].get("value")) if len(hits) == 1 else None)(find(ff, key))
+    refund, owe = value(spec["refund"]), value(spec["owe"])
+    if refund is None or owe is None:
+        return {"net_refund": None, "outcome_error": None, "outcome_correct": False}
+    net = refund - owe
+    error = abs(net - spec["expected"])
+    return {"net_refund": net, "outcome_error": round(error, 2), "outcome_correct": error <= tol}
 
 
 def main():
@@ -86,7 +109,8 @@ def main():
         print("KEY", p)
     if report["unneeded_forms"]:
         print("unneeded forms filed:", ", ".join(report["unneeded_forms"]))
-    print(f"score {report['passed']}/{report['total']}")
+    print(f"score {report['passed']}/{report['total']}; refund {report['net_refund']} "
+          f"({'correct' if report['outcome_correct'] else f'off by {report["outcome_error"]}'})")
 
 
 if __name__ == "__main__":

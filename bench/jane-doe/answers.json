@@ -98,5 +98,11 @@
     "f1116",
     "f1040s2"
   ],
-  "tolerance_dollars": 1
+  "tolerance_dollars": 1,
+  "outcome": {
+    "form": "f1040",
+    "refund": "Refund. 34.",
+    "owe": "Amount You Owe. 37.",
+    "expected": 3688
+  }
 }

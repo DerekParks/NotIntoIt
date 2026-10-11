@@ -8,6 +8,7 @@ The gemini agent (Gemini CLI) needs a paid Gemini API key since June 2026.
 
 import argparse
 import json
+import os
 import shutil
 import subprocess
 import sys
@@ -20,6 +21,8 @@ from grade import grade
 
 BENCH = Path(__file__).resolve().parent
 REPO = BENCH.parent
+# Variables of an enclosing Claude Code session, withheld from benchmarked agents.
+SESSION_ENV_PREFIXES = ("CLAUDECODE", "CLAUDE_CODE_", "CLAUDE_PID", "CLAUDE_EFFORT", "AI_AGENT", "ANTHROPIC_BASE_URL")
 GEMINI_BUILTIN_TOOLS = [
     "codebase_investigator", "delegate_to_agent", "glob", "google_web_search", "list_directory", "read_file",
     "read_many_files", "replace", "run_shell_command", "save_memory", "search_file_content", "web_fetch",
@@ -70,15 +73,22 @@ def pi_command(model: str, nii: Path, workspace: Path, cwd: Path, prompt: str) -
         "mcpServers": {"nii": {**server(nii, workspace), "exposure": "direct"}},
         "autoEnableCodemode": False,
     }, indent=2))
-    provider, _, model_id = model.rpartition("/")
+    provider, model_id = model.split("/", 1) if "/" in model else (pi_provider(model), model)
     return [
-        "pi", "-p", "--provider", provider or pi_provider(model_id), "--model", model_id, "--mode", "json",
+        "pi", "-p", "--provider", provider, "--model", model_id, "--mode", "json",
         "--no-session", "--no-context-files", "--no-extensions", "-e", "builtin:mcp", "--no-skills",
         "--no-prompt-templates", "--no-themes", "--offline", "--approve", "--tools", "mcp__nii__*", prompt,
     ], None
 
 
 AGENTS = {"claude": claude_command, "gemini": gemini_command, "pi": pi_command}
+
+
+def tool_version() -> str:
+    """Git commit of the tools under test, marked dirty if their code has uncommitted changes."""
+    git = lambda *args: subprocess.run(["git", *args], cwd=REPO, capture_output=True, text=True).stdout.strip()
+    dirty = git("status", "--porcelain", "--", "apps", "crates")
+    return git("rev-parse", "--short", "HEAD") + ("-dirty" if dirty else "")
 
 
 def run_once(case: str, agent: str, model: str, nii: Path, timeout: int, index: int) -> dict:
@@ -102,7 +112,8 @@ def run_once(case: str, agent: str, model: str, nii: Path, timeout: int, index: 
         cmd, stdin = AGENTS[agent](model, nii, workspace, cwd, prompt)
         started = time.monotonic()
         try:
-            proc = subprocess.run(cmd, cwd=cwd, input=stdin or "", capture_output=True, text=True, timeout=timeout)
+            env = {k: v for k, v in os.environ.items() if not k.startswith(SESSION_ENV_PREFIXES)}
+            proc = subprocess.run(cmd, cwd=cwd, input=stdin or "", capture_output=True, text=True, timeout=timeout, env=env)
             exit_code, stdout, stderr = proc.returncode, proc.stdout, proc.stderr
         except subprocess.TimeoutExpired as e:
             exit_code, stdout, stderr = "timeout", e.stdout or "", e.stderr or ""
@@ -117,10 +128,14 @@ def run_once(case: str, agent: str, model: str, nii: Path, timeout: int, index: 
             shutil.copytree(forms, out / "forms")
 
     report = grade(answers, out / "forms", str(nii))
+    status = outcome(exit_code, stdout)
     tool_calls = sum(stdout.count(marker) for marker in ('"type":"tool_use"', '"type": "tool_use"', '"type":"tool_execution_start"'))
     meta = {
-        "case": case, "agent": agent, "model": model, "exit": exit_code, "seconds": round(elapsed, 1),
-        "tool_calls": tool_calls, "score": report["passed"], "total": report["total"],
+        "case": case, "agent": agent, "model": model, "status": status, "exit": exit_code,
+        "seconds": round(elapsed, 1),
+        "tool_version": tool_version(), "tool_calls": tool_calls, "score": report["passed"], "total": report["total"],
+        "net_refund": report["net_refund"], "outcome_error": report["outcome_error"],
+        "outcome_correct": report["outcome_correct"], "usage": usage(stdout),
         "unneeded_forms": report["unneeded_forms"], "command": cmd,
     }
     for line in stdout.splitlines():
@@ -128,27 +143,98 @@ def run_once(case: str, agent: str, model: str, nii: Path, timeout: int, index: 
             meta["result_event"] = json.loads(line)
     (out / "meta.json").write_text(json.dumps(meta, indent=2, default=str))
     (out / "grade.json").write_text(json.dumps(report, indent=2, default=str))
-    print(f"{out.relative_to(REPO)}: {report['passed']}/{report['total']} in {elapsed:.0f}s, exit {exit_code}")
-    for stem, key, want, got, ok in report["results"]:
-        if not ok:
-            print(f"   FAIL {stem:8} {key[:60]!r}: want {want!r}, got {got!r}")
+    refund = "refund correct" if report["outcome_correct"] else f"refund off by {report['outcome_error']}"
+    print(f"{out.relative_to(REPO)}: {status}, {report['passed']}/{report['total']}, {refund}, {elapsed:.0f}s", flush=True)
+    if status == "provider_error":
+        print(f"   {provider_error(stdout)}", flush=True)
+    elif status == "completed":
+        for stem, key, want, got, ok in report["results"]:
+            if not ok:
+                print(f"   FAIL {stem:8} {key[:60]!r}: want {want!r}, got {got!r}", flush=True)
     return meta
+
+
+def usage(stdout: str) -> dict:
+    """Token totals across the run's model calls (pi and Claude Code transcripts)."""
+    total = {"input": 0, "cached": 0, "output": 0, "cost": 0.0}
+    for line in stdout.splitlines():
+        try:
+            event = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        message = event.get("message") if isinstance(event.get("message"), dict) else {}
+        if event.get("type") == "message_end" and message.get("role") == "assistant":
+            u = message.get("usage") or {}
+            total["input"] += u.get("input", 0)
+            total["cached"] += u.get("cacheRead", 0)
+            total["output"] += u.get("output", 0)
+            total["cost"] += (u.get("cost") or {}).get("total", 0.0)
+        if event.get("type") == "result" and isinstance(event.get("usage"), dict):
+            u = event["usage"]
+            total = {
+                "input": u.get("input_tokens", 0) + u.get("cache_creation_input_tokens", 0),
+                "cached": u.get("cache_read_input_tokens", 0),
+                "output": u.get("output_tokens", 0),
+                "cost": event.get("total_cost_usd", 0.0),
+            }
+    return total
+
+
+def outcome(exit_code, stdout: str) -> str:
+    """completed, timeout, provider_error (the model API failed, e.g. 429), or agent_error."""
+    if exit_code == "timeout":
+        return "timeout"
+    if provider_error(stdout):
+        return "provider_error"
+    return "completed" if exit_code == 0 else "agent_error"
+
+
+def provider_error(stdout: str) -> str | None:
+    """The last model-API error in a transcript, if the run ended on one."""
+    last = None
+    for line in stdout.splitlines():
+        try:
+            event = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        message = event.get("message") if isinstance(event.get("message"), dict) else {}
+        if event.get("type") == "message_end" and message.get("role") == "assistant":
+            last = message.get("errorMessage") if message.get("stopReason") == "error" else None
+        if event.get("type") == "result" and event.get("is_error"):
+            last = str(event.get("result"))
+    return last[:300] if last else None
 
 
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("case")
     p.add_argument("--agent", choices=AGENTS, required=True)
-    p.add_argument("--model", required=True)
+    p.add_argument("--model", required=True, nargs="+", help="one or more models, run in order")
     p.add_argument("--runs", type=int, default=1)
     p.add_argument("--timeout", type=int, default=1800, help="seconds per run")
+    p.add_argument("--retries", type=int, default=2, help="extra attempts for a run that ends in a provider error")
+    p.add_argument("--retry-wait", type=int, default=30, help="seconds to wait before retrying a provider error")
     p.add_argument("--nii", type=Path, default=REPO / "target" / "release" / "nii")
     a = p.parse_args()
     if not a.nii.exists():
         sys.exit(f"{a.nii} not found: cargo build --release -p nii")
-    scores = [run_once(a.case, a.agent, a.model, a.nii.resolve(), a.timeout, i)["score"] for i in range(a.runs)]
-    if a.runs > 1:
-        print(f"scores: {scores}, mean {sum(scores) / len(scores):.1f}")
+    for model in a.model:
+        runs = []
+        for i in range(a.runs):
+            for attempt in range(a.retries + 1):
+                if attempt:
+                    print(f"   provider error; retry {attempt}/{a.retries} in {a.retry_wait}s", flush=True)
+                    time.sleep(a.retry_wait)
+                runs.append(run_once(a.case, a.agent, model, a.nii.resolve(), a.timeout, i))
+                if runs[-1]["status"] != "provider_error":
+                    break
+        scores = [r["score"] for r in runs if r["status"] == "completed"]
+        other = [r["status"] for r in runs if r["status"] != "completed"]
+        cost = sum(r["usage"]["cost"] for r in runs)
+        if a.runs > 1 or len(a.model) > 1:
+            mean = f"mean {sum(scores) / len(scores):.1f}" if scores else "no completed runs"
+            not_scored = f"; not scored: {', '.join(other)}" if other else ""
+            print(f"{model}: completed scores {scores}, {mean}{not_scored}; ${cost:.2f}", flush=True)
 
 
 if __name__ == "__main__":
