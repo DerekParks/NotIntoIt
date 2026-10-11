@@ -86,6 +86,59 @@ pub fn get_string(url: &str) -> Result<String> {
 mod tests {
     use super::*;
 
+    fn zip_with(name: &str, bytes: &[u8]) -> Vec<u8> {
+        let mut zip = zip::ZipWriter::new(std::io::Cursor::new(Vec::new()));
+        zip.start_file(name, zip::write::SimpleFileOptions::default()).unwrap();
+        std::io::Write::write_all(&mut zip, bytes).unwrap();
+        zip.finish().unwrap().into_inner()
+    }
+
+    #[test]
+    fn downloads_the_newest_release_point_listed() {
+        let mirror = nii_testkit::scratch("usc-mirror");
+        nii_testkit::put(
+            &mirror,
+            "download.shtml",
+            r#"<a href="releasepoints/us/pl/118/5/xml_usc26@118-5.zip">old</a>
+               <a href="releasepoints/us/pl/119/90/xml_usc26@119-90.zip">newest</a>"#,
+        );
+        nii_testkit::put(&mirror, "releasepoints/us/pl/119/90/xml_usc26@119-90.zip", zip_with("usc26.xml", b"<uscDoc/>"));
+        let base = nii_testkit::serve(mirror);
+
+        let data = nii_testkit::scratch("usc-data");
+        let usc = fetch_usc26_from(&base, &data, false).unwrap();
+        assert_eq!(usc.release_point, "119-90");
+        assert_eq!(std::fs::read(&usc.xml_path).unwrap(), b"<uscDoc/>");
+        assert_eq!(std::fs::read_to_string(data.join("corpus/usc26.release.txt")).unwrap(), "119-90");
+    }
+
+    /// Suspected bug, pinned: one malformed link discards the whole listing.
+    #[test]
+    fn a_malformed_link_discards_the_listing() {
+        let mirror = nii_testkit::scratch("usc-junk");
+        nii_testkit::put(
+            &mirror,
+            "download.shtml",
+            r#"<a href="xml_usc26@119-90.zip">newest</a> <a href="xml_usc26@bogus">junk</a>"#,
+        );
+        assert_eq!(latest_usc26_release_point(&nii_testkit::serve(mirror)), None);
+    }
+
+    #[test]
+    fn falls_back_to_the_known_release_point_when_the_listing_is_unavailable() {
+        let mirror = nii_testkit::scratch("usc-fallback");
+        nii_testkit::put(&mirror, "releasepoints/us/pl/119/100/xml_usc26@119-100.zip", zip_with("other.xml", b"x"));
+        let base = nii_testkit::serve(mirror);
+        let err = fetch_usc26_from(&base, &nii_testkit::scratch("usc-fallback-data"), true).err().unwrap();
+        assert_eq!(err.to_string(), "usc26.xml missing from release zip");
+
+        let err = fetch_usc26_from("http://127.0.0.1:9", &nii_testkit::scratch("usc-down"), false).err().unwrap();
+        assert_eq!(
+            err.to_string(),
+            "downloading http://127.0.0.1:9/releasepoints/us/pl/119/100/xml_usc26@119-100.zip"
+        );
+    }
+
     #[test]
     fn cached_title_26_is_reused_without_downloading() {
         let dir = std::env::temp_dir().join(format!("nii-usc-cache-{}", std::process::id()));
