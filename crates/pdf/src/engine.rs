@@ -26,8 +26,16 @@ pub fn pdfium(data_dir: &Path) -> Result<&'static Pdfium> {
     Ok(PDFIUM.get_or_init(|| Pdfium::new(bindings)))
 }
 
+/// Where bblanchon/pdfium-binaries publishes each Chromium release's builds.
+pub const RELEASES: &str = "https://github.com/bblanchon/pdfium-binaries/releases/download";
+
 /// Path to the platform pdfium library, downloading it if absent.
 pub fn install(data_dir: &Path) -> Result<PathBuf> {
+    install_from(RELEASES, data_dir)
+}
+
+/// [`install`] from a mirror laid out like [`RELEASES`].
+pub fn install_from(base: &str, data_dir: &Path) -> Result<PathBuf> {
     let (asset, lib_in_archive) = platform_asset()?;
     let dir = data_dir.join("pdfium").join(format!("chromium-{PDFIUM_RELEASE}"));
     let lib = dir.join(lib_in_archive);
@@ -35,8 +43,7 @@ pub fn install(data_dir: &Path) -> Result<PathBuf> {
         return Ok(lib);
     }
 
-    let url =
-        format!("https://github.com/bblanchon/pdfium-binaries/releases/download/chromium/{PDFIUM_RELEASE}/{asset}.tgz");
+    let url = format!("{base}/chromium/{PDFIUM_RELEASE}/{asset}.tgz");
     let mut response = ureq::get(&url).call().with_context(|| format!("downloading {url}"))?;
     let staging = dir.with_extension(format!("partial-{}", std::process::id()));
     let _ = std::fs::remove_dir_all(&staging);
