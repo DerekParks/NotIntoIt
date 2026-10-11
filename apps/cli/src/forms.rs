@@ -81,3 +81,21 @@ fn write_atomic(path: &Path, bytes: &[u8]) -> Result<()> {
     std::fs::write(&tmp, bytes)?;
     std::fs::rename(&tmp, path).with_context(|| format!("writing {}", path.display()))
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn json_values_map_to_text_and_checkboxes() {
+        let v = |j: serde_json::Value| value_from_json("f", &j);
+        assert_eq!(v(serde_json::json!("Jane")).unwrap(), Value::Text("Jane".into()));
+        assert_eq!(v(serde_json::json!(72805)).unwrap(), Value::Text("72805".into()));
+        assert_eq!(v(serde_json::json!(12.5)).unwrap(), Value::Text("12.5".into()));
+        assert_eq!(v(serde_json::json!(true)).unwrap(), Value::Bool(true));
+        assert_eq!(
+            v(serde_json::json!({})).unwrap_err().to_string(),
+            "f: expected a string, number, or boolean, got {}"
+        );
+    }
+}

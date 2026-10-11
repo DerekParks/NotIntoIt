@@ -558,6 +558,8 @@ mod tests {
         .unwrap();
         assert!(dir.join("ws/2025/forms/f1040.pdf").exists());
 
+        let err = run_args(&["--db", db, "search", " "]).unwrap_err();
+        assert_eq!(err.to_string(), "empty query");
         let err = run_args(&["--db", db, "search", "--source", "blog", "gross", "income"]).unwrap_err();
         assert_eq!(err.to_string(), "unknown source 'blog' (usc, cfr, irs-pub, irs-instr)");
         let err = run_args(&["--data-dir", data, "--db", db, "corpus", "build", "--cuda-device", "0"]).unwrap_err();
