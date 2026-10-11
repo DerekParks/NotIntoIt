@@ -30,8 +30,8 @@ machine with a local model); everything else runs locally.
 Working end to end for tax year 2025 (and 2024 tax computation). Claude Sonnet
 prepares the [example taxpayer's](examples/jane-doe) complete return —
 Form 1040 with Schedules 1, 3, D, 8812 and Forms 8949 and 2441 — at 40–46/46
-on [TaxBench](#taxbench). Not yet: state returns, scanned-document OCR beyond
-what a vision model can read, the desktop app ([PLAN.md](PLAN.md)).
+on [TaxBench](#taxbench). Not yet: state returns, and scanned documents beyond
+what a vision model can read.
 
 ## Install
 
@@ -152,6 +152,4 @@ cargo fmt --all
 | `crates/embed`, `crates/search` | local embeddings and the SQLite FTS5 + sqlite-vec hybrid index |
 | `bench/` | TaxBench harness, grader, and cases |
 | `examples/jane-doe` | the example taxpayer and the script that generates her documents |
-| `spikes/` | M0 de-risking spikes ([SPIKES.md](SPIKES.md)) |
-
-See [PLAN.md](PLAN.md) for the design and roadmap.
+| `spikes/` | early de-risking spikes ([SPIKES.md](SPIKES.md)) |
