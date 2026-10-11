@@ -228,22 +228,7 @@ fn walk(
         return Ok(());
     }
 
-    let widget_ids: Vec<ObjectId> = if widget_kids.is_empty() {
-        vec![*id]
-    } else {
-        widget_kids.iter().filter_map(|k| k.as_reference().ok()).collect()
-    };
-    let widgets: Vec<Widget> = widget_ids
-        .into_iter()
-        .map(|wid| {
-            let w = doc.get_dictionary(wid).ok();
-            Widget {
-                id: wid,
-                page: pages.get(&wid).copied(),
-                on_state: w.and_then(|w| on_state(doc, w)),
-            }
-        })
-        .collect();
+    let widgets = widgets(doc, *id, &widget_kids, pages);
 
     let ff = here.ff.unwrap_or(0);
     let kind = field_kind(&here, &widgets);
@@ -269,6 +254,26 @@ fn walk(
         max_len: here.max_len,
     });
     Ok(())
+}
+
+/// The widgets of field `id`: its widget kids, or the field itself when it has none.
+fn widgets(doc: &Document, id: ObjectId, widget_kids: &[Object], pages: &HashMap<ObjectId, u32>) -> Vec<Widget> {
+    let widget_ids: Vec<ObjectId> = if widget_kids.is_empty() {
+        vec![id]
+    } else {
+        widget_kids.iter().filter_map(|k| k.as_reference().ok()).collect()
+    };
+    widget_ids
+        .into_iter()
+        .map(|wid| {
+            let w = doc.get_dictionary(wid).ok();
+            Widget {
+                id: wid,
+                page: pages.get(&wid).copied(),
+                on_state: w.and_then(|w| on_state(doc, w)),
+            }
+        })
+        .collect()
 }
 
 /// The field's type and states, from its `/FT`, `/Ff` flags, and widget appearances.
