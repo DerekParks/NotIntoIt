@@ -73,3 +73,37 @@ impl DocChunk {
         format!("{} — {}: {}", self.citation, self.heading, self.text)
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn source_kinds_round_trip_through_their_names() {
+        for kind in [
+            SourceKind::Usc,
+            SourceKind::Cfr,
+            SourceKind::IrsPub,
+            SourceKind::IrsInstruction,
+        ] {
+            assert_eq!(SourceKind::parse(kind.as_str()), Some(kind));
+            assert_eq!(kind.to_string(), kind.as_str());
+        }
+        assert_eq!(SourceKind::parse("blog"), None);
+    }
+
+    #[test]
+    fn embed_text_prefixes_citation_and_heading() {
+        let chunk = DocChunk {
+            source: SourceKind::Usc,
+            citation: "26 U.S.C. § 61".into(),
+            section_path: String::new(),
+            heading: "Gross income defined".into(),
+            ordinal: 0,
+            url: None,
+            text: "all income".into(),
+            caveat: None,
+        };
+        assert_eq!(chunk.embed_text(), "26 U.S.C. § 61 — Gross income defined: all income");
+    }
+}

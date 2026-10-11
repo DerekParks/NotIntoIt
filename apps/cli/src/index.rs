@@ -344,6 +344,77 @@ mod tests {
     }
 
     #[test]
+    fn fetch_downloads_verifies_and_installs_with_progress() {
+        let dir = crate::testutil::scratch("fetch");
+        tiny_index(&dir.join("source.db"));
+        pack(&dir.join("source.db"), &dir.join("served")).unwrap();
+        let base = crate::testutil::serve(dir.join("served"));
+        let target = dir.join("index.db");
+        let lock = try_lock(&target).unwrap().unwrap();
+
+        let mut seen = Vec::new();
+        let bytes = fetch(&format!("{base}/{ASSET}"), &target, &lock, &mut |p| {
+            if let Progress::Fetching { bytes, total } = p {
+                seen.push((bytes, total));
+            }
+        })
+        .unwrap();
+        assert!(is_ready(&target));
+        assert_eq!(seen.last().copied(), Some((bytes, Some(bytes))));
+
+        let err = fetch(&format!("{base}/missing.zst"), &target, &lock, &mut |_| {}).unwrap_err();
+        assert!(
+            format!("{err:#}").starts_with(&format!("downloading {base}/missing.zst.sha256")),
+            "{err:#}"
+        );
+    }
+
+    #[test]
+    fn installing_an_index_of_another_schema_is_refused() {
+        let dir = crate::testutil::scratch("schema");
+        let conn = nii_search::open(&dir.join("source.db")).unwrap();
+        nii_search::init_schema(&conn).unwrap();
+        nii_search::set_meta(&conn, "chunks", "0").unwrap();
+        nii_search::set_meta(&conn, "schema_version", "1").unwrap();
+        drop(conn);
+        let packed = {
+            let mut out = Vec::new();
+            let mut enc = zstd::stream::write::Encoder::new(&mut out, 1).unwrap();
+            std::io::copy(&mut File::open(dir.join("source.db")).unwrap(), &mut enc).unwrap();
+            enc.finish().unwrap();
+            out
+        };
+        let sha = hex(&Sha256::digest(&packed));
+        let err = install(packed.as_slice(), &sha, &dir.join("index.db")).unwrap_err();
+        assert_eq!(
+            err.to_string(),
+            format!(
+                "downloaded index is incomplete or for another schema (this build needs schema {})",
+                nii_search::SCHEMA_VERSION
+            )
+        );
+        assert!(!dir.join("index.db").exists());
+        assert!(
+            pack(&dir.join("index.db"), &dir.join("out"))
+                .unwrap_err()
+                .to_string()
+                .ends_with("is not a complete index")
+        );
+    }
+
+    #[test]
+    fn prebuilt_url_points_at_this_versions_release() {
+        assert_eq!(
+            prebuilt_url().as_deref(),
+            Some(concat!(
+                "https://github.com/DerekParks/NotIntoIt/releases/download/v",
+                env!("CARGO_PKG_VERSION"),
+                "/nii-index.db.zst"
+            ))
+        );
+    }
+
+    #[test]
     fn missing_or_incomplete_index_is_not_ready() {
         let dir = std::env::temp_dir().join(format!("nii-ready-test-{}", std::process::id()));
         std::fs::create_dir_all(&dir).unwrap();

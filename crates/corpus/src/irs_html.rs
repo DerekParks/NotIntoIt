@@ -226,6 +226,40 @@ mod tests {
 </div></article></body></html>"##;
 
     #[test]
+    fn cached_guidance_is_reused_and_chunked_by_source() {
+        let dir = std::env::temp_dir().join(format!("nii-guidance-cache-{}", std::process::id()));
+        std::fs::create_dir_all(dir.join("corpus/irs")).unwrap();
+        for path in DOCUMENTS {
+            let name = path.rsplit('/').next().unwrap();
+            std::fs::write(dir.join(format!("corpus/irs/{name}.html")), PAGE).unwrap();
+        }
+        let docs = fetch_guidance(&dir, false).unwrap();
+        assert_eq!(docs.len(), DOCUMENTS.len());
+        let instructions = guidance_chunks(&docs[0]).unwrap();
+        assert_eq!(instructions[0].source, SourceKind::IrsInstruction);
+        assert_eq!(
+            instructions[0].url.as_deref(),
+            Some("https://www.irs.gov/instructions/i1040gi#id4")
+        );
+        let publication = guidance_chunks(docs.iter().find(|d| d.path == "publications/p17").unwrap()).unwrap();
+        assert_eq!(publication[0].source, SourceKind::IrsPub);
+        assert_eq!(publication[0].citation, "1040 (2025)");
+        let _ = std::fs::remove_dir_all(dir);
+    }
+
+    #[test]
+    fn pages_without_a_title_or_text_are_handled() {
+        assert!(parse("<html><body><p>x</p></body></html>", "u", SourceKind::IrsPub).is_err());
+        let chunks = parse(
+            "<html><head><title>T</title></head><body><h2></h2><p>body</p></body></html>",
+            "u",
+            SourceKind::IrsPub,
+        )
+        .unwrap();
+        assert_eq!((chunks[0].heading.as_str(), chunks[0].url.as_deref()), ("T", Some("u")));
+    }
+
+    #[test]
     fn sections_follow_headings_with_anchors_and_tables() {
         let chunks = parse(
             PAGE,

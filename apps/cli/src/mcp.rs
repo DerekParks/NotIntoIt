@@ -720,6 +720,405 @@ fn minutes(d: Duration) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::testutil;
+
+    fn server(label: &str) -> NiiServer {
+        let workspace = testutil::scratch(label);
+        NiiServer::new(Paths {
+            data_dir: testutil::data_dir(),
+            db_path: workspace.join("index.db"),
+            workspace,
+        })
+    }
+
+    /// (is_error, text blocks joined, image count) of a tool result.
+    fn unpack(result: Result<CallToolResult, McpError>) -> (bool, String, usize) {
+        let value = serde_json::to_value(result.expect("tool returned a protocol error")).unwrap();
+        let blocks = value["content"].as_array().cloned().unwrap_or_default();
+        let text = blocks
+            .iter()
+            .filter_map(|b| b["text"].as_str())
+            .collect::<Vec<_>>()
+            .join("\n");
+        let images = blocks.iter().filter(|b| b["type"] == "image").count();
+        (value["isError"] == true, text, images)
+    }
+
+    async fn fetched(label: &str) -> NiiServer {
+        let s = server(label);
+        let (err, text, _) = unpack(
+            s.fetch_irs_form(Parameters(FetchFormArgs {
+                form: "1040".into(),
+                tax_year: 2025,
+                overwrite: false,
+            }))
+            .await,
+        );
+        assert!(!err, "{text}");
+        s
+    }
+
+    #[tokio::test]
+    async fn fetch_irs_form_creates_then_keeps_the_working_copy() {
+        let s = server("fetch");
+        let args = || {
+            Parameters(FetchFormArgs {
+                form: "1040".into(),
+                tax_year: 2025,
+                overwrite: false,
+            })
+        };
+        let (err, text, _) = unpack(s.fetch_irs_form(args()).await);
+        assert!(!err);
+        assert!(text.starts_with("Created from the cached download -> "), "{text}");
+        assert!(
+            text.contains("2025/forms/f1040.pdf\n199 fillable fields. Next: list_form_fields"),
+            "{text}"
+        );
+
+        let (_, text, _) = unpack(s.fetch_irs_form(args()).await);
+        assert!(
+            text.starts_with("Kept existing working copy (0 fields already filled; pass overwrite=true"),
+            "{text}"
+        );
+
+        let (err, text, _) = unpack(
+            s.fetch_irs_form(Parameters(FetchFormArgs {
+                form: " - ".into(),
+                tax_year: 2025,
+                overwrite: false,
+            }))
+            .await,
+        );
+        assert!(err && text.contains("empty form name"), "{text}");
+    }
+
+    #[tokio::test]
+    async fn list_form_fields_filters_strips_the_prefix_and_shows_values() {
+        let s = fetched("list").await;
+        let list = |page, search: Option<&str>| {
+            s.list_form_fields(Parameters(ListFieldsArgs {
+                pdf: "2025/forms/f1040.pdf".into(),
+                page,
+                search: search.map(String::from),
+            }))
+        };
+        let (err, text, _) = unpack(list(None, Some("social security number")).await);
+        assert!(!err);
+        let lines: Vec<&str> = text.lines().collect();
+        assert_eq!(
+            lines[0],
+            "2 of 199 fields, one per line: name (type, page, limits) description [= current value]."
+        );
+        assert!(lines[1].contains("prefix \"topmostSubform[0].\""), "{text}");
+        assert_eq!(
+            lines[2],
+            "Page1[0].f1_16[0] (text, max 9, p1) Your social security number."
+        );
+        assert_eq!(
+            lines[3],
+            "Page1[0].f1_19[0] (text, max 9, p1) Spouse's social security number."
+        );
+
+        let (_, text, _) = unpack(list(Some(2), None).await);
+        assert!(text.starts_with("71 of 199 fields"), "{text}");
+        assert!(text.contains("(checkbox, p2)"), "{text}");
+
+        s.fill_form(Parameters(FillFormArgs {
+            pdf: "2025/forms/f1040.pdf".into(),
+            values: BTreeMap::from([("f1_14[0]".into(), serde_json::json!("Jane"))]),
+            output: None,
+        }))
+        .await
+        .unwrap();
+        let (_, text, _) = unpack(list(None, Some("first name and middle")).await);
+        assert!(
+            text.contains("Your first name and middle initial. = \"Jane\""),
+            "{text}"
+        );
+
+        let (err, text, _) = unpack(
+            s.list_form_fields(Parameters(ListFieldsArgs {
+                pdf: "missing.pdf".into(),
+                page: None,
+                search: None,
+            }))
+            .await,
+        );
+        assert!(err && text.starts_with("reading "), "{text}");
+    }
+
+    #[tokio::test]
+    async fn fill_form_reports_counts_and_rejects_bad_values() {
+        let s = fetched("fill").await;
+        let fill = |values: serde_json::Value, output: Option<&str>| {
+            s.fill_form(Parameters(FillFormArgs {
+                pdf: "2025/forms/f1040.pdf".into(),
+                values: serde_json::from_value(values).unwrap(),
+                output: output.map(String::from),
+            }))
+        };
+        let (err, text, _) = unpack(fill(serde_json::json!({"f1_14[0]": "Jane", "f1_47[0]": 72805}), None).await);
+        assert!(!err);
+        assert!(
+            text.starts_with("Filled 2 fields -> ") && text.ends_with(". Check the result with view_pdf."),
+            "{text}"
+        );
+
+        let (_, text, _) = unpack(fill(serde_json::json!({"f1_14[0]": "Jo"}), Some("2025/forms/copy.pdf")).await);
+        assert!(text.contains("2025/forms/copy.pdf"), "{text}");
+
+        let (err, text, _) = unpack(fill(serde_json::json!({"f1_14[0]": ["x"]}), None).await);
+        assert!(err);
+        assert_eq!(text, "f1_14[0]: expected a string, number, or boolean, got [\"x\"]");
+
+        let (err, text, _) = unpack(fill(serde_json::json!({"f1_14[0]": "x"}), Some("out.txt")).await);
+        assert!(err && text.starts_with("output must be a .pdf path"), "{text}");
+    }
+
+    #[tokio::test]
+    async fn view_pdf_returns_a_note_and_an_image() {
+        let s = fetched("view").await;
+        let view = |page| {
+            s.view_pdf(Parameters(ViewPdfArgs {
+                pdf: "2025/forms/f1040.pdf".into(),
+                page,
+                open: false,
+            }))
+        };
+        let (err, text, images) = unpack(view(Some(2)).await);
+        assert!(!err);
+        assert!(text.ends_with("2025/forms/f1040.pdf — page 2 of 2"), "{text}");
+        assert_eq!(images, 1);
+
+        let (err, text, images) = unpack(view(Some(3)).await);
+        assert!(err && images == 0);
+        assert_eq!(text, "page 3 out of range (document has 2)");
+    }
+
+    #[tokio::test]
+    async fn documents_are_listed_and_read_from_the_workspace_only() {
+        let s = server("docs");
+        let (_, text, _) = unpack(s.list_documents(Parameters(ListDocumentsArgs { folder: None })).await);
+        assert_eq!(text, "No files.");
+
+        std::fs::create_dir_all(s.paths.workspace.join("2025")).unwrap();
+        std::fs::write(s.paths.workspace.join("2025/notes.md"), "x".repeat(1500)).unwrap();
+        let (_, text, _) = unpack(
+            s.list_documents(Parameters(ListDocumentsArgs {
+                folder: Some("2025".into()),
+            }))
+            .await,
+        );
+        assert!(
+            text.starts_with("Workspace ") && text.ends_with("\n2025/notes.md  (2 KB)"),
+            "{text}"
+        );
+
+        let read = |path: &str| s.read_document(Parameters(ReadDocumentArgs { path: path.into() }));
+        let (err, text, _) = unpack(read("2025/notes.md").await);
+        assert!(!err && text == "x".repeat(1500));
+        let (err, text, _) = unpack(read("/etc/hostname").await);
+        assert!(err && text.contains("outside the tax workspace"), "{text}");
+    }
+
+    #[tokio::test]
+    async fn calculate_evaluates_each_expression() {
+        let s = server("calc");
+        let (err, text, _) = unpack(
+            s.calculate(Parameters(CalculateArgs {
+                expressions: vec!["72,805 + 665".into(), "1 / 0".into(), "0.5 * 3".into()],
+            }))
+            .await,
+        );
+        assert!(!err);
+        assert_eq!(
+            text,
+            "72,805 + 665 = 73,470\n1 / 0 -> error: division by zero\n0.5 * 3 = 1.50"
+        );
+    }
+
+    #[tokio::test]
+    async fn compute_tax_shows_the_worksheet_and_rejects_unknown_inputs() {
+        let s = server("tax");
+        let args = |year, status: &str| {
+            Parameters(ComputeTaxArgs {
+                tax_year: year,
+                filing_status: status.into(),
+                taxable_income: 51_678.0,
+                qualified_dividends: 413.0,
+                net_capital_gain: 2_532.0,
+            })
+        };
+        let (err, text, _) = unpack(s.compute_tax(args(2025, "head of household")).await);
+        assert!(!err);
+        assert!(text.starts_with("2025 Head of household, Qualified Dividends and Capital Gain Tax Worksheet:\n  1 Taxable income: 51,678"), "{text}");
+        assert!(text.contains("\nForm 1040 line 16 tax: 5,507\n"), "{text}");
+        assert!(
+            text.contains("2025 standard deduction for Head of household: 23,625"),
+            "{text}"
+        );
+
+        let (err, text, _) = unpack(s.compute_tax(args(2023, "single")).await);
+        assert!(err);
+        assert_eq!(text, "tax year 2023 is not supported (supported: 2024, 2025)");
+        let (err, text, _) = unpack(s.compute_tax(args(2025, "widow")).await);
+        assert!(err && text.starts_with("unknown filing status \"widow\""), "{text}");
+    }
+
+    #[tokio::test]
+    async fn search_reports_progress_until_the_index_is_ready() {
+        let s = server("search");
+        s.index.set(IndexState::Parsing);
+        let (err, text, _) = unpack(
+            s.search_tax_law(Parameters(SearchArgs {
+                query: "x".into(),
+                limit: None,
+            }))
+            .await,
+        );
+        assert!(err);
+        assert_eq!(
+            text,
+            "The tax-law index is not ready yet: parsing the Internal Revenue Code into sections. Try again shortly."
+        );
+    }
+
+    #[test]
+    fn paths_resolve_against_home_and_workspace() {
+        let s = server("resolve");
+        assert_eq!(
+            s.resolve("2025/forms/f1040.pdf"),
+            s.paths.workspace.join("2025/forms/f1040.pdf")
+        );
+        assert_eq!(s.resolve("/abs/x.pdf"), PathBuf::from("/abs/x.pdf"));
+        assert_eq!(s.resolve("~/x.pdf"), dirs::home_dir().unwrap().join("x.pdf"));
+    }
+
+    #[test]
+    fn server_info_names_the_server_and_carries_instructions() {
+        let info = server("info").get_info();
+        assert_eq!(info.server_info.name, "notintoit");
+        assert!(
+            info.instructions
+                .unwrap()
+                .starts_with("NotIntoIt prepares US federal returns")
+        );
+    }
+
+    #[test]
+    fn index_states_describe_themselves() {
+        let t = IndexTracker::default();
+        let said = |state| {
+            t.set(state);
+            t.describe()
+        };
+        assert_eq!(said(IndexState::Starting), "starting");
+        assert_eq!(
+            said(IndexState::Fetching {
+                bytes: 2_500_000,
+                total: Some(9_896_876)
+            }),
+            "downloading the prebuilt index (2.5 of 9.9 MB)"
+        );
+        assert_eq!(
+            said(IndexState::Fetching {
+                bytes: 1_000_000,
+                total: None
+            }),
+            "downloading the prebuilt index (1.0 MB)"
+        );
+        assert_eq!(
+            said(IndexState::Downloading),
+            "downloading Title 26 of the U.S. Code from uscode.house.gov"
+        );
+        assert_eq!(
+            said(IndexState::Embedding {
+                done: 0,
+                total: 10,
+                since: Instant::now()
+            }),
+            "embedding 0 of 10 chunks (0%)"
+        );
+        let half = said(IndexState::Embedding {
+            done: 5,
+            total: 10,
+            since: Instant::now() - Duration::from_secs(90),
+        });
+        assert_eq!(
+            half,
+            "embedding 5 of 10 chunks (50%), about 1m30s remaining at the current rate"
+        );
+        assert_eq!(
+            said(IndexState::WaitingForOtherProcess),
+            "another NotIntoIt process is building it"
+        );
+        assert_eq!(said(IndexState::Ready), "ready");
+        assert!(t.is_ready());
+        let failed = said(IndexState::Failed {
+            error: "boom".into(),
+            retry_at: Instant::now() + Duration::from_secs(30),
+        });
+        assert!(
+            failed.starts_with("the last build attempt failed (boom); retrying in 2") || failed.ends_with("30s"),
+            "{failed}"
+        );
+        assert_eq!(minutes(Duration::from_secs(59)), "59s");
+        assert_eq!(minutes(Duration::from_secs(61)), "1m01s");
+    }
+
+    #[test]
+    fn run_returns_at_once_when_the_index_is_ready() {
+        let dir = testutil::scratch("run");
+        testutil::tiny_index(&dir.join("index.db"));
+        let paths = Paths {
+            data_dir: dir.clone(),
+            db_path: dir.join("index.db"),
+            workspace: dir,
+        };
+        IndexTracker::default().run(&paths).unwrap();
+    }
+
+    #[test]
+    fn rendered_fields_show_kind_limits_and_values() {
+        use nii_pdf::acroform::{Field, FieldKind};
+        let field = |name: &str, kind, value: Option<&str>| Field {
+            name: name.into(),
+            kind,
+            description: Some("Desc.".into()),
+            page: Some(1),
+            value: value.map(String::from),
+        };
+        let fields = vec![
+            field(
+                "top.a",
+                FieldKind::Text {
+                    max_len: Some(9),
+                    multiline: true,
+                },
+                Some("v"),
+            ),
+            field(
+                "top.b",
+                FieldKind::Checkbox {
+                    on_states: vec!["1".into(), "2".into()],
+                },
+                None,
+            ),
+            field(
+                "top.c",
+                FieldKind::Radio {
+                    states: vec!["A".into(), "B".into()],
+                },
+                None,
+            ),
+            field("top.d", FieldKind::Other { pdf_type: "Sig".into() }, None),
+        ];
+        assert_eq!(
+            render_fields(&fields, "top."),
+            "a (text, multiline, max 9, p1) Desc. = \"v\"\nb (checkbox, states 1/2, p1) Desc.\nc (radio, states A/B, p1) Desc.\nd (Sig, not fillable, p1) Desc."
+        );
+    }
 
     #[test]
     fn money_formatting() {

@@ -68,3 +68,25 @@ fn platform_asset() -> Result<(&'static str, &'static str)> {
         (os, arch) => bail!("no prebuilt pdfium for {os}/{arch}"),
     })
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn installed_library_is_found_without_downloading() {
+        let dir = std::env::temp_dir().join(format!("nii-pdfium-cache-{}", std::process::id()));
+        let (_, lib) = platform_asset().unwrap();
+        let path = dir.join("pdfium").join(format!("chromium-{PDFIUM_RELEASE}")).join(lib);
+        std::fs::create_dir_all(path.parent().unwrap()).unwrap();
+        std::fs::write(&path, b"").unwrap();
+        assert_eq!(install(&dir).unwrap(), path);
+        let _ = std::fs::remove_dir_all(dir);
+    }
+
+    #[test]
+    fn this_platform_has_a_prebuilt_library() {
+        let (asset, lib) = platform_asset().unwrap();
+        assert!(asset.starts_with("pdfium-") && lib.contains("pdfium"));
+    }
+}

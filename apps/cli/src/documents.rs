@@ -125,7 +125,7 @@ mod tests {
     use super::*;
 
     fn workspace() -> PathBuf {
-        let dir = std::env::temp_dir().join(format!("nii-docs-test-{}", std::process::id()));
+        let dir = crate::testutil::scratch("docs");
         std::fs::create_dir_all(dir.join("2025/documents")).unwrap();
         std::fs::write(dir.join("2025/intake.md"), "Jane Doe notes").unwrap();
         std::fs::write(dir.join("2025/documents/w2.pdf"), "%PDF fake").unwrap();

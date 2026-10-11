@@ -2,6 +2,8 @@ mod documents;
 mod forms;
 mod index;
 mod mcp;
+#[cfg(test)]
+mod testutil;
 
 use anyhow::{Context, Result};
 use clap::{Parser, Subcommand};
@@ -340,4 +342,182 @@ fn snippet(text: &str, max: usize) -> String {
         end -= 1;
     }
     format!("{}…", text[..end].trim_end())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::testutil;
+
+    #[test]
+    fn cli_parses_global_flags_and_subcommands() {
+        let cli = Cli::try_parse_from([
+            "nii",
+            "--data-dir",
+            "/d",
+            "--workspace",
+            "/w",
+            "form",
+            "view",
+            "f.pdf",
+            "--page",
+            "2",
+        ])
+        .unwrap();
+        assert_eq!(cli.data_dir.as_deref(), Some(Path::new("/d")));
+        assert_eq!(cli.workspace.as_deref(), Some(Path::new("/w")));
+        assert!(matches!(
+            cli.command,
+            Command::Form {
+                command: FormCommand::View {
+                    page: 2,
+                    width: 1700,
+                    png: None,
+                    ..
+                }
+            }
+        ));
+        assert!(matches!(
+            Cli::try_parse_from(["nii", "corpus", "build", "--limit-chunks", "5"])
+                .unwrap()
+                .command,
+            Command::Corpus {
+                command: CorpusCommand::Build {
+                    limit_chunks: Some(5),
+                    batch_size: 64,
+                    ..
+                }
+            }
+        ));
+        assert!(
+            Cli::try_parse_from(["nii", "form", "fetch", "1040"]).is_err(),
+            "--year is required"
+        );
+    }
+
+    #[test]
+    fn form_commands_fetch_list_fill_flatten_and_render() {
+        let data = testutil::data_dir();
+        let ws = testutil::scratch("cli-form");
+        let pdf = ws.join("2025/forms/f1040.pdf");
+        form(
+            &data,
+            &ws,
+            FormCommand::Fetch {
+                form: "1040".into(),
+                year: 2025,
+                overwrite: false,
+            },
+        )
+        .unwrap();
+        assert!(pdf.exists());
+        form(
+            &data,
+            &ws,
+            FormCommand::Fetch {
+                form: "1040".into(),
+                year: 2025,
+                overwrite: false,
+            },
+        )
+        .unwrap();
+        form(
+            &data,
+            &ws,
+            FormCommand::Fields {
+                pdf: pdf.clone(),
+                page: Some(1),
+            },
+        )
+        .unwrap();
+
+        let values = ws.join("values.json");
+        std::fs::write(&values, r#"{"f1_14[0]": "Jane", "f1_47[0]": 72805}"#).unwrap();
+        form(
+            &data,
+            &ws,
+            FormCommand::Fill {
+                pdf: pdf.clone(),
+                values: values.clone(),
+                output: None,
+            },
+        )
+        .unwrap();
+        let fields = nii_pdf::acroform::read_fields(&std::fs::read(&pdf).unwrap()).unwrap();
+        let value = |n: &str| {
+            fields
+                .iter()
+                .find(|f| f.name.ends_with(n))
+                .and_then(|f| f.value.clone())
+        };
+        assert_eq!(
+            (value(".f1_14[0]").as_deref(), value(".f1_47[0]").as_deref()),
+            (Some("Jane"), Some("72805"))
+        );
+
+        std::fs::write(&values, r#"{"f1_14[0]": null}"#).unwrap();
+        let err = form(
+            &data,
+            &ws,
+            FormCommand::Fill {
+                pdf: pdf.clone(),
+                values,
+                output: None,
+            },
+        )
+        .unwrap_err();
+        assert_eq!(
+            err.to_string(),
+            "f1_14[0]: expected a string, number, or boolean, got null"
+        );
+
+        let flat = ws.join("flat.pdf");
+        form(
+            &data,
+            &ws,
+            FormCommand::Flatten {
+                pdf: pdf.clone(),
+                output: flat.clone(),
+            },
+        )
+        .unwrap();
+        assert!(
+            nii_pdf::acroform::read_fields(&std::fs::read(&flat).unwrap())
+                .unwrap()
+                .is_empty()
+        );
+
+        let png = ws.join("p1.png");
+        form(
+            &data,
+            &ws,
+            FormCommand::View {
+                pdf,
+                page: 1,
+                png: Some(png.clone()),
+                width: 300,
+            },
+        )
+        .unwrap();
+        assert!(std::fs::read(&png).unwrap().starts_with(b"\x89PNG"));
+    }
+
+    #[test]
+    fn stats_and_fetch_work_on_a_served_index() {
+        let dir = testutil::scratch("cli-index");
+        testutil::tiny_index(&dir.join("source.db"));
+        index::pack(&dir.join("source.db"), &dir.join("served")).unwrap();
+        let base = testutil::serve(dir.join("served"));
+        let db = dir.join("index.db");
+        fetch(&db, Some(format!("{base}/{}", index::ASSET))).unwrap();
+        assert!(index::is_ready(&db));
+        stats(&db).unwrap();
+    }
+
+    #[test]
+    fn snippets_cut_on_char_boundaries() {
+        assert_eq!(snippet("short", 10), "short");
+        assert_eq!(snippet("ab cd ef", 5), "ab cd…");
+        assert_eq!(snippet("§§§§", 3), "§…");
+    }
 }

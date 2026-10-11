@@ -76,3 +76,20 @@ pub fn get_bytes(url: &str) -> Result<Vec<u8>> {
 pub fn get_string(url: &str) -> Result<String> {
     Ok(String::from_utf8(get_bytes(url)?)?)
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn cached_title_26_is_reused_without_downloading() {
+        let dir = std::env::temp_dir().join(format!("nii-usc-cache-{}", std::process::id()));
+        std::fs::create_dir_all(dir.join("corpus")).unwrap();
+        std::fs::write(dir.join("corpus/usc26.xml"), "<uscDoc/>").unwrap();
+        std::fs::write(dir.join("corpus/usc26.release.txt"), "119-100\n").unwrap();
+        let usc = fetch_usc26(&dir, false).unwrap();
+        assert_eq!(usc.release_point, "119-100");
+        assert_eq!(usc.xml_path, dir.join("corpus/usc26.xml"));
+        let _ = std::fs::remove_dir_all(dir);
+    }
+}
