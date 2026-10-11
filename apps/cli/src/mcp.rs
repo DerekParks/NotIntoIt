@@ -552,6 +552,7 @@ where
 #[derive(Clone)]
 enum IndexState {
     Starting,
+    Fetching { bytes: u64, total: Option<u64> },
     Downloading,
     Parsing,
     Embedding { done: usize, total: usize, since: Instant },
@@ -630,6 +631,23 @@ impl IndexTracker {
             if index::is_ready(&paths.db_path) {
                 return Ok(());
             }
+            if let Some(url) = index::prebuilt_url() {
+                eprintln!("nii: fetching prebuilt tax-law index from {url}");
+                match index::fetch(&url, &paths.db_path, &lock, &mut |p| {
+                    if let index::Progress::Fetching { bytes, total } = p {
+                        self.set(IndexState::Fetching { bytes, total });
+                    }
+                }) {
+                    Ok(bytes) => {
+                        eprintln!(
+                            "nii: installed prebuilt index ({bytes} bytes) at {}",
+                            paths.db_path.display()
+                        );
+                        return Ok(());
+                    }
+                    Err(e) => eprintln!("nii: no prebuilt index ({e:#}); building locally"),
+                }
+            }
             eprintln!("nii: building tax-law index at {}", paths.db_path.display());
             let built = index::build(
                 &paths.data_dir,
@@ -638,6 +656,7 @@ impl IndexTracker {
                 &index::BuildOptions::default(),
                 &mut |p| {
                     self.set(match p {
+                        index::Progress::Fetching { bytes, total } => IndexState::Fetching { bytes, total },
                         index::Progress::Downloading => IndexState::Downloading,
                         index::Progress::Parsing => IndexState::Parsing,
                         index::Progress::Embedding { done, total } => {
@@ -661,6 +680,11 @@ impl IndexTracker {
     fn describe(&self) -> String {
         match self.get() {
             IndexState::Starting => "starting".into(),
+            IndexState::Fetching { bytes, total } => format!(
+                "downloading the prebuilt index ({:.1}{} MB)",
+                bytes as f64 / 1e6,
+                total.map(|t| format!(" of {:.1}", t as f64 / 1e6)).unwrap_or_default()
+            ),
             IndexState::Downloading => "downloading Title 26 of the U.S. Code from uscode.house.gov".into(),
             IndexState::Parsing => "parsing the Internal Revenue Code into sections".into(),
             IndexState::Embedding { done, total, since } => {

@@ -119,6 +119,17 @@ enum CorpusCommand {
     },
     /// Print index provenance and counts.
     Stats,
+    /// Download this version's prebuilt index from GitHub Releases (replaces the index).
+    Fetch {
+        /// Download from here instead (also NII_INDEX_URL).
+        #[arg(long)]
+        url: Option<String>,
+    },
+    /// Write a compressed copy of the index and its checksum for attaching to a release.
+    Pack {
+        #[arg(long, default_value = "target/index-release")]
+        output: PathBuf,
+    },
 }
 
 fn main() -> Result<()> {
@@ -156,6 +167,16 @@ fn main() -> Result<()> {
         Command::Corpus {
             command: CorpusCommand::Stats,
         } => stats(&db_path),
+        Command::Corpus {
+            command: CorpusCommand::Fetch { url },
+        } => fetch(&db_path, url),
+        Command::Corpus {
+            command: CorpusCommand::Pack { output },
+        } => {
+            let asset = index::pack(&db_path, &output)?;
+            println!("{}", asset.display());
+            Ok(())
+        }
         Command::Search { query, limit, source } => {
             let source = match source.as_deref() {
                 None => None,
@@ -175,10 +196,28 @@ fn main() -> Result<()> {
     }
 }
 
+fn fetch(db_path: &Path, url: Option<String>) -> Result<()> {
+    let url = url
+        .or_else(index::prebuilt_url)
+        .context("NII_INDEX_URL is \"none\"; pass --url")?;
+    let lock = index::try_lock(db_path)?.context("another process is building this index")?;
+    let bar = ProgressBar::new(0).with_style(ProgressStyle::with_template("{bar:40} {bytes}/{total_bytes}").unwrap());
+    let bytes = index::fetch(&url, db_path, &lock, &mut |p| {
+        if let index::Progress::Fetching { bytes, total } = p {
+            bar.set_length(total.unwrap_or(bytes));
+            bar.set_position(bytes);
+        }
+    })?;
+    bar.finish();
+    println!("installed {bytes} bytes from {url} -> {}", db_path.display());
+    Ok(())
+}
+
 fn build(data_dir: &Path, db_path: &Path, options: &index::BuildOptions) -> Result<()> {
     let lock = index::try_lock(db_path)?.context("another process is building this index")?;
     let bar = ProgressBar::new_spinner();
     let built = index::build(data_dir, db_path, &lock, options, &mut |p| match p {
+        index::Progress::Fetching { .. } => {}
         index::Progress::Downloading => bar.set_message("downloading Title 26 and IRS guidance"),
         index::Progress::Parsing => bar.set_message("parsing"),
         index::Progress::Embedding { done, total } => {

@@ -1,12 +1,31 @@
-//! Builds the index of Title 26 and IRS instructions/publications into `<db>.partial`,
-//! renamed into place under an exclusive `<db>.lock`.
+//! Builds the index of Title 26 and IRS instructions/publications, or fetches a prebuilt one,
+//! into `<db>.partial`, renamed into place under an exclusive `<db>.lock`.
 
-use anyhow::{Context, Result};
+use anyhow::{Context, Result, bail};
+use sha2::{Digest, Sha256};
 use std::fs::{File, TryLockError};
+use std::io::{Read, Write};
 use std::path::{Path, PathBuf};
 use std::time::{Duration, Instant};
 
+/// File name of the prebuilt index attached to each GitHub release.
+pub const ASSET: &str = "nii-index.db.zst";
+const PACK_LEVEL: i32 = 19;
+
+/// Where this version's prebuilt index lives, unless `NII_INDEX_URL` overrides it ("none" disables).
+pub fn prebuilt_url() -> Option<String> {
+    match std::env::var("NII_INDEX_URL") {
+        Ok(url) if url == "none" => None,
+        Ok(url) => Some(url),
+        Err(_) => Some(format!(
+            "https://github.com/DerekParks/NotIntoIt/releases/download/v{}/{ASSET}",
+            env!("CARGO_PKG_VERSION")
+        )),
+    }
+}
+
 pub enum Progress {
+    Fetching { bytes: u64, total: Option<u64> },
     Downloading,
     Parsing,
     Embedding { done: usize, total: usize },
@@ -143,6 +162,125 @@ pub fn build(
     })
 }
 
+/// Download `url` and its `.sha256`, verify, and install the index at `db_path`.
+pub fn fetch(url: &str, db_path: &Path, _lock: &BuildLock, on_progress: &mut dyn FnMut(Progress)) -> Result<u64> {
+    let checksum_url = format!("{url}.sha256");
+    let mut checksum = String::new();
+    ureq::get(&checksum_url)
+        .call()
+        .with_context(|| format!("downloading {checksum_url}"))?
+        .body_mut()
+        .as_reader()
+        .read_to_string(&mut checksum)?;
+    let expected = checksum
+        .split_whitespace()
+        .next()
+        .unwrap_or_default()
+        .to_ascii_lowercase();
+
+    let mut response = ureq::get(url).call().with_context(|| format!("downloading {url}"))?;
+    let total = response.body().content_length();
+    let mut bytes = 0u64;
+    let body = ProgressReader {
+        inner: response.body_mut().as_reader(),
+        on_read: &mut |n| {
+            bytes += n as u64;
+            on_progress(Progress::Fetching { bytes, total });
+        },
+    };
+    install(body, &expected, db_path)
+}
+
+/// Decompress a packed index from `packed`, check its SHA-256 and schema, and move it into place.
+pub fn install(packed: impl Read, expected_sha256: &str, db_path: &Path) -> Result<u64> {
+    let partial = sibling(db_path, "partial");
+    remove_db(&partial);
+    let mut hashing = HashingReader {
+        inner: packed,
+        hasher: Sha256::new(),
+        bytes: 0,
+    };
+    let mut decoder = zstd::stream::read::Decoder::new(&mut hashing)?;
+    let mut out = File::create(&partial)?;
+    std::io::copy(&mut decoder, &mut out).context("decompressing index")?;
+    std::io::copy(&mut decoder.finish(), &mut std::io::sink())?;
+    out.sync_all()?;
+    let actual = hex(&hashing.hasher.finalize());
+    if actual != expected_sha256 {
+        remove_db(&partial);
+        bail!("index checksum mismatch: expected {expected_sha256}, got {actual}");
+    }
+    if !is_ready(&partial) {
+        remove_db(&partial);
+        bail!(
+            "downloaded index is incomplete or for another schema (this build needs schema {})",
+            nii_search::SCHEMA_VERSION
+        );
+    }
+    remove_db(db_path);
+    std::fs::rename(&partial, db_path).with_context(|| format!("moving {} into place", partial.display()))?;
+    Ok(hashing.bytes)
+}
+
+/// Write a compacted, zstd-compressed copy of the index and its `.sha256` into `out_dir`.
+pub fn pack(db_path: &Path, out_dir: &Path) -> Result<PathBuf> {
+    if !is_ready(db_path) {
+        bail!("{} is not a complete index", db_path.display());
+    }
+    std::fs::create_dir_all(out_dir)?;
+    let compact = out_dir.join("nii-index.db");
+    let _ = std::fs::remove_file(&compact);
+    nii_search::open(db_path)?.execute("VACUUM INTO ?1", [compact.to_string_lossy()])?;
+
+    let asset = out_dir.join(ASSET);
+    let mut encoder = zstd::stream::write::Encoder::new(File::create(&asset)?, PACK_LEVEL)?;
+    std::io::copy(&mut File::open(&compact)?, &mut encoder)?;
+    encoder.finish()?.sync_all()?;
+    std::fs::remove_file(&compact)?;
+
+    let mut hashing = HashingReader {
+        inner: File::open(&asset)?,
+        hasher: Sha256::new(),
+        bytes: 0,
+    };
+    std::io::copy(&mut hashing, &mut std::io::sink())?;
+    let mut sum = File::create(out_dir.join(format!("{ASSET}.sha256")))?;
+    writeln!(sum, "{}  {ASSET}", hex(&hashing.hasher.finalize()))?;
+    Ok(asset)
+}
+
+struct HashingReader<R> {
+    inner: R,
+    hasher: Sha256,
+    bytes: u64,
+}
+
+impl<R: Read> Read for HashingReader<R> {
+    fn read(&mut self, buf: &mut [u8]) -> std::io::Result<usize> {
+        let n = self.inner.read(buf)?;
+        self.hasher.update(&buf[..n]);
+        self.bytes += n as u64;
+        Ok(n)
+    }
+}
+
+struct ProgressReader<'a, R> {
+    inner: R,
+    on_read: &'a mut dyn FnMut(usize),
+}
+
+impl<R: Read> Read for ProgressReader<'_, R> {
+    fn read(&mut self, buf: &mut [u8]) -> std::io::Result<usize> {
+        let n = self.inner.read(buf)?;
+        (self.on_read)(n);
+        Ok(n)
+    }
+}
+
+fn hex(bytes: &[u8]) -> String {
+    bytes.iter().map(|b| format!("{b:02x}")).collect()
+}
+
 fn sibling(db_path: &Path, suffix: &str) -> PathBuf {
     let mut name = db_path.file_name().unwrap_or_default().to_os_string();
     name.push(".");
@@ -174,6 +312,34 @@ mod tests {
         );
         drop(held);
         assert!(try_lock(&db).unwrap().is_some());
+        let _ = std::fs::remove_dir_all(dir);
+    }
+
+    fn tiny_index(path: &Path) {
+        let conn = nii_search::open(path).unwrap();
+        nii_search::init_schema(&conn).unwrap();
+        nii_search::set_meta(&conn, "chunks", "0").unwrap();
+    }
+
+    #[test]
+    fn pack_then_install_round_trips_and_rejects_bad_checksums() {
+        let dir = std::env::temp_dir().join(format!("nii-pack-test-{}", std::process::id()));
+        let _ = std::fs::remove_dir_all(&dir);
+        std::fs::create_dir_all(&dir).unwrap();
+        tiny_index(&dir.join("source.db"));
+
+        let asset = pack(&dir.join("source.db"), &dir.join("out")).unwrap();
+        let sum = std::fs::read_to_string(dir.join("out").join(format!("{ASSET}.sha256"))).unwrap();
+        let sha = sum.split_whitespace().next().unwrap();
+        assert_eq!(sum.trim_end(), format!("{sha}  {ASSET}"));
+
+        let target = dir.join("index.db");
+        let err = install(File::open(&asset).unwrap(), &"0".repeat(64), &target).unwrap_err();
+        assert!(err.to_string().contains("checksum mismatch"), "{err}");
+        assert!(!target.exists() && !dir.join("index.db.partial").exists());
+
+        install(File::open(&asset).unwrap(), sha, &target).unwrap();
+        assert!(is_ready(&target));
         let _ = std::fs::remove_dir_all(dir);
     }
 

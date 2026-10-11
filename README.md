@@ -101,14 +101,15 @@ the documents in my tax workspace."*
 
 ### First run
 
-On startup the server builds the search index in the background: it downloads
-Title 26 from uscode.house.gov (8 MB zip) and the IRS instructions and
-publications (about 12 MB of HTML), downloads a local embedding model (65 MB),
-and embeds everything on your CPU (about 15k chunks; roughly 20 minutes on a
-desktop CPU). `search_tax_law` reports progress until the index is ready; the
-other tools work immediately. A failed build (e.g. upstream down) retries on
-its own with backoff. Filled forms are written with their own appearance
-streams, so they display the same in every viewer and survive printing.
+On startup the server downloads the prebuilt search index for its version from
+the GitHub release (about 10 MB, checksum-verified; ready in seconds) and the
+local embedding model it uses for queries (65 MB). If the download isn't
+available, it builds the index itself instead: it fetches Title 26 from
+uscode.house.gov and the IRS instructions and publications, then embeds about
+15k chunks on your CPU (roughly 20 minutes). `search_tax_law` reports progress
+until the index is ready; the other tools work immediately, and a failed build
+retries on its own. `nii corpus fetch` and `nii corpus build` do the same from
+the command line; `NII_INDEX_URL=none` skips the download.
 
 ## Where things live
 
@@ -160,6 +161,15 @@ with a wash sale.
 cargo test --workspace     # unit tests; the PDF tests download pdfium on first run
 cargo clippy --workspace --all-targets
 cargo fmt --all
+```
+
+Releasing: bump `version` in `Cargo.toml`, tag `vX.Y.Z`, and push the tag; the
+release workflow builds and publishes the binaries. Then attach the index the
+new version will download:
+
+```sh
+nii corpus build && nii corpus pack
+gh release upload vX.Y.Z target/index-release/nii-index.db.zst target/index-release/nii-index.db.zst.sha256
 ```
 
 | path | what |
