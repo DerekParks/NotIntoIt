@@ -209,18 +209,7 @@ fn walk(
 
     let here = parent.inherited_by(doc, dict)?;
 
-    let kids: Vec<Object> = dict
-        .get(b"Kids")
-        .and_then(|k| doc.dereference(k))
-        .and_then(|(_, k)| k.as_array())
-        .cloned()
-        .unwrap_or_default();
-    let (child_fields, widget_kids): (Vec<Object>, Vec<Object>) = kids.into_iter().partition(|k| {
-        doc.dereference(k)
-            .ok()
-            .and_then(|(_, o)| o.as_dict().ok())
-            .is_some_and(|d| d.has(b"T"))
-    });
+    let (child_fields, widget_kids) = split_kids(doc, dict);
     for child in &child_fields {
         walk(doc, child, &here, pages, out)?;
     }
@@ -251,6 +240,22 @@ fn walk(
         max_len: here.max_len,
     });
     Ok(())
+}
+
+/// A field's `/Kids`, split into child fields (which have a `/T`) and widget annotations.
+fn split_kids(doc: &Document, dict: &Dictionary) -> (Vec<Object>, Vec<Object>) {
+    let kids: Vec<Object> = dict
+        .get(b"Kids")
+        .and_then(|k| doc.dereference(k))
+        .and_then(|(_, k)| k.as_array())
+        .cloned()
+        .unwrap_or_default();
+    kids.into_iter().partition(|k| {
+        doc.dereference(k)
+            .ok()
+            .and_then(|(_, o)| o.as_dict().ok())
+            .is_some_and(|d| d.has(b"T"))
+    })
 }
 
 /// The widgets of field `id`: its widget kids, or the field itself when it has none.
