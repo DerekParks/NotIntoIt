@@ -2212,6 +2212,7 @@ dependencies = [
  "nii-embed",
  "nii-pdf",
  "nii-search",
+ "nii-testkit",
  "open",
  "rmcp",
  "schemars",
@@ -2233,6 +2234,7 @@ version = "0.1.2"
 dependencies = [
  "anyhow",
  "nii-core",
+ "nii-testkit",
  "quick-xml",
  "regex",
  "scraper",
@@ -2257,6 +2259,7 @@ dependencies = [
  "flate2",
  "image",
  "lopdf",
+ "nii-testkit",
  "pdfium-render",
  "quick-xml",
  "serde",
@@ -2273,6 +2276,10 @@ dependencies = [
  "rusqlite",
  "sqlite-vec",
 ]
+
+[[package]]
+name = "nii-testkit"
+version = "0.1.2"
 
 [[package]]
 name = "no_std_io2"

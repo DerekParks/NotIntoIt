@@ -1,0 +1,11 @@
+[package]
+name = "nii-testkit"
+edition.workspace = true
+version.workspace = true
+license.workspace = true
+publish = false
+
+[dependencies]
+
+[package.metadata.dist]
+dist = false

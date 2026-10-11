@@ -28,3 +28,6 @@ sha2 = "0.11.0"
 tokio = { version = "1.53.2", features = ["rt-multi-thread", "macros", "sync"] }
 ureq = "3.3.0"
 zstd = "0.13.3"
+
+[dev-dependencies]
+nii-testkit = { path = "../../crates/testkit" }
