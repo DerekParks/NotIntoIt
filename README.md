@@ -35,14 +35,18 @@ what a vision model can read.
 
 ## Install
 
-Requires Rust 1.89+.
+Prebuilt binaries for Linux (x86_64, arm64; glibc 2.38+, e.g. Ubuntu 24.04),
+macOS (Apple Silicon), and Windows (x86_64; needs the Visual C++ runtime) are on
+the [releases page](https://github.com/DerekParks/NotIntoIt/releases).
+
+Or build from source (Rust 1.89+):
 
 ```sh
 cargo install --git https://github.com/DerekParks/NotIntoIt nii --locked
 ```
 
-This builds and installs one binary, `nii` (from a clone: `cargo install --path apps/cli --locked`). It is self-contained apart from pdfium, which
-it downloads on first use.
+Either way you get one binary, `nii`. It is self-contained apart from pdfium,
+which it downloads on first use.
 
 ## Use it from an assistant (MCP)
 
