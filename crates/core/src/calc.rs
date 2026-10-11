@@ -73,9 +73,18 @@ fn tokenize(s: &str) -> Result<Vec<Token>, CalcError> {
     Ok(out)
 }
 
-/// A comma followed by exactly three digits groups thousands; any other comma separates arguments.
+/// A comma between a digit run that isn't a lone `0` and exactly three digits groups thousands;
+/// any other comma separates arguments.
 fn is_grouping_comma(chars: &[char], i: usize) -> bool {
+    let before: Vec<char> = chars[..i]
+        .iter()
+        .rev()
+        .take_while(|c| c.is_ascii_digit())
+        .copied()
+        .collect();
     chars[i] == ','
+        && !before.is_empty()
+        && before != ['0']
         && chars
             .get(i + 1..i + 4)
             .is_some_and(|d| d.iter().all(char::is_ascii_digit))
@@ -211,6 +220,9 @@ mod tests {
         assert_eq!(evaluate("-(3 - 5) * 2").unwrap(), 4.0);
         assert_eq!(evaluate("min(5000, 3000, 13200)").unwrap(), 3000.0);
         assert_eq!(evaluate("min(5,000,3,000)").unwrap(), 3000.0);
+        assert_eq!(evaluate("min(0,100)").unwrap(), 0.0);
+        assert_eq!(evaluate("max(0,500)").unwrap(), 500.0);
+        assert_eq!(evaluate("max(10,500, 0)").unwrap(), 10500.0);
         assert_eq!(evaluate("max(1,2)").unwrap(), 2.0);
         assert_eq!(evaluate("max(0; 3000 - 5000)").unwrap(), 0.0);
         assert_eq!(evaluate("round(1184.52)").unwrap(), 1185.0);
