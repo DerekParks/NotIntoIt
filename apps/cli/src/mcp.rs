@@ -208,17 +208,7 @@ impl NiiServer {
             )?;
             let total = fields.len();
             let all_names: Vec<String> = fields.iter().map(|f| f.name.clone()).collect();
-            let needle = args.search.as_deref().map(str::to_lowercase);
-            let shown: Vec<_> = fields
-                .into_iter()
-                .filter(|f| args.page.is_none_or(|p| f.page == Some(p)))
-                .filter(|f| {
-                    needle.as_deref().is_none_or(|n| {
-                        f.name.to_lowercase().contains(n)
-                            || f.description.as_deref().is_some_and(|d| d.to_lowercase().contains(n))
-                    })
-                })
-                .collect();
+            let shown = matching_fields(fields, args.page, args.search.as_deref());
             let prefix = common_prefix(&all_names);
             Ok(vec![ContentBlock::text(format!(
                 "{} of {total} fields, one per line: name (type, page, limits) description [= current value].\n\
@@ -487,6 +477,25 @@ fn money(v: f64) -> String {
     } else {
         format!("{sign}{grouped}.{frac:02}")
     }
+}
+
+/// Fields on `page` whose name or description contains `search`, ignoring case.
+fn matching_fields(
+    fields: Vec<nii_pdf::acroform::Field>,
+    page: Option<u32>,
+    search: Option<&str>,
+) -> Vec<nii_pdf::acroform::Field> {
+    let needle = search.map(str::to_lowercase);
+    fields
+        .into_iter()
+        .filter(|f| page.is_none_or(|p| f.page == Some(p)))
+        .filter(|f| {
+            needle.as_deref().is_none_or(|n| {
+                f.name.to_lowercase().contains(n)
+                    || f.description.as_deref().is_some_and(|d| d.to_lowercase().contains(n))
+            })
+        })
+        .collect()
 }
 
 /// The longest dotted prefix shared by every name, e.g. `topmostSubform[0].`.
