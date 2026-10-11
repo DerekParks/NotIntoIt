@@ -1,8 +1,5 @@
-//! SQLite index: FTS5 + sqlite-vec in one file, hybrid retrieval via RRF.
-//!
-//! Layout: `chunks` (rowid-keyed content) + `chunks_fts` (external-content
-//! FTS5, default unicode61 — S4 verdict) + `chunks_vec` (vec0, int8[384],
-//! cosine) + `meta` (key/value provenance).
+//! Hybrid retrieval over one SQLite file: `chunks` content, `chunks_fts` (FTS5), `chunks_vec`
+//! (sqlite-vec int8[384], cosine), and `meta` provenance, fused with reciprocal rank fusion.
 
 use anyhow::{Context, Result};
 use nii_core::{DocChunk, SourceKind};
@@ -233,9 +230,8 @@ fn vec_search(
     Ok(ids)
 }
 
-/// Natural language -> safe FTS5 MATCH expression. Every token is quoted
-/// (raw `401(k)` is FTS5 syntax otherwise — S4) and OR-joined for ranked
-/// recall; bm25 handles the rest.
+/// Natural language -> FTS5 MATCH expression: every token phrase-quoted (so `401(k)` is literal)
+/// and OR-joined.
 pub fn to_fts_query(input: &str) -> String {
     input
         .split_whitespace()

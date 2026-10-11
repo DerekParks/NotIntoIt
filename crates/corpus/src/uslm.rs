@@ -1,10 +1,5 @@
-//! Streaming parser for USLM XML (uscode.house.gov schema).
-//!
-//! Walks the document once, tracking the container hierarchy (subtitle >
-//! chapter > subchapter > part > subpart) and emitting one [`Section`] per
-//! non-repealed `<section>`, with editorial apparatus (source credits, notes,
-//! tables of contents) excluded from the text. Amendment and effective-date
-//! notes are kept separately, so readers can tell when the text took effect.
+//! Streaming parser for USLM XML: one [`Section`] per non-repealed `<section>`, with its container
+//! path, body text (editorial notes excluded), and amendment and effective-date notes.
 
 use anyhow::{Context, Result};
 use quick_xml::Reader;

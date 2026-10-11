@@ -104,8 +104,6 @@ pub(crate) fn save(doc: &mut Document) -> Result<Vec<u8>> {
     Ok(out)
 }
 
-/// Set a checkbox/radio field to `state` (an on-state name, or `Off`): `/V` on
-/// the field, `/AS` on each widget — on if that widget owns `state`, else Off.
 /// The AcroForm-level default `/DA`.
 pub(crate) fn default_da(doc: &Document) -> Option<String> {
     acroform(doc)
@@ -115,6 +113,8 @@ pub(crate) fn default_da(doc: &Document) -> Option<String> {
         .and_then(|da| lopdf::decode_text_string(da).ok())
 }
 
+/// Set a checkbox/radio field to `state` (an on-state name, or `Off`): `/V` on
+/// the field, `/AS` on each widget — on if that widget owns `state`, else Off.
 pub(crate) fn set_button_state(doc: &mut Document, node: &FieldNode, state: &[u8]) -> Result<()> {
     doc.get_object_mut(node.id)?
         .as_dict_mut()?
