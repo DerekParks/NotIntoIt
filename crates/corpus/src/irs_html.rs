@@ -202,7 +202,6 @@ fn tidy_cells(s: &str) -> String {
         .to_string()
 }
 
-
 #[cfg(test)]
 mod tests {
     use super::*;

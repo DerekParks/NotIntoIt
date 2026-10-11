@@ -178,10 +178,11 @@ pub fn parse_usc_reader<R: BufRead>(input: R) -> Result<Vec<Section>> {
                         });
                     } else if section.is_none() && CONTAINERS.contains(&name.as_str()) {
                         containers.push(Container { label: String::new() });
-                    } else if name == "num" && section.is_some() && parent_is(&elem_stack, "section") {
-                        if let (Some(s), Some(v)) = (section.as_mut(), attr(&e, "value")) {
-                            s.num_value = v;
-                        }
+                    } else if name == "num"
+                        && parent_is(&elem_stack, "section")
+                        && let (Some(s), Some(v)) = (section.as_mut(), attr(&e, "value"))
+                    {
+                        s.num_value = v;
                     }
                 }
                 None
@@ -252,22 +253,16 @@ pub fn parse_usc_reader<R: BufRead>(input: R) -> Result<Vec<Section>> {
                     n.current.push_str(&text);
                 }
             } else if excluded_from_depth.is_some() {
-                // skip
             } else if let Some(s) = section.as_mut() {
                 match (elem_stack.last().map(String::as_str), parent_is(&elem_stack, "section")) {
                     (Some("heading"), true) => s.heading.push_str(&text),
                     (Some("num"), true) => {} // printed form; @value already captured
                     _ => s.text.push_str(&text),
                 }
-            } else if let Some(c) = containers.last_mut() {
-                // Only direct num/heading children of the container itself.
-                if matches!(elem_stack.last().map(String::as_str), Some("num") | Some("heading"))
-                    && elem_stack
-                        .get(elem_stack.len().wrapping_sub(2))
-                        .is_some_and(|p| CONTAINERS.contains(&p.as_str()))
-                {
-                    c.label.push_str(&text);
-                }
+            } else if let Some(c) = containers.last_mut()
+                && in_container_label(&elem_stack)
+            {
+                c.label.push_str(&text);
             }
         }
         buf.clear();
@@ -299,6 +294,14 @@ fn attr(e: &BytesStart, name: &str) -> Option<String> {
         .flatten()
         .and_then(|a| a.normalized_value(quick_xml::XmlVersion::Explicit1_0).ok())
         .map(|v| v.into_owned())
+}
+
+/// Inside a `num` or `heading` that belongs directly to a container element.
+fn in_container_label(stack: &[String]) -> bool {
+    matches!(stack.last().map(String::as_str), Some("num") | Some("heading"))
+        && stack
+            .get(stack.len().wrapping_sub(2))
+            .is_some_and(|p| CONTAINERS.contains(&p.as_str()))
 }
 
 fn parent_is(stack: &[String], name: &str) -> bool {
