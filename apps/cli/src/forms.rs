@@ -2,7 +2,7 @@
 //! working copies in the tax workspace (`<workspace>/<year>/forms/<stem>.pdf`).
 
 use anyhow::{Context, Result, bail};
-use nii_pdf::fill::Value;
+use nii_pdf::fill::{Filled, Value};
 use std::collections::BTreeMap;
 use std::path::{Path, PathBuf};
 
@@ -10,6 +10,8 @@ pub struct Fetched {
     pub path: PathBuf,
     /// Set when this call downloaded the form.
     pub downloaded: Option<nii_pdf::irs::Download>,
+    /// Year of the IRS revision the working copy was made from, when known.
+    pub revision: Option<u16>,
     /// False when an existing working copy was kept.
     pub created: bool,
 }
@@ -24,35 +26,49 @@ pub fn fetch(data_dir: &Path, workspace: &Path, form: &str, tax_year: u16, overw
         return Ok(Fetched {
             path: working,
             downloaded: None,
+            revision: None,
             created: false,
         });
     }
 
     let cached = data_dir.join("forms").join(format!("{stem}--{tax_year}.pdf"));
-    let (raw, downloaded) = if cached.exists() {
-        (std::fs::read(&cached)?, None)
+    let revision_note = cached.with_extension("revision");
+    let (raw, downloaded, revision) = if cached.exists() {
+        let revision = std::fs::read_to_string(&revision_note)
+            .ok()
+            .and_then(|s| s.trim().parse().ok());
+        (std::fs::read(&cached)?, None, revision)
     } else {
         let download = nii_pdf::irs::download(&stem, tax_year)?;
         write_atomic(&cached, &download.bytes)?;
-        (download.bytes.clone(), Some(download))
+        write_atomic(&revision_note, download.revision.to_string().as_bytes())?;
+        (download.bytes.clone(), Some(download), None)
     };
+    let revision = revision.or(downloaded.as_ref().map(|d| d.revision));
     write_atomic(&working, &nii_pdf::acroform::normalize(&raw)?)?;
     Ok(Fetched {
         path: working,
         downloaded,
+        revision,
         created: true,
     })
 }
 
-pub fn fill(pdf: &Path, values: &BTreeMap<String, Value>, output: Option<&Path>) -> Result<PathBuf> {
+/// Fill `values` into `pdf`, writing `output` (default: `pdf` itself) when any value was valid.
+pub fn fill(pdf: &Path, values: &BTreeMap<String, Value>, output: Option<&Path>) -> Result<(PathBuf, Filled)> {
+    if values.is_empty() {
+        bail!("values is empty; pass field names from list_form_fields mapped to values");
+    }
     let output = output.unwrap_or(pdf);
     if output.extension().and_then(|e| e.to_str()) != Some("pdf") {
         bail!("output must be a .pdf path: {}", output.display());
     }
     let bytes = std::fs::read(pdf).with_context(|| format!("reading {}", pdf.display()))?;
     let filled = nii_pdf::fill::fill(&bytes, values)?;
-    write_atomic(output, &filled)?;
-    Ok(output.to_path_buf())
+    if let Some(new) = &filled.pdf {
+        write_atomic(output, new)?;
+    }
+    Ok((output.to_path_buf(), filled))
 }
 
 pub fn render(data_dir: &Path, pdf: &Path, page: u32, width: u32) -> Result<nii_pdf::render::RenderedPage> {

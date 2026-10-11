@@ -3,7 +3,7 @@ mod forms;
 mod index;
 mod mcp;
 
-use anyhow::{Context, Result};
+use anyhow::{Context, Result, bail};
 use clap::{Parser, Subcommand};
 use indicatif::{ProgressBar, ProgressStyle};
 use nii_core::SourceKind;
@@ -246,8 +246,8 @@ fn form(data_dir: &Path, workspace: &Path, command: FormCommand) -> Result<()> {
             if !fetched.created {
                 eprintln!("kept existing working copy (--overwrite to replace)");
             }
-            if let Some(d) = fetched.downloaded.as_ref().filter(|d| d.revision != year) {
-                eprintln!("using the {} revision, in effect for {year}: {}", d.revision, d.url);
+            if let Some(revision) = fetched.revision.filter(|r| *r != year) {
+                eprintln!("using the {revision} revision, in effect for {year}");
             }
             println!("{}", fetched.path.display());
         }
@@ -267,7 +267,18 @@ fn form(data_dir: &Path, workspace: &Path, command: FormCommand) -> Result<()> {
                 .iter()
                 .map(|(k, v)| Ok((k.clone(), forms::value_from_json(k, v)?)))
                 .collect::<Result<BTreeMap<_, _>>>()?;
-            println!("{}", forms::fill(&pdf, &values, output.as_deref())?.display());
+            let (path, filled) = forms::fill(&pdf, &values, output.as_deref())?;
+            if filled.pdf.is_some() {
+                println!("{}", path.display());
+            }
+            if !filled.problems.is_empty() {
+                let written = if filled.pdf.is_some() {
+                    "the other fields were written"
+                } else {
+                    "nothing written"
+                };
+                bail!("{written}; fix these fields:\n  {}", filled.problems.join("\n  "));
+            }
         }
         FormCommand::Flatten { pdf, output } => {
             let flat = nii_pdf::fill::flatten(nii_pdf::engine::pdfium(data_dir)?, &std::fs::read(&pdf)?)?;

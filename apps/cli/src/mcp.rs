@@ -1,7 +1,7 @@
 //! `nii mcp`: stdio MCP server for IRS form fetch/inspect/fill/view and tax-law search,
 //! building the search index in the background. Diagnostics go to stderr.
 
-use anyhow::{Context, Result};
+use anyhow::{Context, Result, bail};
 use base64::Engine as _;
 use rmcp::handler::server::{router::tool::ToolRouter, wrapper::Parameters};
 use rmcp::model::{CallToolResult, ContentBlock, Implementation, ServerCapabilities, ServerConfig};
@@ -20,6 +20,10 @@ const RENDER_WIDTH: u32 = 1200;
 const OTHER_BUILD_POLL: Duration = Duration::from_secs(5);
 const RETRY_FIRST: Duration = Duration::from_secs(60);
 const RETRY_MAX: Duration = Duration::from_secs(30 * 60);
+const FILL_PROBLEMS_SHOWN: usize = 10;
+/// Field listings beyond this many bytes are split by page, then cut.
+const LISTING_MAX_BYTES: usize = 16 * 1024;
+const FILL_ECHO_DESCRIPTION: usize = 90;
 /// Description sentences at least this long are shown once per listing.
 const REPEATED_SENTENCE_MIN: usize = 60;
 
@@ -28,10 +32,15 @@ user's documents, tax law, and arithmetic.
 
 Start with list_documents and read_document to see the user's source documents (W-2s, 1099s, notes).
 
-Forms: fetch_irs_form -> list_form_fields -> fill_form -> view_pdf. Field names are the PDF's own (e.g. \
-topmostSubform[0].Page1[0].f1_14[0]); use each field's description to decide what goes where, and copy names \
-exactly. Checkboxes take true/false. fill_form can be called repeatedly on the same PDF; earlier values are kept. \
-Always view_pdf after filling and check the values landed in the right boxes.
+Forms: fetch_irs_form -> list_form_fields -> fill_form -> view_pdf. fetch_irs_form takes names like \
+\"1040\", \"Schedule C\", \"8812\", \"W-2\". Use each field's description to decide which line it is, and copy its name \
+as listed (e.g. Page1[0].f1_14[0]); never make names up or number them yourself. Fill only lines that have an \
+entry and leave the rest blank. Checkboxes take true/false. Example values: {\"Page1[0].f1_14[0]\": \"Alex\", \
+\"Page1[0].f1_47[0]\": \"50000\", \"Page1[0].c1_2[0]\": false}. fill_form can be called repeatedly on the same PDF; \
+earlier values are kept. It writes every valid value, rejects bad ones individually (resend only those, fixed), \
+and lists what landed in which field: check that each value is on the line you meant. view_pdf shows a page and \
+its filled values. The return is done when every form it needs has been filled with fill_form; a summary of \
+amounts is not a return.
 
 Law: search_tax_law covers Title 26 and the current IRS instructions and publications. Cite what you rely on. \
 Statute text is current law: when a hit carries an amendment caveat, check whether the change applies to the tax \
@@ -94,7 +103,8 @@ pub struct ListFieldsArgs {
 pub struct FillFormArgs {
     /// Path to the PDF to fill (as returned by fetch_irs_form).
     pdf: String,
-    /// Exact field name -> value. Text fields take strings (or numbers); checkboxes take true/false.
+    /// Field name as listed by list_form_fields (prefix omitted) -> value. Text fields take strings (or
+    /// numbers); checkboxes take true/false.
     values: BTreeMap<String, serde_json::Value>,
     /// Write the result here instead of updating `pdf` in place.
     output: Option<String>,
@@ -106,7 +116,7 @@ pub struct ViewPdfArgs {
     pdf: String,
     /// 1-based page to render. Default 1.
     page: Option<u32>,
-    /// Also open the PDF in the user's default PDF viewer. Default false.
+    /// Also show the PDF to the user in their PDF viewer. The page image comes back either way. Default false.
     #[serde(default)]
     open: bool,
 }
@@ -173,16 +183,25 @@ impl NiiServer {
     async fn fetch_irs_form(&self, Parameters(args): Parameters<FetchFormArgs>) -> Result<CallToolResult, McpError> {
         let paths = self.paths.clone();
         blocking(move || {
-            let fetched = forms::fetch(&paths.data_dir, &paths.workspace, &args.form, args.tax_year, args.overwrite)?;
+            let fetched = forms::fetch(
+                &paths.data_dir,
+                &paths.workspace,
+                &args.form,
+                args.tax_year,
+                args.overwrite,
+            )?;
             let fields = nii_pdf::acroform::read_fields(&std::fs::read(&fetched.path)?)?;
             let filled = fields.iter().filter(|f| f.value.is_some()).count();
-            let status = match (&fetched.downloaded, fetched.created) {
-                (Some(d), _) if d.revision != args.tax_year => format!(
-                    "Downloaded {} (the {} revision is the one in effect for {}; fill in the calendar year on the form) ->",
-                    d.url, d.revision, args.tax_year
+            let caveat = match fetched.revision {
+                Some(r) if r != args.tax_year => format!(
+                    " (the {r} revision is the one in effect for {}; fill in the calendar year on the form)",
+                    args.tax_year
                 ),
-                (Some(d), _) => format!("Downloaded {} ->", d.url),
-                (None, true) => "Created from the cached download ->".to_string(),
+                _ => String::new(),
+            };
+            let status = match (&fetched.downloaded, fetched.created) {
+                (Some(d), _) => format!("Downloaded {}{caveat} ->", d.url),
+                (None, true) => format!("Created from the cached download{caveat} ->"),
                 (None, false) => format!(
                     "Kept existing working copy ({filled} fields already filled; pass overwrite=true to start fresh):"
                 ),
@@ -203,6 +222,7 @@ impl NiiServer {
     async fn list_form_fields(&self, Parameters(args): Parameters<ListFieldsArgs>) -> Result<CallToolResult, McpError> {
         let pdf = self.resolve(&args.pdf);
         blocking(move || {
+            let pdf = pdf?;
             let fields = nii_pdf::acroform::read_fields(
                 &std::fs::read(&pdf).with_context(|| format!("reading {}", pdf.display()))?,
             )?;
@@ -219,56 +239,127 @@ impl NiiServer {
                     })
                 })
                 .collect();
-            let prefix = common_prefix(&all_names);
+            let prefix = nii_pdf::acroform::common_prefix(all_names.iter().map(String::as_str));
+            let mut rendered = render_fields(&shown, prefix);
+            let mut notes = Vec::new();
+            let mut listed = shown.len();
+            if rendered.len() > LISTING_MAX_BYTES && args.page.is_none() {
+                let first = shown.iter().filter_map(|f| f.page).min();
+                let mut others: BTreeMap<u32, usize> = BTreeMap::new();
+                for page in shown.iter().filter_map(|f| f.page).filter(|p| Some(*p) != first) {
+                    *others.entry(page).or_default() += 1;
+                }
+                if let (Some(first), false) = (first, others.is_empty()) {
+                    let page_fields: Vec<_> = shown
+                        .iter()
+                        .filter(|f| f.page == Some(first) || f.page.is_none())
+                        .cloned()
+                        .collect();
+                    listed = page_fields.len();
+                    rendered = render_fields(&page_fields, prefix);
+                    let rest: Vec<String> = others
+                        .iter()
+                        .map(|(page, n)| format!("page {page} has {n} (list_form_fields with page={page})"))
+                        .collect();
+                    notes.push(format!("Showing page {first} only; {}.", rest.join("; ")));
+                }
+            }
+            if rendered.len() > LISTING_MAX_BYTES {
+                let limit = (0..=LISTING_MAX_BYTES)
+                    .rev()
+                    .find(|&i| rendered.is_char_boundary(i))
+                    .unwrap_or(0);
+                let cut = rendered[..limit].rfind('\n').unwrap_or(0);
+                let kept = rendered[..cut].lines().count();
+                notes.push(format!(
+                    "{} more of these fields not shown; narrow the listing with search (e.g. a line number) or page.",
+                    listed.saturating_sub(kept)
+                ));
+                rendered.truncate(cut);
+                listed = kept;
+            }
+            let notes = notes.iter().map(|n| format!("\n{n}")).collect::<String>();
             Ok(vec![ContentBlock::text(format!(
-                "{} of {total} fields, one per line: name (type, page, limits) description [= current value].\n\
+                "{listed} of {total} fields, one per line: name (type, page, limits) description [= current value].\n\
                  Names omit the prefix {prefix:?} shared by every field; fill_form accepts them as shown. \
-                 Long sentences repeated from an earlier field are shown once.\n{}",
-                shown.len(),
-                render_fields(&shown, prefix)
+                 Long sentences repeated from an earlier field are shown once.{notes}\n{rendered}"
             ))])
         })
         .await
     }
 
     #[tool(
-        description = "Fill fields of a PDF form. values maps exact field names (from list_form_fields) to \
-        values. All values are validated first; if any is invalid nothing is written and every problem is \
-        reported. Updates the PDF in place unless output is given."
+        description = "Fill fields of a PDF form. values maps field names (from list_form_fields) to values. \
+        Valid values are written even if others are rejected; the result lists what landed in which field and \
+        every rejected name with the reason. Updates the PDF in place unless output is given."
     )]
     async fn fill_form(&self, Parameters(args): Parameters<FillFormArgs>) -> Result<CallToolResult, McpError> {
         let pdf = self.resolve(&args.pdf);
-        let output = args.output.as_deref().map(|o| self.resolve(o));
+        let output = args.output.as_deref().map(|o| self.resolve_new(o));
         blocking(move || {
-            let values = args
-                .values
-                .iter()
-                .map(|(k, v)| Ok((k.clone(), forms::value_from_json(k, v)?)))
-                .collect::<Result<BTreeMap<_, _>>>()?;
-            let written = forms::fill(&pdf, &values, output.as_deref())?;
-            Ok(vec![ContentBlock::text(format!(
-                "Filled {} fields -> {}. Check the result with view_pdf.",
-                values.len(),
-                written.display()
-            ))])
+            let pdf = pdf?;
+            let output = output.transpose()?;
+            let mut values = BTreeMap::new();
+            let mut problems = Vec::new();
+            for (name, value) in &args.values {
+                match forms::value_from_json(name, value) {
+                    Ok(v) => {
+                        values.insert(name.clone(), v);
+                    }
+                    Err(e) => problems.push(e.to_string()),
+                }
+            }
+            let (path, filled) = forms::fill(&pdf, &values, output.as_deref())?;
+            problems.extend(filled.problems.iter().cloned());
+            let report = fill_report(&filled, &problems, &path);
+            if filled.pdf.is_none() {
+                bail!("{report}");
+            }
+            Ok(vec![ContentBlock::text(report)])
         })
         .await
     }
 
     #[tool(
-        description = "Render one page of a PDF (with its filled form values) as an image so you can check \
-        it. Set open=true to also open the PDF in the user's PDF viewer."
+        description = "Render one page of a PDF (with its filled form values) as an image and list the filled \
+        values on it, so you can check it. open=true also puts the PDF on the user's screen; it is not needed to see \
+        the page yourself."
     )]
     async fn view_pdf(&self, Parameters(args): Parameters<ViewPdfArgs>) -> Result<CallToolResult, McpError> {
         let pdf = self.resolve(&args.pdf);
         let data_dir = self.paths.data_dir.clone();
         blocking(move || {
+            let pdf = pdf?;
             let page = args.page.unwrap_or(1);
             let rendered = forms::render(&data_dir, &pdf, page, RENDER_WIDTH)?;
             let mut note = format!("{} — page {page} of {}", pdf.display(), rendered.page_count);
-            if args.open {
+            if args.open && std::env::var("NII_NO_VIEWER").is_ok_and(|v| !v.is_empty() && v != "0") {
+                note.push_str(" (not opened: this server has no viewer)");
+            } else if args.open {
                 open::that_detached(&pdf).with_context(|| format!("opening {}", pdf.display()))?;
                 note.push_str(" (opened in the default PDF viewer)");
+            }
+            if page < rendered.page_count {
+                note.push_str(&format!("; view page={} next", page + 1));
+            }
+            let fields = nii_pdf::acroform::read_fields(&std::fs::read(&pdf)?)?;
+            let prefix = nii_pdf::acroform::common_prefix(fields.iter().map(|f| f.name.as_str())).to_string();
+            let filled: Vec<String> = fields
+                .iter()
+                .filter(|f| f.page == Some(page))
+                .filter_map(|f| {
+                    let value = f.value.as_deref()?;
+                    let shown = match f.kind {
+                        nii_pdf::acroform::FieldKind::Text { .. } => format!("{value:?}"),
+                        _ => "checked".to_string(),
+                    };
+                    Some(field_line(&f.name, &prefix, f.description.as_deref(), &shown))
+                })
+                .collect();
+            if filled.is_empty() {
+                note.push_str("\nNo fields on this page are filled.");
+            } else {
+                note.push_str(&format!("\nFilled fields on this page:\n{}", filled.join("\n")));
             }
             Ok(vec![
                 ContentBlock::text(note),
@@ -388,6 +479,9 @@ impl NiiServer {
         caveats about recent amendments."
     )]
     async fn search_tax_law(&self, Parameters(args): Parameters<SearchArgs>) -> Result<CallToolResult, McpError> {
+        if !self.index.is_ready() && index::is_ready(&self.paths.db_path) {
+            self.index.set(IndexState::Ready);
+        }
         if !self.index.is_ready() {
             return Ok(CallToolResult::error(vec![ContentBlock::text(format!(
                 "The tax-law index is not ready yet: {}. Try again shortly.",
@@ -436,11 +530,14 @@ impl NiiServer {
     }
 
     /// Absolute, `~/`-relative, or workspace-relative.
-    fn resolve(&self, path: &str) -> PathBuf {
-        if let (Some(rest), Some(home)) = (path.strip_prefix("~/"), dirs::home_dir()) {
-            return home.join(rest);
-        }
-        self.paths.workspace.join(path)
+    /// A PDF the tools may read: inside the workspace, `~/` expanded.
+    fn resolve(&self, path: &str) -> Result<PathBuf> {
+        documents::contained(&self.paths.workspace, &expand_home(path))
+    }
+
+    /// A PDF the tools may write: in an existing workspace directory, `~/` expanded.
+    fn resolve_new(&self, path: &str) -> Result<PathBuf> {
+        documents::contained_new(&self.paths.workspace, &expand_home(path))
     }
 }
 
@@ -475,19 +572,62 @@ fn money(v: f64) -> String {
     }
 }
 
-/// The longest dotted prefix shared by every name, e.g. "topmostSubform[0].".
-fn common_prefix(names: &[String]) -> &str {
-    let Some(first) = names.first() else { return "" };
-    let mut end = 0;
-    for (i, _) in first.match_indices('.') {
-        let candidate = &first[..=i];
-        if names.iter().all(|n| n.starts_with(candidate)) {
-            end = i + 1;
-        } else {
-            break;
+fn fill_report(filled: &nii_pdf::fill::Filled, problems: &[String], path: &Path) -> String {
+    let mut out = if filled.written.is_empty() {
+        "Nothing written.".to_string()
+    } else {
+        let lines: Vec<String> = filled
+            .written
+            .iter()
+            .map(|w| field_line(&w.name, &filled.prefix, w.description.as_deref(), &w.value))
+            .collect();
+        format!(
+            "Wrote {} field(s) to {}:\n{}",
+            filled.written.len(),
+            path.display(),
+            lines.join("\n")
+        )
+    };
+    if !problems.is_empty() {
+        out.push_str(&format!("\nRejected {} (resend only these, fixed):", problems.len()));
+        for problem in problems.iter().take(FILL_PROBLEMS_SHOWN) {
+            out.push_str(&format!("\n  {problem}"));
+        }
+        if problems.len() > FILL_PROBLEMS_SHOWN {
+            out.push_str(&format!(
+                "\n  ...and {} more. Copy names exactly from list_form_fields; don't invent them.",
+                problems.len() - FILL_PROBLEMS_SHOWN
+            ));
         }
     }
-    &first[..end]
+    out
+}
+
+fn expand_home(path: &str) -> PathBuf {
+    match (path.strip_prefix("~/"), dirs::home_dir()) {
+        (Some(rest), Some(home)) => home.join(rest),
+        _ => PathBuf::from(path),
+    }
+}
+
+/// `  name (description) = value`, the name without `prefix` and the description clipped.
+fn field_line(name: &str, prefix: &str, description: Option<&str>, value: &str) -> String {
+    let name = name.strip_prefix(prefix).unwrap_or(name);
+    match description {
+        Some(d) => format!("  {name} ({}) = {value}", clip(d, FILL_ECHO_DESCRIPTION)),
+        None => format!("  {name} = {value}"),
+    }
+}
+
+/// `text` within about `max` characters: its start and end around " ... ".
+fn clip(text: &str, max: usize) -> String {
+    let chars: Vec<char> = text.chars().collect();
+    if chars.len() <= max {
+        return text.to_string();
+    }
+    let head: String = chars[..max / 2].iter().collect();
+    let tail: String = chars[chars.len() - max / 2..].iter().collect();
+    format!("{} ... {}", head.trim_end(), tail.trim_start())
 }
 
 fn render_fields(fields: &[nii_pdf::acroform::Field], prefix: &str) -> String {
@@ -513,7 +653,8 @@ fn render_fields(fields: &[nii_pdf::acroform::Field], prefix: &str) -> String {
             let description = f
                 .description
                 .as_deref()
-                .map(|d| drop_repeated_sentences(d, &mut seen))
+                .map(|d| d.split_whitespace().collect::<Vec<_>>().join(" "))
+                .map(|d| drop_repeated_sentences(&d, &mut seen))
                 .unwrap_or_default();
             let value = f.value.as_deref().map(|v| format!(" = {v:?}")).unwrap_or_default();
             let name = f.name.strip_prefix(prefix).unwrap_or(&f.name);
@@ -731,15 +872,13 @@ mod tests {
     }
 
     #[test]
-    fn common_prefix_stops_at_a_dot() {
-        let names = |v: &[&str]| v.iter().map(|s| s.to_string()).collect::<Vec<_>>();
+    fn clip_keeps_both_ends() {
+        assert_eq!(clip("short", 10), "short");
         assert_eq!(
-            common_prefix(&names(&["top[0].Page1[0].a", "top[0].Page1[0].b", "top[0].Page2[0].c"])),
-            "top[0]."
+            clip("Row: 8. Column: Adjustment, if any. (g) Amount", 20),
+            "Row: 8. Co ... (g) Amount"
         );
-        assert_eq!(common_prefix(&names(&["top[0].f1_1[0]", "top[0].f1_10[0]"])), "top[0].");
-        assert_eq!(common_prefix(&names(&["a.b", "c.d"])), "");
-        assert_eq!(common_prefix(&[]), "");
+        assert_eq!(clip("ééééééééééé", 4), "éé ... éé");
     }
 
     #[test]

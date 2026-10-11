@@ -15,17 +15,35 @@ pub enum Value {
     Bool(bool),
 }
 
-/// Fill `values` (field name, or any unique dotted suffix of one -> value) into `pdf`,
-/// returning the new PDF. All values are validated before anything is written.
-pub fn fill(pdf: &[u8], values: &BTreeMap<String, Value>) -> Result<Vec<u8>> {
+/// What a fill wrote, by full field name, and what it rejected.
+pub struct Filled {
+    /// The new PDF, or None when no value was valid.
+    pub pdf: Option<Vec<u8>>,
+    pub written: Vec<Written>,
+    pub problems: Vec<String>,
+    /// Dotted prefix shared by every field in the form.
+    pub prefix: String,
+}
+
+pub struct Written {
+    pub name: String,
+    pub description: Option<String>,
+    pub value: String,
+}
+
+/// Fill `values` into `pdf`. A name may abbreviate a field's full name (see `resolve_name`).
+/// Valid values are written even when others are rejected.
+pub fn fill(pdf: &[u8], values: &BTreeMap<String, Value>) -> Result<Filled> {
     let mut doc = Document::load_mem(pdf).context("parsing PDF")?;
     let nodes: HashMap<String, FieldNode> = acroform::collect(&doc)?
         .into_iter()
         .map(|n| (n.field.name.clone(), n))
         .collect();
+    let prefix = acroform::common_prefix(nodes.keys().map(String::as_str)).to_string();
 
     let mut texts: Vec<(&FieldNode, &str)> = Vec::new();
     let mut buttons: Vec<(&FieldNode, Vec<u8>)> = Vec::new();
+    let mut written: Vec<Written> = Vec::new();
     let mut problems: Vec<String> = Vec::new();
     let mut claimed: HashMap<&str, &str> = HashMap::new();
     for (name, value) in values {
@@ -36,23 +54,44 @@ pub fn fill(pdf: &[u8], values: &BTreeMap<String, Value>) -> Result<Vec<u8>> {
                 continue;
             }
         };
+        let resolved = match resolve(&node.field.kind, value) {
+            Ok(resolved) => resolved,
+            Err(e) => {
+                problems.push(format!("{name}: {e}"));
+                continue;
+            }
+        };
         if let Some(other) = claimed.insert(node.field.name.as_str(), name) {
             problems.push(format!("{name}: same field as {other}"));
             continue;
         }
-        match resolve(&node.field.kind, value) {
-            Ok(Resolved::Text) => {
+        let shown = match resolved {
+            Resolved::Text => {
                 let Value::Text(s) = value else {
                     unreachable!("resolve checked the variant")
                 };
                 texts.push((node, s));
+                format!("{s:?}")
             }
-            Ok(Resolved::Button(state)) => buttons.push((node, state)),
-            Err(e) => problems.push(format!("{name}: {e}")),
-        }
+            Resolved::Button(state) => {
+                let shown = if state == b"Off" { "unchecked" } else { "checked" };
+                buttons.push((node, state));
+                shown.to_string()
+            }
+        };
+        written.push(Written {
+            name: node.field.name.clone(),
+            description: node.field.description.clone(),
+            value: shown,
+        });
     }
-    if !problems.is_empty() {
-        bail!("nothing written; fix these fields:\n  {}", problems.join("\n  "));
+    if written.is_empty() {
+        return Ok(Filled {
+            pdf: None,
+            written,
+            problems,
+            prefix,
+        });
     }
 
     let default_da = acroform::default_da(&doc);
@@ -87,7 +126,12 @@ pub fn fill(pdf: &[u8], values: &BTreeMap<String, Value>) -> Result<Vec<u8>> {
         acroform::set_button_state(&mut doc, node, state)?;
     }
     acroform::strip_xfa(&mut doc)?;
-    acroform::save(&mut doc)
+    Ok(Filled {
+        pdf: Some(acroform::save(&mut doc)?),
+        written,
+        problems,
+        prefix,
+    })
 }
 
 /// Burn form values into page content and drop the form, as a printed copy would be.
@@ -101,34 +145,63 @@ pub fn flatten(pdfium: &Pdfium, pdf: &[u8]) -> Result<Vec<u8>> {
     acroform::save(&mut doc)
 }
 
-/// An exact field name, or the one field whose name ends with `.{name}`.
+/// The field `name` identifies: its exact full name, else the one field whose name ends with it,
+/// else the one whose dotted segments contain its segments in order and end with its last.
+/// Surrounding quotes are ignored, and a segment without an index means `[0]`, as in XFA SOM.
 fn resolve_name<'a>(nodes: &'a HashMap<String, FieldNode>, name: &str) -> Result<&'a FieldNode> {
-    if let Some(node) = nodes.get(name) {
+    let bare = name.trim().trim_matches(['"', '\'']).trim();
+    if let Some(node) = nodes.get(bare) {
         return Ok(node);
     }
-    let suffix = format!(".{name}");
-    let mut matches: Vec<&FieldNode> = nodes.values().filter(|n| n.field.name.ends_with(&suffix)).collect();
-    match matches.len() {
-        0 => {
-            let leaf = name.rsplit('.').next().unwrap_or(name);
-            let mut similar: Vec<&str> = nodes
-                .values()
-                .map(|n| n.field.name.as_str())
-                .filter(|full| full.rsplit('.').next() == Some(leaf))
-                .collect();
-            similar.sort_unstable();
-            match similar.as_slice() {
-                [] => bail!("no such field"),
-                _ => bail!("no such field; did you mean {}?", similar.join(" or ")),
+    let wanted: Vec<String> = bare.split('.').map(indexed).collect();
+    let suffix = format!(".{}", wanted.join("."));
+    let tiers: [&dyn Fn(&str) -> bool; 2] = [&|full: &str| full.ends_with(&suffix), &|full: &str| {
+        abbreviates(&wanted, full)
+    }];
+    for matches_name in tiers {
+        let mut matches: Vec<&FieldNode> = nodes.values().filter(|n| matches_name(&n.field.name)).collect();
+        match matches.len() {
+            0 => continue,
+            1 => return Ok(matches.remove(0)),
+            _ => {
+                let mut names: Vec<&str> = matches.iter().map(|n| n.field.name.as_str()).collect();
+                names.sort_unstable();
+                bail!("ambiguous; matches {}", names.join(", "))
             }
         }
-        1 => Ok(matches.remove(0)),
-        _ => {
-            let mut names: Vec<&str> = matches.iter().map(|n| n.field.name.as_str()).collect();
-            names.sort_unstable();
-            bail!("ambiguous; matches {}", names.join(", "))
-        }
     }
+    let leaf = wanted.last().map(String::as_str).unwrap_or_default();
+    let mut similar: Vec<&str> = nodes
+        .values()
+        .map(|n| n.field.name.as_str())
+        .filter(|full| full.rsplit('.').next() == Some(leaf))
+        .collect();
+    similar.sort_unstable();
+    match similar.as_slice() {
+        [] => bail!("no such field"),
+        _ => bail!("no such field; did you mean {}?", similar.join(" or ")),
+    }
+}
+
+fn indexed(segment: &str) -> String {
+    if segment.ends_with(']') {
+        segment.to_string()
+    } else {
+        format!("{segment}[0]")
+    }
+}
+
+/// Whether `wanted` segments occur in order in `full`'s, the last matching `full`'s last.
+fn abbreviates(wanted: &[String], full: &str) -> bool {
+    let segments: Vec<String> = full.split('.').map(indexed).collect();
+    let (Some(leaf), Some(full_leaf)) = (wanted.last(), segments.last()) else {
+        return false;
+    };
+    if leaf != full_leaf {
+        return false;
+    }
+    let mut rest = segments[..segments.len() - 1].iter();
+    wanted[..wanted.len() - 1].iter().all(|w| rest.any(|s| s == w))
 }
 
 enum Resolved {
@@ -138,7 +211,10 @@ enum Resolved {
 
 fn resolve(kind: &FieldKind, value: &Value) -> Result<Resolved> {
     match (kind, value) {
-        (FieldKind::Text { max_len, .. }, Value::Text(s)) => {
+        (FieldKind::Text { max_len, multiline }, Value::Text(s)) => {
+            if !multiline && s.contains('\n') {
+                bail!("contains a line break but this field is a single line");
+            }
             if let Some(max) = max_len {
                 let len = s.chars().count();
                 if len > *max as usize {
@@ -162,6 +238,9 @@ fn resolve(kind: &FieldKind, value: &Value) -> Result<Resolved> {
                     _ => bail!("has several on-states {on_states:?}; pass one of them as a string"),
                 },
                 Value::Text(s) if s == "Off" || on_states.contains(s) => s.as_str(),
+                Value::Text(s) if s.eq_ignore_ascii_case("true") || s.eq_ignore_ascii_case("false") => {
+                    return resolve(kind, &Value::Bool(s.eq_ignore_ascii_case("true")));
+                }
                 Value::Text(s) => {
                     bail!("{s:?} is not a state of this box; use true/false or one of {on_states:?}")
                 }
@@ -191,6 +270,17 @@ mod tests {
 
     fn values(pairs: &[(&str, Value)]) -> BTreeMap<String, Value> {
         pairs.iter().map(|(k, v)| (k.to_string(), v.clone())).collect()
+    }
+
+    /// The filled PDF, asserting every value was accepted.
+    fn written(pdf: &[u8], values: &BTreeMap<String, Value>) -> Vec<u8> {
+        let filled = fill(pdf, values).unwrap();
+        assert!(filled.problems.is_empty(), "{:?}", filled.problems);
+        filled.pdf.unwrap()
+    }
+
+    fn problems(pdf: &[u8], pairs: &[(&str, Value)]) -> String {
+        fill(pdf, &values(pairs)).unwrap().problems.join("\n")
     }
 
     /// Mean darkness (0 = white, 255 = black) of a field's first widget in the flattened PDF,
@@ -244,15 +334,14 @@ mod tests {
     #[test]
     fn fill_renders_text_and_irs_checkbox_states() {
         let blank = normalize(F1040).unwrap();
-        let filled = fill(
+        let filled = written(
             &blank,
             &values(&[
                 (FIRST_NAME, Value::Text("Ada M".into())),
                 (SSN, Value::Text("123456789".into())),
                 (SINGLE, Value::Bool(true)),
             ]),
-        )
-        .unwrap();
+        );
 
         let fields = read_fields(&filled).unwrap();
         let value = |n: &str| fields.iter().find(|f| f.name == n).unwrap().value.clone();
@@ -276,16 +365,14 @@ mod tests {
     #[test]
     fn refill_keeps_earlier_values_and_can_uncheck() {
         let blank = normalize(F1040).unwrap();
-        let first = fill(
+        let first = written(
             &blank,
             &values(&[(FIRST_NAME, Value::Text("Ada".into())), (SINGLE, Value::Bool(true))]),
-        )
-        .unwrap();
-        let second = fill(
+        );
+        let second = written(
             &first,
             &values(&[(SINGLE, Value::Bool(false)), (MFJ, Value::Text("2".into()))]),
-        )
-        .unwrap();
+        );
         let fields = read_fields(&second).unwrap();
         let value = |n: &str| fields.iter().find(|f| f.name == n).unwrap().value.clone();
         assert_eq!(value(FIRST_NAME).as_deref(), Some("Ada"));
@@ -296,11 +383,10 @@ mod tests {
 
     #[test]
     fn flatten_keeps_the_ink_and_drops_the_form() {
-        let filled = fill(
+        let filled = written(
             &normalize(F1040).unwrap(),
             &values(&[(FIRST_NAME, Value::Text("Ada".into())), (SINGLE, Value::Bool(true))]),
-        )
-        .unwrap();
+        );
         let flat = flatten(pdfium(), &filled).unwrap();
         assert!(read_fields(&flat).unwrap().is_empty());
         let text = |pdf: &[u8]| {
@@ -319,27 +405,28 @@ mod tests {
 
     #[test]
     fn page_text_comes_from_the_text_layer() {
-        let filled = fill(
+        let filled = written(
             &normalize(F1040).unwrap(),
             &values(&[(FIRST_NAME, Value::Text("Ada".into()))]),
-        )
-        .unwrap();
+        );
         let pages = crate::text::page_texts(pdfium(), &flatten(pdfium(), &filled).unwrap()).unwrap();
         assert_eq!(pages.len(), 2);
         assert!(pages[0].contains("U.S. Individual Income Tax Return") && pages[0].contains("Ada"));
     }
 
     #[test]
-    fn unique_suffixes_resolve_to_full_names() {
+    fn abbreviated_names_resolve_to_full_names() {
         let blank = normalize(F1040).unwrap();
-        let filled = fill(
+        let filled = written(
             &blank,
             &values(&[
                 ("Page1[0].f1_14[0]", Value::Text("Ada".into())),
                 ("f1_15[0]", Value::Text("Lovelace".into())),
+                ("Page1.f1_16", Value::Text("123456789".into())),
+                ("'Page1[0].f1_20[0]'", Value::Text("1 Main".into())),
+                ("Address_ReadOrder.f1_22", Value::Text("Denver".into())),
             ]),
-        )
-        .unwrap();
+        );
         let fields = read_fields(&filled).unwrap();
         let value = |n: &str| fields.iter().find(|f| f.name == n).unwrap().value.clone();
         assert_eq!(value(FIRST_NAME).as_deref(), Some("Ada"));
@@ -347,53 +434,70 @@ mod tests {
             value("topmostSubform[0].Page1[0].f1_15[0]").as_deref(),
             Some("Lovelace")
         );
-
-        let err = fill(
-            &blank,
-            &values(&[
-                ("c1_8[0]", Value::Bool(true)),
-                ("f1_14[0]", Value::Text("A".into())),
-                (FIRST_NAME, Value::Text("B".into())),
-            ]),
-        )
-        .unwrap_err()
-        .to_string();
-        assert!(err.contains("c1_8[0]: ambiguous; matches topmostSubform[0].Page1[0].Checkbox_ReadOrder[0].c1_8[0], topmostSubform[0].Page1[0].c1_8[0]"), "{err}");
-        assert!(err.contains("same field as"), "{err}");
-
-        let err = fill(
-            &blank,
-            &values(&[
-                ("Page1[0].f1_20[0]", Value::Text("1 Main".into())),
-                ("Page1[0].zz_99[0]", Value::Bool(true)),
-            ]),
-        )
-        .unwrap_err()
-        .to_string();
-        assert!(
-            err.contains("Page1[0].f1_20[0]: no such field; did you mean topmostSubform[0].Page1[0].Address_ReadOrder[0].f1_20[0]?"),
-            "{err}"
+        assert_eq!(value(SSN).as_deref(), Some("123456789"));
+        assert_eq!(
+            value("topmostSubform[0].Page1[0].Address_ReadOrder[0].f1_20[0]").as_deref(),
+            Some("1 Main")
         );
-        assert!(
-            err.contains("zz_99[0]: no such field\n") || err.ends_with("zz_99[0]: no such field"),
-            "{err}"
+        assert_eq!(
+            value("topmostSubform[0].Page1[0].Address_ReadOrder[0].f1_22[0]").as_deref(),
+            Some("Denver")
         );
     }
 
     #[test]
-    fn invalid_values_are_all_reported_and_nothing_is_written() {
+    fn every_listed_name_resolves_to_its_own_field() {
+        let doc = Document::load_mem(&normalize(F1040).unwrap()).unwrap();
+        let nodes: HashMap<String, FieldNode> = acroform::collect(&doc)
+            .unwrap()
+            .into_iter()
+            .map(|n| (n.field.name.clone(), n))
+            .collect();
+        let prefix = acroform::common_prefix(nodes.keys().map(String::as_str));
+        for full in nodes.keys() {
+            let shown = full.strip_prefix(prefix).unwrap();
+            assert_eq!(resolve_name(&nodes, shown).unwrap().field.name, *full, "{shown}");
+        }
+    }
+
+    #[test]
+    fn unresolvable_names_are_explained() {
         let blank = normalize(F1040).unwrap();
-        let err = fill(
+        let err = problems(
+            &blank,
+            &[
+                ("c1_8[0]", Value::Bool(true)),
+                ("f1_14[0]", Value::Text("A".into())),
+                (FIRST_NAME, Value::Text("B".into())),
+                ("Page2[0].f1_20[0]", Value::Text("1 Main".into())),
+                ("Page1[0].zz_99[0]", Value::Bool(true)),
+            ],
+        );
+        assert!(err.contains("c1_8[0]: ambiguous; matches topmostSubform[0].Page1[0].Checkbox_ReadOrder[0].c1_8[0], topmostSubform[0].Page1[0].c1_8[0]"), "{err}");
+        assert!(err.contains("same field as"), "{err}");
+        assert!(
+            err.contains("Page2[0].f1_20[0]: no such field; did you mean topmostSubform[0].Page1[0].Address_ReadOrder[0].f1_20[0]?"),
+            "{err}"
+        );
+        assert!(err.contains("Page1[0].zz_99[0]: no such field"), "{err}");
+    }
+
+    #[test]
+    fn valid_values_are_written_and_every_invalid_one_is_reported() {
+        let blank = normalize(F1040).unwrap();
+        let filled = fill(
             &blank,
             &values(&[
                 ("nope", Value::Text("x".into())),
                 (SSN, Value::Text("123-45-6789".into())),
                 (FIRST_NAME, Value::Bool(true)),
                 (SINGLE, Value::Text("Yes".into())),
+                ("f1_15[0]", Value::Text("Lovelace".into())),
+                (MFJ, Value::Text("TRUE".into())),
             ]),
         )
-        .unwrap_err()
-        .to_string();
+        .unwrap();
+        let err = filled.problems.join("\n");
         for needle in [
             "nope: no such field",
             "exceeds this field's limit of 9; enter it without dashes or spaces",
@@ -402,5 +506,46 @@ mod tests {
         ] {
             assert!(err.contains(needle), "missing {needle:?} in:\n{err}");
         }
+        assert_eq!(filled.problems.len(), 4);
+        assert_eq!(filled.prefix, "topmostSubform[0].");
+        let shown: Vec<(&str, &str)> = filled
+            .written
+            .iter()
+            .map(|w| (w.name.as_str(), w.value.as_str()))
+            .collect();
+        assert_eq!(
+            shown,
+            [
+                ("topmostSubform[0].Page1[0].f1_15[0]", "\"Lovelace\""),
+                (MFJ, "checked")
+            ]
+        );
+        let fields = read_fields(&filled.pdf.unwrap()).unwrap();
+        let value = |n: &str| fields.iter().find(|f| f.name == n).unwrap().value.clone();
+        assert_eq!(value(MFJ).as_deref(), Some("2"));
+        assert_eq!(value(SSN), None);
+    }
+
+    #[test]
+    fn an_invalid_alias_does_not_block_the_valid_full_name() {
+        let filled = fill(
+            &normalize(F1040).unwrap(),
+            &values(&[("f1_14[0]", Value::Bool(true)), (FIRST_NAME, Value::Text("Ada".into()))]),
+        )
+        .unwrap();
+        assert_eq!(filled.problems, ["f1_14[0]: text field needs a string value"]);
+        assert_eq!(filled.written.len(), 1);
+        let err = problems(
+            &normalize(F1040).unwrap(),
+            &[(FIRST_NAME, Value::Text("Ada\nLovelace".into()))],
+        );
+        assert!(err.contains("line break"), "{err}");
+    }
+
+    #[test]
+    fn nothing_valid_writes_nothing() {
+        let filled = fill(&normalize(F1040).unwrap(), &values(&[("nope", Value::Bool(true))])).unwrap();
+        assert!(filled.pdf.is_none() && filled.written.is_empty());
+        assert_eq!(filled.problems, ["nope: no such field"]);
     }
 }
