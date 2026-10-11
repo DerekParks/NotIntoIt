@@ -246,23 +246,7 @@ fn walk(
         .collect();
 
     let ff = here.ff.unwrap_or(0);
-    let kind = match here.ft.as_deref() {
-        Some(b"Tx") => FieldKind::Text {
-            max_len: here.max_len.and_then(|m| u32::try_from(m).ok()),
-            multiline: ff & FF_MULTILINE != 0,
-        },
-        Some(b"Btn") if ff & FF_PUSHBUTTON == 0 => {
-            let states = dedup(widgets.iter().filter_map(|w| w.on_state.as_deref()).map(name_str));
-            if ff & FF_RADIO != 0 {
-                FieldKind::Radio { states }
-            } else {
-                FieldKind::Checkbox { on_states: states }
-            }
-        }
-        other => FieldKind::Other {
-            pdf_type: other.map(name_str).unwrap_or_else(|| "unknown".into()),
-        },
-    };
+    let kind = field_kind(&here, &widgets);
     let value = here.value.as_ref().and_then(|v| match v {
         Object::Name(n) => Some(name_str(n)),
         v => lopdf::decode_text_string(v).ok(),
@@ -285,6 +269,28 @@ fn walk(
         max_len: here.max_len,
     });
     Ok(())
+}
+
+/// The field's type and states, from its `/FT`, `/Ff` flags, and widget appearances.
+fn field_kind(here: &Inherited, widgets: &[Widget]) -> FieldKind {
+    let ff = here.ff.unwrap_or(0);
+    match here.ft.as_deref() {
+        Some(b"Tx") => FieldKind::Text {
+            max_len: here.max_len.and_then(|m| u32::try_from(m).ok()),
+            multiline: ff & FF_MULTILINE != 0,
+        },
+        Some(b"Btn") if ff & FF_PUSHBUTTON == 0 => {
+            let states = dedup(widgets.iter().filter_map(|w| w.on_state.as_deref()).map(name_str));
+            if ff & FF_RADIO != 0 {
+                FieldKind::Radio { states }
+            } else {
+                FieldKind::Checkbox { on_states: states }
+            }
+        }
+        other => FieldKind::Other {
+            pdf_type: other.map(name_str).unwrap_or_else(|| "unknown".into()),
+        },
+    }
 }
 
 fn on_state(doc: &Document, widget: &Dictionary) -> Option<Vec<u8>> {
