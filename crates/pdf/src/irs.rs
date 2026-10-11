@@ -88,6 +88,34 @@ mod tests {
     }
 
     #[test]
+    fn downloads_fall_back_to_the_newest_earlier_revision() {
+        let root = nii_testkit::scratch("irs");
+        nii_testkit::put(&root, "f1099int--2024.pdf", b"%PDF-1.7 int");
+        nii_testkit::put(&root, "f1040--2025.pdf", b"%PDF-1.7 current");
+        nii_testkit::put(&root, "fbroken--2025.pdf", b"<html>not a pdf</html>");
+        let base = nii_testkit::serve(root);
+
+        let current = download_from(&base, "f1040", 2025).unwrap();
+        assert_eq!((current.revision, current.bytes.as_slice()), (2025, b"%PDF-1.7 current".as_slice()));
+        assert_eq!(current.url, format!("{base}/f1040--2025.pdf"));
+
+        let continuous = download_from(&base, "f1099int", 2025).unwrap();
+        assert_eq!(continuous.revision, 2024);
+
+        let err = download_from(&base, "fbroken", 2025).err().unwrap().to_string();
+        assert_eq!(err, format!("{base}/fbroken--2025.pdf did not return a PDF"));
+
+        let err = download_from(&base, "fnope", 2025).err().unwrap().to_string();
+        assert!(err.starts_with("irs.gov has no fnope revision for tax year 2025 or the 5 years before"), "{err}");
+    }
+
+    #[test]
+    fn unreachable_mirrors_report_the_url() {
+        let err = download_from("http://127.0.0.1:9", "f1040", 2025).err().unwrap();
+        assert!(format!("{err:#}").starts_with("downloading http://127.0.0.1:9/f1040--2025.pdf"), "{err:#}");
+    }
+
+    #[test]
     fn url_is_year_pinned() {
         assert_eq!(
             form_url("f1040", 2025),
