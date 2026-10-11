@@ -6,6 +6,14 @@ on real IRS forms: it reads your documents, fetches and fills the actual
 irs.gov PDFs, shows you the result, does the math exactly, and grounds its
 answers in the Internal Revenue Code and the IRS's own instructions.
 
+![Claude Code preparing a fictional taxpayer's 2025 return with NotIntoIt, ending on the filled Form 1040](docs/demo.gif)
+
+*Claude Sonnet prepares [Jane Doe's](examples/jane-doe) 2025 return from her
+W-2, 1099s, and notes: seven forms, about 25 tool calls, two minutes (sped up
+4× in the middle). The result:*
+
+[![The filled 2025 Form 1040, pages 1 and 2](docs/filled-1040.png)](docs/filled-1040.png)
+
 **Not tax advice, and nothing is e-filed.** You get filled PDFs to review,
 print, and file yourself. Tax data you share with an assistant goes to that
 assistant's model provider (or stays on your machine with a local model);
