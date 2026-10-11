@@ -349,36 +349,7 @@ impl NiiServer {
         shown. Also reports that year's standard deduction for the filing status. Supports tax years 2024 and 2025."
     )]
     async fn compute_tax(&self, Parameters(args): Parameters<ComputeTaxArgs>) -> Result<CallToolResult, McpError> {
-        blocking(move || {
-            use nii_core::tax;
-            let fig = tax::figures(args.tax_year).with_context(|| {
-                let years: Vec<String> = tax::YEARS.iter().map(|y| y.year.to_string()).collect();
-                format!("tax year {} is not supported (supported: {})", args.tax_year, years.join(", "))
-            })?;
-            let status = tax::FilingStatus::parse(&args.filing_status).with_context(|| {
-                format!("unknown filing status {:?}; use single, married filing jointly, married filing separately, head of household, or qualifying surviving spouse", args.filing_status)
-            })?;
-            let out = tax::line16(fig, status, &tax::Line16Input {
-                taxable_income: args.taxable_income,
-                qualified_dividends: args.qualified_dividends,
-                net_capital_gain: args.net_capital_gain,
-            });
-            let lines: Vec<String> = out.lines.iter().map(|(label, v)| format!("  {label}: {}", money(*v))).collect();
-            Ok(vec![ContentBlock::text(format!(
-                "{} {}, {}:\n{}\nForm 1040 line 16 tax: {}\n\n{} standard deduction for {}: {} (Form 1040 line 12e, \
-                 before any additional amount for age 65+ or blindness). Source: {}.",
-                args.tax_year,
-                status,
-                out.method,
-                lines.join("\n"),
-                money(out.tax),
-                args.tax_year,
-                status,
-                money(fig.standard_deduction(status)),
-                fig.source,
-            ))])
-        })
-        .await
+        blocking(move || Ok(vec![ContentBlock::text(tax_report(&args)?)])).await
     }
 
     #[tool(
@@ -451,6 +422,49 @@ impl ServerHandler for NiiServer {
             .with_server_info(Implementation::new("notintoit", env!("CARGO_PKG_VERSION")).with_title("NotIntoIt"))
             .with_instructions(INSTRUCTIONS)
     }
+}
+
+/// Line 16 tax for `args`, with the worksheet lines and the year's standard deduction.
+fn tax_report(args: &ComputeTaxArgs) -> Result<String> {
+    use nii_core::tax;
+    let fig = tax::figures(args.tax_year).with_context(|| {
+        let years: Vec<String> = tax::YEARS.iter().map(|y| y.year.to_string()).collect();
+        format!(
+            "tax year {} is not supported (supported: {})",
+            args.tax_year,
+            years.join(", ")
+        )
+    })?;
+    let status = tax::FilingStatus::parse(&args.filing_status).with_context(|| {
+        format!("unknown filing status {:?}; use single, married filing jointly, married filing separately, head of household, or qualifying surviving spouse", args.filing_status)
+    })?;
+    let out = tax::line16(
+        fig,
+        status,
+        &tax::Line16Input {
+            taxable_income: args.taxable_income,
+            qualified_dividends: args.qualified_dividends,
+            net_capital_gain: args.net_capital_gain,
+        },
+    );
+    let lines: Vec<String> = out
+        .lines
+        .iter()
+        .map(|(label, v)| format!("  {label}: {}", money(*v)))
+        .collect();
+    Ok(format!(
+        "{} {}, {}:\n{}\nForm 1040 line 16 tax: {}\n\n{} standard deduction for {}: {} (Form 1040 line 12e, \
+         before any additional amount for age 65+ or blindness). Source: {}.",
+        args.tax_year,
+        status,
+        out.method,
+        lines.join("\n"),
+        money(out.tax),
+        args.tax_year,
+        status,
+        money(fig.standard_deduction(status)),
+        fig.source,
+    ))
 }
 
 /// "12,345.67", or "12,345" for whole amounts.
