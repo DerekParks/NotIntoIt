@@ -204,11 +204,13 @@ pub fn chunk_section_text(text: &str) -> Vec<String> {
     chunks
 }
 
+/// Punctuation that ends a clause in statutory text, e.g. "provided." "items:" "follows;".
+const CLAUSE_ENDINGS: [char; 3] = ['.', ':', ';'];
+/// Words at most this long are enumerators such as "(a)." or "1.", not clause endings.
+const ENUMERATOR_MAX_LEN: usize = 3;
+
 fn ends_sentence(word: &str) -> bool {
-    // "provided." / "items:" / "follows;" — legal text delimits clauses heavily.
-    matches!(word.chars().last(), Some('.') | Some(':') | Some(';'))
-        // avoid breaking after enumerators like "(a)." or "1."
-        && word.len() > 3
+    word.ends_with(CLAUSE_ENDINGS) && word.len() > ENUMERATOR_MAX_LEN
 }
 
 #[cfg(test)]
