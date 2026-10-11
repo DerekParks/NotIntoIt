@@ -65,6 +65,22 @@ pub(crate) struct FieldNode {
     pub max_len: Option<i64>,
 }
 
+/// The longest prefix ending in a dot that every name shares.
+pub fn common_prefix<'a>(names: impl IntoIterator<Item = &'a str>) -> &'a str {
+    let mut names = names.into_iter();
+    let Some(first) = names.next() else { return "" };
+    let mut end = first.len();
+    for name in names {
+        end = first[..end]
+            .char_indices()
+            .zip(name.chars())
+            .take_while(|((_, a), b)| a == b)
+            .last()
+            .map_or(0, |((i, c), _)| i + c.len_utf8());
+    }
+    first[..end].rfind('.').map_or("", |dot| &first[..=dot])
+}
+
 /// Every terminal field in the document, in AcroForm order.
 pub fn read_fields(pdf: &[u8]) -> Result<Vec<Field>> {
     let doc = Document::load_mem(pdf).context("parsing PDF")?;
@@ -393,6 +409,19 @@ mod tests {
     use super::*;
 
     pub(crate) const F1040: &[u8] = include_bytes!("../tests/fixtures/f1040--2025.pdf");
+
+    #[test]
+    fn common_prefix_stops_at_a_dot() {
+        assert_eq!(
+            common_prefix(["top[0].Page1[0].a", "top[0].Page1[0].b", "top[0].Page2[0].c"]),
+            "top[0]."
+        );
+        assert_eq!(common_prefix(["top[0].f1_1[0]", "top[0].f1_10[0]"]), "top[0].");
+        assert_eq!(common_prefix(["a.b", "c.d"]), "");
+        assert_eq!(common_prefix(["só.a", "sø.b"]), "");
+        assert_eq!(common_prefix(["top.a"]), "top.");
+        assert_eq!(common_prefix([]), "");
+    }
 
     #[test]
     fn raw_irs_form_has_no_tooltips_but_has_xfa() {

@@ -31,8 +31,8 @@ machine with a local model); everything else runs locally.
 
 Working end to end for tax year 2025 (and 2024 tax computation). Claude Sonnet
 prepares the [example taxpayer's](examples/jane-doe) complete return —
-Form 1040 with Schedules 1, 3, D, 8812 and Forms 8949 and 2441 — at 40–46/46
-on [TaxBench](#taxbench). Not yet: state returns, and scanned documents beyond
+Form 1040 with Schedules 1, 3, D, 8812 and Forms 8949 and 2441 — at 46/46
+on [TaxBench](#taxbench), and so do smaller hosted and local models. Not yet: state returns, and scanned documents beyond
 what a vision model can read.
 
 ## Install
@@ -91,10 +91,12 @@ the documents in my tax workspace."*
 | tool | what it does |
 |---|---|
 | `list_documents` / `read_document` | Lists and reads files in the tax workspace: PDF text page by page (scans are flagged for `view_pdf`), notes, CSVs. Nothing outside the workspace is readable. |
-| `fetch_irs_form` | Downloads a form for a tax year from irs.gov into `~/Taxes/<year>/forms/`. Continuous-use forms (1099s) resolve to the revision in effect. Keeps an existing working copy unless told to overwrite. |
-| `list_form_fields` | Lists a form's fields with a plain-English description of each (from the IRS form's own accessibility text), type, page, length limit, and current value. |
-| `fill_form` | Fills fields by name (or any unique suffix of one). Validates every value first — unknown or ambiguous names (with "did you mean"), over-length values, wrong types — and writes nothing if any is invalid. Can be called repeatedly. |
-| `view_pdf` | Renders a page with its filled values as an image, and can open the PDF in your viewer. |
+| `fetch_irs_form` | Downloads a form for a tax year from irs.gov into `~/Taxes/<year>/forms/`. Takes everyday names ("Schedule D", "8812", "W-2") as well as IRS file stems. Continuous-use forms (1099s) resolve to the revision in effect. Keeps an existing working copy unless told to overwrite. |
+| `list_form_fields` | Lists a form's fields with a plain-English description of each (from the IRS form's own accessibility text), type, page, length limit, and current value. Long forms list a page at a time so the listing fits in a client's tool-output limit. |
+| `fill_form` | Fills fields by name, or any unambiguous abbreviation of one (a suffix, a path missing a subform, indexes left off). Writes every valid value, rejects the rest one by one with the reason (unknown or ambiguous names with "did you mean", over-length values, wrong types), and echoes each written value next to its line's description. Can be called repeatedly. |
+| `view_pdf` | Renders a page with its filled values as an image, lists those values as text, and can open the PDF in your viewer. |
+
+Every tool stays inside the tax workspace: documents are read from it, forms are fetched into it, and `fill_form` and `view_pdf` refuse PDFs or output paths anywhere else.
 | `calculate` | Exact arithmetic for form lines, so the model never adds in its head. |
 | `compute_tax` | Form 1040 line 16 for 2024 and 2025 (Tax Table, Tax Computation Worksheet, or Qualified Dividends and Capital Gain Tax Worksheet), every line shown. Reproduces all 2,060 rows of each year's official Tax Table. |
 | `search_tax_law` | Hybrid keyword + semantic search over Title 26 of the U.S. Code and the IRS instructions for Form 1040, Schedule D, Forms 8949 and 2441, Schedule 8812, and Publications 17, 501, 503, 550. Statute hits carry a caveat when a recent amendment may not apply to every tax year. |
@@ -117,6 +119,7 @@ the command line; `NII_INDEX_URL=none` skips the download.
 |---|---|---|
 | tax workspace (your documents and forms) | `~/Taxes` | `--workspace` / `NII_WORKSPACE` |
 | caches, model, index, pdfium | platform data dir (`~/.local/share/notintoit`, `~/Library/Application Support/notintoit`) | `--data-dir` / `NII_DATA_DIR` |
+| whether `view_pdf` may open your PDF viewer | yes | `NII_NO_VIEWER=1` turns it off (headless and sandboxed servers) |
 
 ## CLI
 
@@ -138,6 +141,30 @@ How small a model can still do your taxes? `bench/` runs an agent on a
 fictional taxpayer in an isolated workspace (only the taxpayer's notes and
 documents, only NotIntoIt's tools) and grades the filled PDFs line by line
 against an answer key.
+
+![TaxBench results: form lines correct out of 46 and refunds right, for 19 models](docs/taxbench.png)
+
+| model | lines (mean /46) | refund right | $ per run |
+|---|---|---|---|
+| Claude Sonnet 5.5 (Claude Code) | 46.0 | 3/3 | 0.42 |
+| Claude Haiku 5.5 | 45.7 | 3/3 | 0.09 |
+| GPT-6 Luna | 45.7 | 3/3 | 0.03 |
+| Qwen3.8 Flash-Next, local Q4 | 44.7 | 3/3 | — |
+| Gemini 3.5 Flash-Lite | 41.3 | 1/3 | — |
+| DeepSeek V4 Flash | 35.0 | 0/3 | 0.06 |
+| Qwen 3.6 35B-A3B | 25.0 | 0/3 | 0.24 |
+| Qwen3-Next 80B-A3B | 12.0 | 0/3 | 0.16 |
+| Gemma 4 26B-A4B | 10.5 | 0/2 | 0.08 |
+| Mistral Small 3.2 24B | 8.0 | 0/1 | 0.11 |
+| 9 more models under 5 lines | 0–4.5 | none | — |
+
+The models above 44 lines all get Jane's refund right to the dollar; below
+that, the usual misses are Form 2441 Part I/II and the $15 foreign tax credit.
+The gpt-oss models plan the return and then stop without filling a form.
+Timeouts and provider errors are excluded from the means, so Gemma 4 26B,
+Mistral Small, and Ministral 3B rest on fewer than three runs. Every model
+except Sonnet ran under pi; `bench/card/make_card.py` redraws the card from
+`bench/runs/`.
 
 ```sh
 python3 bench/run.py jane-doe --agent claude --model sonnet --runs 3

@@ -38,16 +38,34 @@ def find(form_fields: list[dict], key: str) -> list[dict]:
     return [f for f in form_fields if key in norm(f.get("description")) and page in (None, f.get("page"))]
 
 
+def matches(want, got, key: str, tol: float) -> bool:
+    """Whether a field's value satisfies an answer: a string, number, checkbox state,
+    {"contains": text}, or {"any_of": [answers]} where "" stands for a blank field. A number never
+    matches a blank field."""
+    if isinstance(want, dict) and "any_of" in want:
+        return any(matches(w, got, key, tol) for w in want["any_of"])
+    if isinstance(want, dict):
+        return want["contains"].lower() in (got or "").lower()
+    if isinstance(want, bool):
+        return checked(got) == want
+    if isinstance(want, (int, float)):
+        g = amount(got)
+        return bool(str(got or "").strip()) and g is not None and abs(g - want) <= tol
+    g, w = (re.sub(r"[\s-]", "", x or "").lower() for x in (got, want))
+    first_name = re.search(r"first name|name\. first", key, re.I)
+    return g == w or bool(first_name and w and re.fullmatch(re.escape(w) + r"[a-z]?\.?", g))
+
+
 def grade(answers: dict, forms_dir: Path, nii: str) -> dict:
     tol = answers.get("tolerance_dollars", 1)
     results, problems = [], []
     for stem, spec in answers["forms"].items():
         pdf = Path(forms_dir) / f"{stem}.pdf"
-        if not pdf.exists():
+        ff = fields(nii, pdf) if pdf.exists() else []
+        if not any(f.get("value") for f in ff):
             for key in spec["fields"]:
-                results.append((stem, key, spec["fields"][key], "MISSING FORM", False))
+                results.append((stem, key, spec["fields"][key], "BLANK FORM" if pdf.exists() else "MISSING FORM", False))
             continue
-        ff = fields(nii, pdf)
         for key, want in spec["fields"].items():
             hits = find(ff, key)
             if len(hits) != 1:
@@ -55,18 +73,7 @@ def grade(answers: dict, forms_dir: Path, nii: str) -> dict:
                 results.append((stem, key, want, f"<{len(hits)} matches>", False))
                 continue
             got = hits[0].get("value")
-            if isinstance(want, dict):
-                ok = want["contains"].lower() in (got or "").lower()
-            elif isinstance(want, bool):
-                ok = checked(got) == want
-            elif isinstance(want, (int, float)):
-                g = amount(got)
-                ok = g is not None and abs(g - want) <= tol
-            else:
-                g, w = (re.sub(r"[\s-]", "", x or "").lower() for x in (got, want))
-                first_name = re.search(r"first name|name\. first", key, re.I)
-                ok = g == w or bool(first_name and re.fullmatch(re.escape(w) + r"[a-z]?\.?", g))
-            results.append((stem, key, want, got, ok))
+            results.append((stem, key, want, got, matches(want, got, key, tol)))
     extra = [s for s in answers.get("not_required", []) if (Path(forms_dir) / f"{s}.pdf").exists()]
     passed = sum(r[4] for r in results)
     return {

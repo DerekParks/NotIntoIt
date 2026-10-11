@@ -4,7 +4,7 @@ use anyhow::{Context, Result, bail};
 use std::io::Read;
 
 /// Normalize a form name to its IRS file stem: "1040" -> "f1040", "W-2" -> "fw2",
-/// "Form 1040-SR" -> "f1040sr". Schedules need the stem itself ("f1040s1").
+/// "Form 1040-SR" -> "f1040sr", "Schedule D" or "sd" -> "f1040sd", "8812" -> "f1040s8".
 pub fn form_stem(form: &str) -> Result<String> {
     let mut s: String = form
         .trim()
@@ -12,20 +12,43 @@ pub fn form_stem(form: &str) -> Result<String> {
         .chars()
         .filter(char::is_ascii_alphanumeric)
         .collect();
-    if let Some(rest) = s.strip_prefix("form") {
-        s = rest.to_string();
+    for prefix in ["form", "f"] {
+        if let Some(rest) = s.strip_prefix(prefix) {
+            s = rest.to_string();
+        }
     }
     if s.is_empty() {
         bail!("empty form name");
     }
-    if !s.starts_with('f') {
-        s.insert(0, 'f');
+    if s == "se" || s == "8812" {
+        return Ok(if s == "se" { "f1040sse" } else { "f1040s8" }.to_string());
     }
-    Ok(s)
+    let explicit = ["1040schedule", "1040sch", "schedule", "sch"];
+    let mut prefixes = explicit.iter().chain(["1040s", "s"].iter());
+    if let Some((prefix, rest)) = prefixes.find_map(|p| s.strip_prefix(p).map(|rest| (*p, rest))) {
+        let rest = rest
+            .strip_suffix("form1040")
+            .or_else(|| rest.strip_suffix("1040"))
+            .unwrap_or(rest);
+        let rest = if rest == "8812" { "8" } else { rest };
+        if SCHEDULES.contains(&rest) {
+            return Ok(format!("f1040s{rest}"));
+        }
+        if explicit.contains(&prefix) {
+            bail!(
+                "unknown Form 1040 schedule {rest:?}; the schedules are {}",
+                SCHEDULES.join(", ")
+            );
+        }
+    }
+    Ok(format!("f{s}"))
 }
 
 /// Where irs.gov keeps every published revision of each form.
 pub const IRS_PRIOR: &str = "https://www.irs.gov/pub/irs-prior";
+
+/// Form 1040 schedules, by the suffix of their stem (Schedule 8812 is f1040s8).
+const SCHEDULES: [&str; 13] = ["1", "2", "3", "8", "a", "b", "c", "d", "e", "f", "h", "j", "se"];
 
 pub fn form_url(stem: &str, tax_year: u16) -> String {
     revision_url(IRS_PRIOR, stem, tax_year)
@@ -69,7 +92,8 @@ pub fn download_from(base: &str, stem: &str, tax_year: u16) -> Result<Download> 
     }
     bail!(
         "irs.gov has no {stem} revision for tax year {tax_year} or the {REVISION_LOOKBACK} years before; \
-         check the form name (IRS file stems look like f1040, f1040s1, f1040sb, fw2, f1099int, f8949)"
+         check the form name (IRS file stems look like f1040, f1040s1, f1040sd, f1040s8 for Schedule 8812, \
+         fw2, f1099int, f8949, f2441)"
     )
 }
 
@@ -84,6 +108,39 @@ mod tests {
         assert_eq!(form_stem("W-2").unwrap(), "fw2");
         assert_eq!(form_stem("Form 1040-SR").unwrap(), "f1040sr");
         assert_eq!(form_stem(" 8949 ").unwrap(), "f8949");
+        for schedule_d in [
+            "Schedule D",
+            "sd",
+            "fsd",
+            "sch d",
+            "f1040sd",
+            "1040 Schedule D",
+            "sd1040",
+            "schedule-d",
+        ] {
+            assert_eq!(form_stem(schedule_d).unwrap(), "f1040sd", "{schedule_d}");
+        }
+        for s8812 in ["8812", "f8812", "s8812", "f1040s8812", "Schedule 8812", "f1040s8"] {
+            assert_eq!(form_stem(s8812).unwrap(), "f1040s8", "{s8812}");
+        }
+        assert_eq!(form_stem("Schedule SE").unwrap(), "f1040sse");
+        assert_eq!(form_stem("SE").unwrap(), "f1040sse");
+        assert_eq!(form_stem("1040 Sch A").unwrap(), "f1040sa");
+        assert_eq!(form_stem("Schedule 3 (Form 1040)").unwrap(), "f1040s3");
+        assert!(
+            form_stem("Schedule C-EZ")
+                .unwrap_err()
+                .to_string()
+                .contains("unknown Form 1040 schedule")
+        );
+        assert!(form_stem("Schedule K-1").is_err());
+        assert_eq!(form_stem("2441").unwrap(), "f2441");
+        assert_eq!(form_stem("f1099int").unwrap(), "f1099int");
+        assert_eq!(form_stem("1099-INT").unwrap(), "f1099int");
+        assert_eq!(form_stem("fw2").unwrap(), "fw2");
+        assert_eq!(form_stem("1040-SR").unwrap(), "f1040sr");
+        assert_eq!(form_stem("1040-ES").unwrap(), "f1040es");
+        assert_eq!(form_stem("SS-4").unwrap(), "fss4");
         assert!(form_stem(" - ").is_err());
     }
 

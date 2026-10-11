@@ -17,6 +17,7 @@ pub struct Entry {
 /// Every file under `dir` (relative to `workspace`), sorted, hidden files skipped.
 pub fn list(workspace: &Path, dir: &Path) -> Result<Vec<Entry>> {
     let root = contained(workspace, dir)?;
+    let workspace = workspace.canonicalize()?;
     let mut out = Vec::new();
     let mut pending = vec![root];
     while let Some(dir) = pending.pop() {
@@ -25,11 +26,14 @@ pub fn list(workspace: &Path, dir: &Path) -> Result<Vec<Entry>> {
             if entry.file_name().to_string_lossy().starts_with('.') {
                 continue;
             }
-            let meta = entry.metadata()?;
+            let meta = entry.path().symlink_metadata()?;
+            if meta.is_symlink() {
+                continue;
+            }
             if meta.is_dir() {
                 pending.push(entry.path());
             } else {
-                let relative = entry.path().strip_prefix(workspace.canonicalize()?)?.to_path_buf();
+                let relative = entry.path().strip_prefix(&workspace)?.to_path_buf();
                 out.push(Entry {
                     relative,
                     bytes: meta.len(),
@@ -102,7 +106,7 @@ pub fn read(workspace: &Path, path: &Path, pdf_text: impl FnOnce(&[u8]) -> Resul
 }
 
 /// `path` (absolute or workspace-relative) resolved, refusing anything outside the workspace.
-fn contained(workspace: &Path, path: &Path) -> Result<PathBuf> {
+pub fn contained(workspace: &Path, path: &Path) -> Result<PathBuf> {
     let root = workspace
         .canonicalize()
         .with_context(|| format!("workspace {} does not exist", workspace.display()))?;
@@ -110,10 +114,29 @@ fn contained(workspace: &Path, path: &Path) -> Result<PathBuf> {
         .join(path)
         .canonicalize()
         .with_context(|| format!("{} does not exist", path.display()))?;
-    if !full.starts_with(&root) {
+    inside(&root, full, path)
+}
+
+/// Like `contained` for a file that may not exist yet: its directory must be in the workspace.
+pub fn contained_new(workspace: &Path, path: &Path) -> Result<PathBuf> {
+    let root = workspace
+        .canonicalize()
+        .with_context(|| format!("workspace {} does not exist", workspace.display()))?;
+    let full = root.join(path);
+    let name = full.file_name().context("path has no file name")?.to_owned();
+    let dir = full
+        .parent()
+        .context("path has no parent directory")?
+        .canonicalize()
+        .with_context(|| format!("the directory of {} does not exist", path.display()))?;
+    inside(&root, dir.join(name), path)
+}
+
+fn inside(root: &Path, full: PathBuf, shown: &Path) -> Result<PathBuf> {
+    if !full.starts_with(root) {
         bail!(
-            "{} is outside the tax workspace {}; only files in the workspace can be read",
-            path.display(),
+            "{} is outside the tax workspace {}; only files in the workspace can be used",
+            shown.display(),
             root.display()
         );
     }
@@ -179,6 +202,10 @@ mod tests {
             assert!(listed.contains("outside the tax workspace"), "{escape}: {listed}");
         }
         assert!(read(&ws, Path::new("2025/.hidden"), |_| unreachable!()).is_err());
+        let new = contained_new(&ws, Path::new("2025/documents/../new.pdf")).unwrap();
+        assert_eq!(new, ws.canonicalize().unwrap().join("2025/new.pdf"));
+        assert!(contained_new(&ws, Path::new("2025/../../escape.pdf")).is_err());
+        assert!(contained_new(&ws, Path::new("2025/missing-dir/x.pdf")).is_err());
         let _ = std::fs::remove_dir_all(ws);
     }
 }
