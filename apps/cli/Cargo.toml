@@ -4,6 +4,9 @@ edition.workspace = true
 version.workspace = true
 license.workspace = true
 rust-version.workspace = true
+repository.workspace = true
+description = "LLM-assisted US tax prep: an MCP server that fills real IRS forms"
+homepage = "https://github.com/DerekParks/NotIntoIt"
 
 [dependencies]
 anyhow.workspace = true

@@ -6,6 +6,7 @@ members = ["crates/*", "apps/*", "spikes"]
 edition = "2024"
 version = "0.1.0"
 license = "MIT"
+repository = "https://github.com/DerekParks/NotIntoIt"
 rust-version = "1.89"
 
 [workspace.dependencies]
@@ -14,3 +15,8 @@ anyhow = "1"
 [profile.dev.package."*"]
 # Keep dependency compilation tolerable; spikes are I/O and FFI heavy anyway.
 opt-level = 2
+
+# The profile that 'dist' will build with
+[profile.dist]
+inherits = "release"
+lto = "thin"
