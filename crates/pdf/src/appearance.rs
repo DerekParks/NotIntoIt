@@ -39,16 +39,7 @@ pub(crate) fn set_text_appearance(doc: &mut Document, widget: ObjectId, style: &
     let multiline = style.flags & FF_MULTILINE != 0;
     let comb = style.flags & FF_COMB != 0 && !multiline;
 
-    let size = match size {
-        s if s > 0.0 => s,
-        _ if multiline => AUTO_SIZE_MAX.min(h - 2.0 * PADDING).max(AUTO_SIZE_MIN),
-        _ => {
-            let by_height = (h - 2.0 * PADDING) / (metrics.ascent - metrics.descent);
-            let units = metrics.width(&bytes).max(1.0);
-            let by_width = (w - 2.0 * PADDING) * 1000.0 / units;
-            by_height.min(by_width).clamp(AUTO_SIZE_MIN, AUTO_SIZE_MAX)
-        }
-    };
+    let size = font_size(size, multiline, w, h, &metrics, &bytes);
     let text_w = |b: &[u8]| metrics.width(b) * size / 1000.0;
     let x_for = |b: &[u8]| match style.quadding {
         1 => (w - text_w(b)) / 2.0,
@@ -174,6 +165,20 @@ impl FontMetrics {
                     .unwrap_or(self.missing)
             })
             .sum()
+    }
+}
+
+/// The `/DA` size, or for auto-size (0) the largest that fits a `w`×`h` box, within bounds.
+fn font_size(da_size: f32, multiline: bool, w: f32, h: f32, metrics: &FontMetrics, text: &[u8]) -> f32 {
+    match da_size {
+        s if s > 0.0 => s,
+        _ if multiline => AUTO_SIZE_MAX.min(h - 2.0 * PADDING).max(AUTO_SIZE_MIN),
+        _ => {
+            let by_height = (h - 2.0 * PADDING) / (metrics.ascent - metrics.descent);
+            let units = metrics.width(text).max(1.0);
+            let by_width = (w - 2.0 * PADDING) * 1000.0 / units;
+            by_height.min(by_width).clamp(AUTO_SIZE_MIN, AUTO_SIZE_MAX)
+        }
     }
 }
 
