@@ -5,7 +5,8 @@ use anyhow::{Context, Result};
 use std::io::Read;
 use std::path::{Path, PathBuf};
 
-const USC_DOWNLOAD_PAGE: &str = "https://uscode.house.gov/download/download.shtml";
+/// The Office of the Law Revision Counsel's download area.
+pub const USC_DOWNLOADS: &str = "https://uscode.house.gov/download";
 /// Fallback release point, verified 2026-07-06.
 const USC26_FALLBACK: (u32, u32) = (119, 100);
 
@@ -18,6 +19,11 @@ pub struct Usc26 {
 /// Download (or reuse cached) Title 26 USLM XML. Returns the XML path and the
 /// release point it corresponds to.
 pub fn fetch_usc26(data_dir: &Path, force: bool) -> Result<Usc26> {
+    fetch_usc26_from(USC_DOWNLOADS, data_dir, force)
+}
+
+/// [`fetch_usc26`] from a mirror laid out like [`USC_DOWNLOADS`].
+pub fn fetch_usc26_from(base: &str, data_dir: &Path, force: bool) -> Result<Usc26> {
     let dir = data_dir.join("corpus");
     std::fs::create_dir_all(&dir)?;
     let xml_path = dir.join("usc26.xml");
@@ -31,10 +37,9 @@ pub fn fetch_usc26(data_dir: &Path, force: bool) -> Result<Usc26> {
         });
     }
 
-    let (congress, law) = latest_usc26_release_point().unwrap_or(USC26_FALLBACK);
+    let (congress, law) = latest_usc26_release_point(base).unwrap_or(USC26_FALLBACK);
     let release_point = format!("{congress}-{law}");
-    let url =
-        format!("https://uscode.house.gov/download/releasepoints/us/pl/{congress}/{law}/xml_usc26@{release_point}.zip");
+    let url = format!("{base}/releasepoints/us/pl/{congress}/{law}/xml_usc26@{release_point}.zip");
     let zip_bytes = get_bytes(&url).with_context(|| format!("downloading {url}"))?;
 
     let mut archive = zip::ZipArchive::new(std::io::Cursor::new(zip_bytes))?;
@@ -53,8 +58,8 @@ pub fn fetch_usc26(data_dir: &Path, force: bool) -> Result<Usc26> {
 }
 
 /// Scrape the download page for the newest usc26 release point.
-fn latest_usc26_release_point() -> Option<(u32, u32)> {
-    let html = get_string(USC_DOWNLOAD_PAGE).ok()?;
+fn latest_usc26_release_point(base: &str) -> Option<(u32, u32)> {
+    let html = get_string(&format!("{base}/download.shtml")).ok()?;
     let mut best: Option<(u32, u32)> = None;
     for m in html.match_indices("xml_usc26@") {
         let tail = &html[m.0 + "xml_usc26@".len()..];
