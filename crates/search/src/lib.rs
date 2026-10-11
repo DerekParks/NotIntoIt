@@ -154,8 +154,6 @@ pub fn search(
         "SELECT source, citation, section_path, heading, url, text, caveat
          FROM chunks WHERE id = ?1",
     )?;
-    // Dedup by citation: several chunks of one long section shouldn't crowd
-    // out other sections; the best-ranked chunk represents it.
     let mut seen_citations = std::collections::HashSet::new();
     let mut hits = Vec::with_capacity(limit);
     for (id, score) in fused {

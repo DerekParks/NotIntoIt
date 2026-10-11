@@ -229,7 +229,7 @@ pub fn parse_usc_reader<R: BufRead>(input: R) -> Result<Vec<Section>> {
                             containers.pop();
                         }
                         n if section.is_some() && !INLINE.contains(&n) => {
-                            // Block boundary: keep words from fusing across elements.
+                            // A block element ended.
                             if let Some(s) = section.as_mut() {
                                 s.text.push(' ');
                             }
