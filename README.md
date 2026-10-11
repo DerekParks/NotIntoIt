@@ -38,10 +38,10 @@ what a vision model can read, the desktop app ([PLAN.md](PLAN.md)).
 Requires Rust 1.89+.
 
 ```sh
-cargo install --path apps/cli --locked
+cargo install --git https://github.com/DerekParks/NotIntoIt nii --locked
 ```
 
-This installs one binary, `nii`. It is self-contained apart from pdfium, which
+This builds and installs one binary, `nii` (from a clone: `cargo install --path apps/cli --locked`). It is self-contained apart from pdfium, which
 it downloads on first use.
 
 ## Use it from an assistant (MCP)
