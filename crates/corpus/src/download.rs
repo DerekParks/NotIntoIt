@@ -102,14 +102,21 @@ mod tests {
             r#"<a href="releasepoints/us/pl/118/5/xml_usc26@118-5.zip">old</a>
                <a href="releasepoints/us/pl/119/90/xml_usc26@119-90.zip">newest</a>"#,
         );
-        nii_testkit::put(&mirror, "releasepoints/us/pl/119/90/xml_usc26@119-90.zip", zip_with("usc26.xml", b"<uscDoc/>"));
+        nii_testkit::put(
+            &mirror,
+            "releasepoints/us/pl/119/90/xml_usc26@119-90.zip",
+            zip_with("usc26.xml", b"<uscDoc/>"),
+        );
         let base = nii_testkit::serve(mirror);
 
         let data = nii_testkit::scratch("usc-data");
         let usc = fetch_usc26_from(&base, &data, false).unwrap();
         assert_eq!(usc.release_point, "119-90");
         assert_eq!(std::fs::read(&usc.xml_path).unwrap(), b"<uscDoc/>");
-        assert_eq!(std::fs::read_to_string(data.join("corpus/usc26.release.txt")).unwrap(), "119-90");
+        assert_eq!(
+            std::fs::read_to_string(data.join("corpus/usc26.release.txt")).unwrap(),
+            "119-90"
+        );
     }
 
     /// Suspected bug, pinned: one malformed link discards the whole listing.
@@ -127,12 +134,20 @@ mod tests {
     #[test]
     fn falls_back_to_the_known_release_point_when_the_listing_is_unavailable() {
         let mirror = nii_testkit::scratch("usc-fallback");
-        nii_testkit::put(&mirror, "releasepoints/us/pl/119/100/xml_usc26@119-100.zip", zip_with("other.xml", b"x"));
+        nii_testkit::put(
+            &mirror,
+            "releasepoints/us/pl/119/100/xml_usc26@119-100.zip",
+            zip_with("other.xml", b"x"),
+        );
         let base = nii_testkit::serve(mirror);
-        let err = fetch_usc26_from(&base, &nii_testkit::scratch("usc-fallback-data"), true).err().unwrap();
+        let err = fetch_usc26_from(&base, &nii_testkit::scratch("usc-fallback-data"), true)
+            .err()
+            .unwrap();
         assert_eq!(err.to_string(), "usc26.xml missing from release zip");
 
-        let err = fetch_usc26_from("http://127.0.0.1:9", &nii_testkit::scratch("usc-down"), false).err().unwrap();
+        let err = fetch_usc26_from("http://127.0.0.1:9", &nii_testkit::scratch("usc-down"), false)
+            .err()
+            .unwrap();
         assert_eq!(
             err.to_string(),
             "downloading http://127.0.0.1:9/releasepoints/us/pl/119/100/xml_usc26@119-100.zip"

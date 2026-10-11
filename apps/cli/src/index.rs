@@ -449,7 +449,9 @@ mod tests {
             nii_testkit::put(
                 &data,
                 &format!("corpus/irs/{name}.html"),
-                format!("<html><head><title>{name} | IRS</title></head><body><article><h2>A</h2><p>Text.</p></article></body></html>"),
+                format!(
+                    "<html><head><title>{name} | IRS</title></head><body><article><h2>A</h2><p>Text.</p></article></body></html>"
+                ),
             );
         }
         data
@@ -470,7 +472,10 @@ mod tests {
             &data,
             &db,
             &lock,
-            &BuildOptions { batch_size: 4, ..BuildOptions::default() },
+            &BuildOptions {
+                batch_size: 4,
+                ..BuildOptions::default()
+            },
             &mut |p| {
                 events.push(match p {
                     Progress::Fetching { .. } => "fetching".to_string(),
@@ -479,7 +484,11 @@ mod tests {
                     Progress::Embedding { done, total } => format!("{done}/{total}"),
                 })
             },
-            &mut || Ok(Box::new(move |texts: &[String]| Ok((0..texts.len()).map(unit).collect()))),
+            &mut || {
+                Ok(Box::new(move |texts: &[String]| {
+                    Ok((0..texts.len()).map(unit).collect())
+                }))
+            },
         )
         .unwrap();
 
@@ -499,14 +508,23 @@ mod tests {
         let data = cached_corpus();
         let db = data.join("index.db");
         let lock = try_lock(&db).unwrap().unwrap();
-        let options = BuildOptions { limit_chunks: Some(2), ..BuildOptions::default() };
+        let options = BuildOptions {
+            limit_chunks: Some(2),
+            ..BuildOptions::default()
+        };
         let built = build_with(&data, &db, &lock, &options, &mut |_| {}, &mut || {
-            Ok(Box::new(|texts: &[String]| Ok(vec![vec![1.0; nii_search::DIM]; texts.len()])))
+            Ok(Box::new(|texts: &[String]| {
+                Ok(vec![vec![1.0; nii_search::DIM]; texts.len()])
+            }))
         })
         .unwrap();
         assert_eq!(built.chunks, 2);
 
-        let err = build_with(&data, &db, &lock, &options, &mut |_| {}, &mut || anyhow::bail!("no model")).err().unwrap();
+        let err = build_with(&data, &db, &lock, &options, &mut |_| {}, &mut || {
+            anyhow::bail!("no model")
+        })
+        .err()
+        .unwrap();
         assert_eq!(err.to_string(), "no model");
     }
 
@@ -514,9 +532,17 @@ mod tests {
     fn cuda_requests_fail_without_the_cuda_feature() {
         let dir = crate::testutil::scratch("cuda");
         let lock = try_lock(&dir.join("index.db")).unwrap().unwrap();
-        let options = BuildOptions { cuda_device: Some(0), ..BuildOptions::default() };
-        let err = build(&dir, &dir.join("index.db"), &lock, &options, &mut |_| {}).err().unwrap();
-        assert_eq!(err.to_string(), "a CUDA device was requested but this binary was built without the cuda feature");
+        let options = BuildOptions {
+            cuda_device: Some(0),
+            ..BuildOptions::default()
+        };
+        let err = build(&dir, &dir.join("index.db"), &lock, &options, &mut |_| {})
+            .err()
+            .unwrap();
+        assert_eq!(
+            err.to_string(),
+            "a CUDA device was requested but this binary was built without the cuda feature"
+        );
     }
 
     #[test]

@@ -96,7 +96,10 @@ mod tests {
         let base = nii_testkit::serve(root);
 
         let current = download_from(&base, "f1040", 2025).unwrap();
-        assert_eq!((current.revision, current.bytes.as_slice()), (2025, b"%PDF-1.7 current".as_slice()));
+        assert_eq!(
+            (current.revision, current.bytes.as_slice()),
+            (2025, b"%PDF-1.7 current".as_slice())
+        );
         assert_eq!(current.url, format!("{base}/f1040--2025.pdf"));
 
         let continuous = download_from(&base, "f1099int", 2025).unwrap();
@@ -106,13 +109,19 @@ mod tests {
         assert_eq!(err, format!("{base}/fbroken--2025.pdf did not return a PDF"));
 
         let err = download_from(&base, "fnope", 2025).err().unwrap().to_string();
-        assert!(err.starts_with("irs.gov has no fnope revision for tax year 2025 or the 5 years before"), "{err}");
+        assert!(
+            err.starts_with("irs.gov has no fnope revision for tax year 2025 or the 5 years before"),
+            "{err}"
+        );
     }
 
     #[test]
     fn unreachable_mirrors_report_the_url() {
         let err = download_from("http://127.0.0.1:9", "f1040", 2025).err().unwrap();
-        assert!(format!("{err:#}").starts_with("downloading http://127.0.0.1:9/f1040--2025.pdf"), "{err:#}");
+        assert!(
+            format!("{err:#}").starts_with("downloading http://127.0.0.1:9/f1040--2025.pdf"),
+            "{err:#}"
+        );
     }
 
     #[test]

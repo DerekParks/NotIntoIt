@@ -517,6 +517,53 @@ mod tests {
         stats(&db).unwrap();
     }
 
+    fn run_args(args: &[&str]) -> Result<()> {
+        run(Cli::try_parse_from(std::iter::once("nii").chain(args.iter().copied())).unwrap())
+    }
+
+    #[test]
+    fn run_dispatches_corpus_and_form_commands() {
+        let dir = testutil::scratch("cli-run");
+        let (data, db, ws) = (testutil::data_dir(), dir.join("index.db"), dir.join("ws"));
+        let (data, db, ws) = (data.to_str().unwrap(), db.to_str().unwrap(), ws.to_str().unwrap());
+        testutil::tiny_index(&dir.join("index.db"));
+
+        let out = dir.join("packed");
+        run_args(&["--data-dir", data, "--db", db, "corpus", "stats"]).unwrap();
+        run_args(&["--db", db, "corpus", "pack", "--output", out.to_str().unwrap()]).unwrap();
+        let base = testutil::serve(out);
+        let fetched = dir.join("fetched.db");
+        run_args(&[
+            "--db",
+            fetched.to_str().unwrap(),
+            "corpus",
+            "fetch",
+            "--url",
+            &format!("{base}/{}", index::ASSET),
+        ])
+        .unwrap();
+        assert!(index::is_ready(&fetched));
+
+        run_args(&[
+            "--data-dir",
+            data,
+            "--workspace",
+            ws,
+            "form",
+            "fetch",
+            "1040",
+            "--year",
+            "2025",
+        ])
+        .unwrap();
+        assert!(dir.join("ws/2025/forms/f1040.pdf").exists());
+
+        let err = run_args(&["--db", db, "search", "--source", "blog", "gross", "income"]).unwrap_err();
+        assert_eq!(err.to_string(), "unknown source 'blog' (usc, cfr, irs-pub, irs-instr)");
+        let err = run_args(&["--data-dir", data, "--db", db, "corpus", "build", "--cuda-device", "0"]).unwrap_err();
+        assert!(err.to_string().starts_with("a CUDA device was requested"), "{err}");
+    }
+
     #[test]
     fn snippets_cut_on_char_boundaries() {
         assert_eq!(snippet("short", 10), "short");

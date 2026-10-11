@@ -114,8 +114,15 @@ mod tests {
         let data = nii_testkit::scratch("pdfium-data");
         let installed = install_from(&base, &data).unwrap();
         assert_eq!(std::fs::read(&installed).unwrap(), b"library");
-        assert_eq!(installed, data.join("pdfium").join(format!("chromium-{PDFIUM_RELEASE}")).join(lib));
-        assert_eq!(std::fs::read_dir(data.join("pdfium")).unwrap().count(), 1, "staging dir left behind");
+        assert_eq!(
+            installed,
+            data.join("pdfium").join(format!("chromium-{PDFIUM_RELEASE}")).join(lib)
+        );
+        assert_eq!(
+            std::fs::read_dir(data.join("pdfium")).unwrap().count(),
+            1,
+            "staging dir left behind"
+        );
 
         nii_testkit::put(&mirror, &release, tgz(&[("README", b"no library here")]));
         let empty = nii_testkit::scratch("pdfium-empty");
@@ -123,7 +130,10 @@ mod tests {
         assert_eq!(err, format!("{base}/{release} has no {lib}"));
 
         let err = install_from("http://127.0.0.1:9", &nii_testkit::scratch("pdfium-down")).unwrap_err();
-        assert!(format!("{err:#}").starts_with("downloading http://127.0.0.1:9/chromium/"), "{err:#}");
+        assert!(
+            format!("{err:#}").starts_with("downloading http://127.0.0.1:9/chromium/"),
+            "{err:#}"
+        );
     }
 
     #[test]
