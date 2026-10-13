@@ -2214,6 +2214,7 @@ dependencies = [
  "nii-search",
  "nii-testkit",
  "open",
+ "regex",
  "rmcp",
  "schemars",
  "serde",

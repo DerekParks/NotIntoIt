@@ -4,7 +4,7 @@ use anyhow::{Context, Result, bail};
 use std::io::Read;
 
 /// Normalize a form name to its IRS file stem: "1040" -> "f1040", "W-2" -> "fw2",
-/// "Form 1040-SR" -> "f1040sr", "Schedule D" or "sd" -> "f1040sd", "8812" -> "f1040s8".
+/// "Form 1040-SR" -> "f1040s", "Schedule D" or "sd" -> "f1040sd", "8812" -> "f1040s8".
 pub fn form_stem(form: &str) -> Result<String> {
     let mut s: String = form
         .trim()
@@ -12,6 +12,14 @@ pub fn form_stem(form: &str) -> Result<String> {
         .chars()
         .filter(char::is_ascii_alphanumeric)
         .collect();
+    // The IRS's f1040sr is Schedule R, while the senior return is f1040s.
+    // Preserve explicit file stems and distinguish everyday Form 1040-SR names.
+    if matches!(s.as_str(), "1040sr" | "form1040sr") {
+        return Ok("f1040s".to_owned());
+    }
+    if s == "eic" {
+        return Ok("f1040sei".to_owned());
+    }
     for prefix in ["form", "f"] {
         if let Some(rest) = s.strip_prefix(prefix) {
             s = rest.to_string();
@@ -30,7 +38,11 @@ pub fn form_stem(form: &str) -> Result<String> {
             .strip_suffix("form1040")
             .or_else(|| rest.strip_suffix("1040"))
             .unwrap_or(rest);
-        let rest = if rest == "8812" { "8" } else { rest };
+        let rest = match rest {
+            "8812" => "8",
+            "eic" => "ei",
+            other => other,
+        };
         if SCHEDULES.contains(&rest) {
             return Ok(format!("f1040s{rest}"));
         }
@@ -48,7 +60,9 @@ pub fn form_stem(form: &str) -> Result<String> {
 pub const IRS_PRIOR: &str = "https://www.irs.gov/pub/irs-prior";
 
 /// Form 1040 schedules, by the suffix of their stem (Schedule 8812 is f1040s8).
-const SCHEDULES: [&str; 13] = ["1", "2", "3", "8", "a", "b", "c", "d", "e", "f", "h", "j", "se"];
+const SCHEDULES: [&str; 16] = [
+    "1", "1a", "2", "3", "8", "a", "b", "c", "d", "e", "ei", "f", "h", "j", "r", "se",
+];
 
 pub fn form_url(stem: &str, tax_year: u16) -> String {
     revision_url(IRS_PRIOR, stem, tax_year)
@@ -106,7 +120,7 @@ mod tests {
         assert_eq!(form_stem("1040").unwrap(), "f1040");
         assert_eq!(form_stem("f1040s1").unwrap(), "f1040s1");
         assert_eq!(form_stem("W-2").unwrap(), "fw2");
-        assert_eq!(form_stem("Form 1040-SR").unwrap(), "f1040sr");
+        assert_eq!(form_stem("Form 1040-SR").unwrap(), "f1040s");
         assert_eq!(form_stem(" 8949 ").unwrap(), "f8949");
         for schedule_d in [
             "Schedule D",
@@ -138,7 +152,13 @@ mod tests {
         assert_eq!(form_stem("f1099int").unwrap(), "f1099int");
         assert_eq!(form_stem("1099-INT").unwrap(), "f1099int");
         assert_eq!(form_stem("fw2").unwrap(), "fw2");
-        assert_eq!(form_stem("1040-SR").unwrap(), "f1040sr");
+        assert_eq!(form_stem("1040-SR").unwrap(), "f1040s");
+        assert_eq!(form_stem("f1040s").unwrap(), "f1040s");
+        assert_eq!(form_stem("f1040sr").unwrap(), "f1040sr");
+        assert_eq!(form_stem("Schedule R").unwrap(), "f1040sr");
+        assert_eq!(form_stem("1040 Schedule R").unwrap(), "f1040sr");
+        assert_eq!(form_stem("Schedule EIC").unwrap(), "f1040sei");
+        assert_eq!(form_stem("EIC").unwrap(), "f1040sei");
         assert_eq!(form_stem("1040-ES").unwrap(), "f1040es");
         assert_eq!(form_stem("SS-4").unwrap(), "fss4");
         assert!(form_stem(" - ").is_err());

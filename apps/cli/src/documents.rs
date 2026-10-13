@@ -123,6 +123,11 @@ pub fn contained_new(workspace: &Path, path: &Path) -> Result<PathBuf> {
         .canonicalize()
         .with_context(|| format!("workspace {} does not exist", workspace.display()))?;
     let full = root.join(path);
+    if full.symlink_metadata().is_ok() {
+        // Existing output paths obey the same containment rule as inputs,
+        // including symlinks (and refusing dangling links).
+        return contained(&root, path);
+    }
     let name = full.file_name().context("path has no file name")?.to_owned();
     let dir = full
         .parent()
@@ -207,5 +212,28 @@ mod tests {
         assert!(contained_new(&ws, Path::new("2025/../../escape.pdf")).is_err());
         assert!(contained_new(&ws, Path::new("2025/missing-dir/x.pdf")).is_err());
         let _ = std::fs::remove_dir_all(ws);
+    }
+
+    #[cfg(unix)]
+    #[test]
+    fn output_paths_refuse_external_and_dangling_symlinks() {
+        use std::os::unix::fs::symlink;
+        let ws = workspace();
+        let outside = crate::testutil::scratch("output-outside");
+        std::fs::write(outside.join("private.pdf"), b"private").unwrap();
+        symlink(outside.join("private.pdf"), ws.join("output.pdf")).unwrap();
+        assert!(
+            contained_new(&ws, Path::new("output.pdf"))
+                .unwrap_err()
+                .to_string()
+                .contains("outside the tax workspace")
+        );
+        symlink(outside.join("missing.pdf"), ws.join("dangling.pdf")).unwrap();
+        assert!(contained_new(&ws, Path::new("dangling.pdf")).is_err());
+        symlink(ws.join("2025/documents/w2.pdf"), ws.join("local.pdf")).unwrap();
+        assert_eq!(
+            contained_new(&ws, Path::new("local.pdf")).unwrap(),
+            ws.canonicalize().unwrap().join("2025/documents/w2.pdf")
+        );
     }
 }

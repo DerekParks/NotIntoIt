@@ -30,12 +30,17 @@ def checked(value) -> bool:
 
 
 def find(form_fields: list[dict], key: str) -> list[dict]:
-    """Fields whose description contains `key`; a "pN|" prefix restricts to page N."""
+    """Description substring, or '=description' for exact matching; 'pN|' limits page."""
     page = None
     if m := re.match(r"p(\d+)\|", key):
         page, key = int(m.group(1)), key[m.end():]
+    exact = key.startswith("=")
+    if exact:
+        key = key[1:]
     norm = lambda d: re.sub(r"\s+", " ", d or "")
-    return [f for f in form_fields if key in norm(f.get("description")) and page in (None, f.get("page"))]
+    return [f for f in form_fields if (key == norm(f.get("description")) if exact
+                                     else key in norm(f.get("description")))
+            and page in (None, f.get("page"))]
 
 
 def matches(want, got, key: str, tol: float) -> bool:
@@ -59,9 +64,24 @@ def matches(want, got, key: str, tol: float) -> bool:
 def grade(answers: dict, forms_dir: Path, nii: str) -> dict:
     tol = answers.get("tolerance_dollars", 1)
     results, problems = [], []
+    missing, blank, unreadable = [], [], []
+    cache = {}
+    def read(stem):
+        if stem not in cache:
+            pdf = Path(forms_dir) / f"{stem}.pdf"
+            try:
+                cache[stem] = fields(nii, pdf) if pdf.exists() else []
+            except (subprocess.CalledProcessError, json.JSONDecodeError) as e:
+                unreadable.append(f"{stem}: {e}")
+                cache[stem] = []
+        return cache[stem]
     for stem, spec in answers["forms"].items():
         pdf = Path(forms_dir) / f"{stem}.pdf"
-        ff = fields(nii, pdf) if pdf.exists() else []
+        ff = read(stem)
+        if not pdf.exists() and spec.get("required", True):
+            missing.append(stem)
+        if pdf.exists() and not any(f.get("value") for f in ff) and spec.get("required", True):
+            blank.append(stem)
         if not any(f.get("value") for f in ff):
             for key in spec["fields"]:
                 results.append((stem, key, spec["fields"][key], "BLANK FORM" if pdf.exists() else "MISSING FORM", False))
@@ -74,28 +94,53 @@ def grade(answers: dict, forms_dir: Path, nii: str) -> dict:
                 continue
             got = hits[0].get("value")
             results.append((stem, key, want, got, matches(want, got, key, tol)))
-    extra = [s for s in answers.get("not_required", []) if (Path(forms_dir) / f"{s}.pdf").exists()]
+    # Downloading a blank reference form does not mean it was included in the return.
+    extra = [s for s in answers.get("not_required", []) if any(f.get("value") for f in read(s))]
+    consistency = []
+    status_keys = ["Filing Status. Check only one box. Single.", "Married filing jointly",
+                   "Married filing separately", "Head of household", "Qualifying surviving spouse"]
+    status_fields = [f for f in read("f1040")
+                     if any((f.get("description") or "").startswith(key) for key in status_keys)]
+    if status_fields and sum(checked(f.get("value")) for f in status_fields) != 1:
+        consistency.append("Form 1040 must select exactly one filing status")
+    for check in answers.get("reconciliations", []):
+        def value(ref):
+            hits = find(read(ref["form"]), ref["field"])
+            return amount(hits[0].get("value")) if len(hits) == 1 else None
+        total = value(check["total"])
+        parts = [value(ref) for ref in check["parts"]]
+        if total is None or any(p is None for p in parts) or abs(total - sum(parts)) > tol:
+            consistency.append(check["name"])
     passed = sum(r[4] for r in results)
+    bottom_line = outcome(answers, Path(forms_dir), nii, tol, read)
     return {
         "passed": passed,
         "total": len(results),
-        **outcome(answers, Path(forms_dir), nii, tol),
+        **bottom_line,
+        "return_complete": not (missing or blank or unreadable or problems or consistency or extra)
+                           and passed == len(results) and bottom_line["outcome_correct"],
+        "missing_required_forms": missing,
+        "blank_required_forms": blank,
+        "unreadable_forms": unreadable,
+        "consistency_problems": consistency,
         "results": results,
         "unneeded_forms": extra,
         "key_problems": problems,
     }
 
 
-def outcome(answers: dict, forms_dir: Path, nii: str, tol: float) -> dict:
+def outcome(answers: dict, forms_dir: Path, nii: str, tol: float, read=None) -> dict:
     """The return's bottom line: refund minus amount owed, against the expected value."""
     spec = answers.get("outcome")
     pdf = forms_dir / f"{spec['form']}.pdf" if spec else None
     if not spec or not pdf.exists():
         return {"net_refund": None, "outcome_error": None, "outcome_correct": False}
-    ff = fields(nii, pdf)
+    ff = read(spec["form"]) if read else fields(nii, pdf)
     value = lambda key: (lambda hits: amount(hits[0].get("value")) if len(hits) == 1 else None)(find(ff, key))
     refund, owe = value(spec["refund"]), value(spec["owe"])
-    if refund is None or owe is None:
+    populated = any(str(f.get("value") or "").strip() for key in (spec["refund"], spec["owe"])
+                    for f in find(ff, key))
+    if not populated or refund is None or owe is None or refund < 0 or owe < 0 or (refund > 0 and owe > 0):
         return {"net_refund": None, "outcome_error": None, "outcome_correct": False}
     net = refund - owe
     error = abs(net - spec["expected"])
@@ -114,10 +159,13 @@ def main():
             print(f"FAIL {stem:8} {key[:70]!r}: want {want!r}, got {got!r}")
     for p in report["key_problems"]:
         print("KEY", p)
+    for p in report["consistency_problems"] + report["unreadable_forms"]:
+        print("RETURN", p)
     if report["unneeded_forms"]:
         print("unneeded forms filed:", ", ".join(report["unneeded_forms"]))
     print(f"score {report['passed']}/{report['total']}; refund {report['net_refund']} "
           f"({'correct' if report['outcome_correct'] else f'off by {report["outcome_error"]}'})")
+    print(f"complete graded return: {report['return_complete']}")
 
 
 if __name__ == "__main__":

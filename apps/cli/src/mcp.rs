@@ -3,9 +3,14 @@
 
 use anyhow::{Context, Result, bail};
 use base64::Engine as _;
+use rmcp::handler::server::router::prompt::PromptRouter;
 use rmcp::handler::server::{router::tool::ToolRouter, wrapper::Parameters};
 use rmcp::model::{CallToolResult, ContentBlock, Implementation, ServerCapabilities, ServerConfig};
-use rmcp::{ErrorData as McpError, ServerHandler, ServiceExt, tool, tool_handler, tool_router};
+use rmcp::model::{PromptMessage, Role};
+use rmcp::{
+    ErrorData as McpError, ServerHandler, ServiceExt, prompt, prompt_handler, prompt_router, tool, tool_handler,
+    tool_router,
+};
 use schemars::JsonSchema;
 use serde::Deserialize;
 use std::collections::BTreeMap;
@@ -14,7 +19,7 @@ use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{Arc, Mutex};
 use std::time::{Duration, Instant};
 
-use crate::{documents, forms, index};
+use crate::{documents, forms, index, validate};
 
 const RENDER_WIDTH: u32 = 1200;
 const OTHER_BUILD_POLL: Duration = Duration::from_secs(5);
@@ -32,6 +37,7 @@ user's documents, tax law, and arithmetic.
 
 Start with list_documents and read_document to see the user's source documents (W-2s, 1099s, notes).
 
+Use get_form_instructions with the filing tax_year for form-specific instructions; navigate with page or search. Unresolved instructions require manual lookup, never assume another edition applies.\n\
 Forms: fetch_irs_form -> list_form_fields -> fill_form -> view_pdf. fetch_irs_form takes names like \
 \"1040\", \"Schedule C\", \"8812\", \"W-2\". Use each field's description to decide which line it is, and copy its name \
 as listed (e.g. Page1[0].f1_14[0]); never make names up or number them yourself. Fill only lines that have an \
@@ -42,7 +48,13 @@ and lists what landed in which field: check that each value is on the line you m
 its filled values. The return is done when every form it needs has been filled with fill_form; a summary of \
 amounts is not a return.
 
-Law: search_tax_law covers Title 26 and the current IRS instructions and publications. Cite what you rely on. \
+Before declaring completion, call validate_return on the final PDFs. Correct every blocking error and \
+run it again after edits. Supply the W-2 source paths and set w2_complete only after the user/documents \
+establish that every W-2 is present. checks_passed covers only the listed checks, not filing readiness. \
+Report remaining review items explicitly; never claim unresolved or skipped checks passed.
+
+Law: search_tax_law covers Title 26 and the current IRS instructions and publications. Pass tax_year for the \
+return being prepared to flag mismatched guidance editions. Cite what you rely on. \
 Statute text is current law: when a hit carries an amendment caveat, check whether the change applies to the tax \
 year you are preparing. Prefer the year's IRS instructions for dollar amounts.
 
@@ -75,6 +87,19 @@ pub struct NiiServer {
     index: Arc<IndexTracker>,
     query_embedder: Arc<Mutex<Option<nii_embed::Embedder>>>,
     tool_router: ToolRouter<Self>,
+    prompt_router: PromptRouter<Self>,
+}
+
+#[derive(Deserialize, JsonSchema)]
+pub struct InstructionsArgs {
+    /// Form name, e.g. "1040", "Schedule C", "Schedule SE", "8812".
+    form: String,
+    /// Required tax year; never silently substitutes another year's instructions.
+    tax_year: u16,
+    /// Read this 1-based page. Defaults to page 1 unless searching.
+    page: Option<u32>,
+    /// Case-insensitive text search; returns up to three matching pages.
+    search: Option<String>,
 }
 
 #[derive(Deserialize, JsonSchema)]
@@ -161,8 +186,24 @@ pub struct ComputeTaxArgs {
 pub struct SearchArgs {
     /// Natural-language question or citation, e.g. "home office deduction" or "401(k) contribution limits".
     query: String,
+    /// Return's tax year. Flags guidance from other or unknown editions; does not retrieve historical law.
+    tax_year: Option<u16>,
     /// Maximum results (1-20). Default 6.
     limit: Option<usize>,
+}
+
+#[derive(Deserialize, JsonSchema)]
+pub struct ValidateReturnArgs {
+    /// Tax year. The current deterministic rule set supports 2025.
+    tax_year: u16,
+    /// Workspace-relative directory of proposed filled forms. Default: <tax_year>/forms.
+    forms_dir: Option<String>,
+    /// Paths to all applicable W-2 source documents. Supports fillable IRS PDFs and labelled text transcriptions.
+    #[serde(default)]
+    w2_documents: Vec<String>,
+    /// True only when the user/intake confirms these are all W-2s for the return. Missing/unreadable sources never imply zero wages.
+    #[serde(default)]
+    w2_complete: bool,
 }
 
 #[tool_router]
@@ -173,7 +214,29 @@ impl NiiServer {
             index: Arc::new(IndexTracker::default()),
             query_embedder: Arc::new(Mutex::new(None)),
             tool_router: Self::tool_router(),
+            prompt_router: Self::prompt_router(),
         }
+    }
+
+    #[tool(
+        description = "Get year-pinned IRS form instructions with source URL, local PDF and readable text. Resolves shared and embedded instructions for known forms, otherwise tries the conventional instruction filename. Defaults to the first page; use page or search to navigate. Reports unavailable editions without substituting older/current instructions."
+    )]
+    async fn get_form_instructions(
+        &self,
+        Parameters(args): Parameters<InstructionsArgs>,
+    ) -> Result<CallToolResult, McpError> {
+        let paths = self.paths.clone();
+        blocking(move || {
+            Ok(vec![ContentBlock::text(crate::instructions::read(
+                &paths.data_dir,
+                &paths.workspace,
+                &args.form,
+                args.tax_year,
+                args.page,
+                args.search.as_deref(),
+            )?)])
+        })
+        .await
     }
 
     #[tool(
@@ -409,6 +472,43 @@ impl NiiServer {
     }
 
     #[tool(
+        description = "Read-only deterministic checks on filled 2025 IRS forms: identities, filing status, required nonzero lines, integer-cent arithmetic, schedule transfers, and owner-specific Schedule SE wages against supplied W-2 sources. Returns blocked/needs_review/checks_passed with exact field names for fixes and explicit coverage limits. Does not use benchmark answers, edit forms, certify eligibility, or prove filing readiness. Run after filling and again after corrections."
+    )]
+    async fn validate_return(
+        &self,
+        Parameters(args): Parameters<ValidateReturnArgs>,
+    ) -> Result<CallToolResult, McpError> {
+        let paths = self.paths.clone();
+        let result = tokio::task::spawn_blocking(move || {
+            validate::run(
+                &paths.workspace,
+                args.tax_year,
+                args.forms_dir.as_deref(),
+                &args.w2_documents,
+                args.w2_complete,
+            )
+        })
+        .await;
+        match result {
+            Ok(Ok(report)) => {
+                let content = vec![ContentBlock::text(
+                    serde_json::to_string_pretty(&report).map_err(|e| McpError::internal_error(e.to_string(), None))?,
+                )];
+                let mut result = if report.blocking_errors > 0 {
+                    CallToolResult::error(content)
+                } else {
+                    CallToolResult::success(content)
+                };
+                result.structured_content =
+                    Some(serde_json::to_value(report).map_err(|e| McpError::internal_error(e.to_string(), None))?);
+                Ok(result)
+            }
+            Ok(Err(e)) => Ok(CallToolResult::error(vec![ContentBlock::text(format!("{e:#}"))])),
+            Err(e) => Err(McpError::internal_error(format!("validation task failed: {e}"), None)),
+        }
+    }
+
+    #[tool(
         description = "Evaluate arithmetic exactly. Use this for every sum, difference, product, percentage, \
         and min/max a form line needs, instead of doing math yourself."
     )]
@@ -438,9 +538,9 @@ impl NiiServer {
 
     #[tool(
         description = "Search US federal tax law and IRS guidance: Title 26 U.S. Code (the Internal Revenue \
-        Code) plus the current IRS instructions for Form 1040, Schedule D, Form 8949, Form 2441, Schedule 8812, and \
-        Publications 17, 501, 503, and 550. Hybrid keyword + semantic search; returns text with citations, links, and \
-        caveats about recent amendments."
+        Code) plus the current IRS instructions for Form 1040, Schedule D, Form 8949, Form 2441, Schedule 8812, Schedules C/E/SE, Form 8995, and \
+        Publications 17, 501, 503, 550, 334, 527, and 925. Hybrid keyword + semantic search; returns text with citations, links, and \
+        edition and source-download provenance, and caveats about recent amendments."
     )]
     async fn search_tax_law(&self, Parameters(args): Parameters<SearchArgs>) -> Result<CallToolResult, McpError> {
         if !self.index.is_ready() && index::is_ready(&self.paths.db_path) {
@@ -476,8 +576,16 @@ impl NiiServer {
                 .enumerate()
                 .map(|(i, h)| {
                     let caveat = h.caveat.as_deref().map(|c| format!("⚠ {c}\n")).unwrap_or_default();
+                    let year_warning = if matches!(
+                        h.source,
+                        nii_core::SourceKind::IrsPub | nii_core::SourceKind::IrsInstruction
+                    ) {
+                        guidance_year_warning(&h.citation, args.tax_year)
+                    } else {
+                        String::new()
+                    };
                     format!(
-                        "{}. {} — {}\n{}\n{caveat}{}\n{}",
+                        "{}. {} — {}\n{}\n{year_warning}{caveat}{}\n{}",
                         i + 1,
                         h.citation,
                         h.heading,
@@ -505,10 +613,64 @@ impl NiiServer {
     }
 }
 
+#[derive(Deserialize, JsonSchema)]
+pub struct TaxWizardArgs {
+    /// Optional four-digit tax year, e.g. "2025". If omitted, the interview asks for it.
+    tax_year: Option<String>,
+}
+
+#[prompt_router]
+impl NiiServer {
+    #[prompt(
+        name = "tax-wizard",
+        description = "Start or resume a guided personal/family federal tax interview, including side-business and rental follow-ups. Optional tax_year."
+    )]
+    async fn tax_wizard(&self, Parameters(args): Parameters<TaxWizardArgs>) -> Result<Vec<PromptMessage>, McpError> {
+        let year = match args.tax_year {
+            Some(raw) => {
+                let raw = raw.trim();
+                if raw.len() != 4
+                    || !raw.bytes().all(|b| b.is_ascii_digit())
+                    || !raw.parse::<u16>().is_ok_and(|year| (1900..=2099).contains(&year))
+                {
+                    return Err(McpError::invalid_params(
+                        "tax_year must be a four-digit year between 1900 and 2099",
+                        None,
+                    ));
+                }
+                format!("Tax year requested: {raw}. Use workspace documents under {raw}/.\n\n")
+            }
+            None => "Tax year not specified. Ask me which year before selecting documents or tax rules.\n\n".into(),
+        };
+        Ok(vec![PromptMessage::new_text(
+            Role::User,
+            format!("{year}{}", include_str!("../prompts/tax-wizard.md")),
+        )])
+    }
+}
+
+fn guidance_year_warning(citation: &str, requested: Option<u16>) -> String {
+    let Some(requested) = requested else {
+        return String::new();
+    };
+    let edition = citation
+        .rsplit('(')
+        .filter_map(|tail| tail.split_once(')'))
+        .find_map(|(year, _)| year.parse::<u16>().ok());
+    match edition {
+        Some(year) if year == requested => String::new(),
+        Some(year) => format!(
+            "⚠ Tax-year mismatch: requested {requested}, guidance edition {year}. Verify the {requested} instructions before applying these rules.\n"
+        ),
+        None => format!("⚠ Cannot verify guidance edition for requested tax year {requested}.\n"),
+    }
+}
+
 #[tool_handler(router = self.tool_router)]
+#[prompt_handler(router = self.prompt_router)]
 impl ServerHandler for NiiServer {
     fn get_info(&self) -> ServerConfig {
-        ServerConfig::new(ServerCapabilities::builder().enable_tools().build())
+        ServerConfig::new(ServerCapabilities::builder().enable_tools().enable_prompts().build())
             .with_server_info(Implementation::new("notintoit", env!("CARGO_PKG_VERSION")).with_title("NotIntoIt"))
             .with_instructions(INSTRUCTIONS)
     }
@@ -1163,6 +1325,7 @@ mod tests {
         let (err, text, _) = unpack(
             s.search_tax_law(Parameters(SearchArgs {
                 query: "x".into(),
+                tax_year: Some(2025),
                 limit: None,
             }))
             .await,
@@ -1203,6 +1366,104 @@ mod tests {
                 .unwrap()
                 .starts_with("NotIntoIt prepares US federal returns")
         );
+    }
+
+    #[test]
+    fn wizard_is_discoverable_with_an_optional_string_year() {
+        let s = server("wizard-list");
+        let prompts = serde_json::to_value(s.prompt_router.list_all()).unwrap();
+        assert_eq!(prompts.as_array().unwrap().len(), 1);
+        assert_eq!(prompts[0]["name"], "tax-wizard");
+        assert_eq!(prompts[0]["arguments"][0]["name"], "tax_year");
+        assert_ne!(prompts[0]["arguments"][0]["required"], true);
+        let capabilities = serde_json::to_value(s.get_info()).unwrap();
+        assert!(capabilities["capabilities"]["prompts"].is_object());
+        assert!(capabilities["capabilities"]["tools"].is_object());
+    }
+
+    #[tokio::test]
+    async fn validation_tool_reports_blocking_findings_as_structured_tool_errors() {
+        let s = fetched("validate-tool").await;
+        let result = s
+            .validate_return(Parameters(ValidateReturnArgs {
+                tax_year: 2025,
+                forms_dir: None,
+                w2_documents: vec![],
+                w2_complete: false,
+            }))
+            .await
+            .unwrap();
+        assert_eq!(result.is_error, Some(true));
+        let report = result.structured_content.unwrap();
+        assert_eq!(report["status"], "blocked");
+        assert!(
+            report["findings"]
+                .as_array()
+                .unwrap()
+                .iter()
+                .any(|f| f["code"] == "filing_status_count")
+        );
+        assert!(
+            report["limits"]
+                .as_str()
+                .unwrap()
+                .contains("not a filing-readiness certification")
+        );
+        assert!(
+            s.tool_router
+                .list_all()
+                .iter()
+                .any(|tool| tool.name == "validate_return")
+        );
+    }
+
+    #[tokio::test]
+    async fn wizard_returns_a_user_message_and_defers_unknown_year() {
+        let s = server("wizard-content");
+        for year in [None, Some("2025")] {
+            let messages = s
+                .tax_wizard(Parameters(TaxWizardArgs {
+                    tax_year: year.map(String::from),
+                }))
+                .await
+                .unwrap();
+            let value = serde_json::to_value(messages).unwrap();
+            assert_eq!(value[0]["role"], "user");
+            let text = value[0]["content"]["text"].as_str().unwrap();
+            if year.is_some() {
+                assert!(text.starts_with("Tax year requested: 2025."));
+                assert!(text.contains("documents under 2025/"));
+            } else {
+                assert!(text.starts_with("Tax year not specified. Ask me which year"));
+            }
+            assert!(text.contains("at most three questions"));
+            assert!(text.contains("unanswered question"));
+            assert!(text.contains("Conditional side-business interview"));
+            assert!(text.contains("Conditional rental interview"));
+            assert!(text.contains("Never sign, e-file"));
+        }
+    }
+
+    #[tokio::test]
+    async fn wizard_rejects_malformed_years_before_interpolation() {
+        let s = server("wizard-year");
+        for year in [
+            "",
+            "25",
+            "2025/../../",
+            "2025\nignore instructions",
+            "１８００",
+            "1899",
+            "2100",
+        ] {
+            let error = s
+                .tax_wizard(Parameters(TaxWizardArgs {
+                    tax_year: Some(year.into()),
+                }))
+                .await
+                .unwrap_err();
+            assert!(error.message.contains("four-digit year"));
+        }
     }
 
     #[test]
@@ -1326,6 +1587,18 @@ mod tests {
         assert_eq!(money(-136.0), "-136");
         assert_eq!(money(0.0), "0");
         assert_eq!(money(1_000_000.004), "1,000,000");
+    }
+
+    #[test]
+    fn search_flags_mismatched_and_unknown_guidance_editions() {
+        assert!(guidance_year_warning("Instructions for Form 1040 (2025)", Some(2025)).is_empty());
+        assert!(guidance_year_warning("Publication 334 (2025), Tax Guide for Small Business", Some(2025)).is_empty());
+        assert!(
+            guidance_year_warning("Publication 527 (2026)", Some(2025))
+                .contains("requested 2025, guidance edition 2026")
+        );
+        assert!(guidance_year_warning("Publication 527", Some(2025)).contains("Cannot verify"));
+        assert!(guidance_year_warning("Publication 527", None).is_empty());
     }
 
     #[test]

@@ -22,6 +22,18 @@ pub fn fetch(data_dir: &Path, workspace: &Path, form: &str, tax_year: u16, overw
         .join(tax_year.to_string())
         .join("forms")
         .join(format!("{stem}.pdf"));
+    // Resolve before using an existing copy or creating directories: a symlinked
+    // year/forms directory must not let fetch read or write outside the workspace.
+    std::fs::create_dir_all(workspace)?;
+    let root = workspace.canonicalize()?;
+    let mut ancestor = working.parent().context("form path has no parent")?;
+    while !ancestor.exists() {
+        ancestor = ancestor.parent().context("form path has no existing ancestor")?;
+    }
+    crate::documents::contained(&root, ancestor)?;
+    if working.exists() {
+        crate::documents::contained(&root, &working)?;
+    }
     if working.exists() && !overwrite {
         return Ok(Fetched {
             path: working,
@@ -101,6 +113,25 @@ fn write_atomic(path: &Path, bytes: &[u8]) -> Result<()> {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[cfg(unix)]
+    #[test]
+    fn fetch_refuses_symlinked_directories_and_existing_forms_outside_workspace() {
+        use std::os::unix::fs::symlink;
+        let ws = crate::testutil::scratch("fetch-symlink");
+        let outside = crate::testutil::scratch("fetch-symlink-outside");
+        std::fs::write(outside.join("f1040.pdf"), b"private").unwrap();
+        symlink(&outside, ws.join("2025")).unwrap();
+        for overwrite in [false, true] {
+            let err = fetch(&outside, &ws, "1040", 2025, overwrite).err().unwrap();
+            assert!(err.to_string().contains("outside the tax workspace"));
+        }
+        std::fs::create_dir_all(ws.join("2024/forms")).unwrap();
+        symlink(outside.join("f1040.pdf"), ws.join("2024/forms/f1040.pdf")).unwrap();
+        let err = fetch(&outside, &ws, "1040", 2024, false).err().unwrap();
+        assert!(err.to_string().contains("outside the tax workspace"));
+        assert_eq!(std::fs::read(outside.join("f1040.pdf")).unwrap(), b"private");
+    }
 
     #[test]
     fn json_values_map_to_text_and_checkboxes() {

@@ -20,6 +20,7 @@ nii-embed = { version = "0.1.0", path = "../../crates/embed" }
 nii-pdf = { version = "0.1.0", path = "../../crates/pdf" }
 nii-search = { version = "0.1.0", path = "../../crates/search" }
 open = "5.4.4"
+regex = "1.13.1"
 rmcp = { version = "3.5.1", features = ["server", "transport-io", "macros"] }
 schemars = "1.2.2"
 serde = { version = "1.0.229", features = ["derive"] }

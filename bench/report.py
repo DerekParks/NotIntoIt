@@ -34,7 +34,7 @@ def summarize(runs: list[dict]) -> list[str]:
     for r in runs:
         upstream = f"@{r['upstream']}" if r.get("upstream") else ""
         by_model[f"{r['agent']}:{r['model']}{upstream}"].append(r)
-    rows = [("model", "runs", "scored", "lines", "refund right", "median $ off", "secs", "$ spent", "other")]
+    rows = [("model", "runs", "scored", "lines", "refund right", "complete", "median $ off", "secs", "$ spent", "other")]
     for model, rs in sorted(by_model.items()):
         done = [r for r in rs if r.get("status", "completed") == "completed"]
         other = [r.get("status") for r in rs if r.get("status", "completed") != "completed"]
@@ -48,6 +48,7 @@ def summarize(runs: list[dict]) -> list[str]:
             str(len(done)),
             f"{statistics.mean(lines):.1f}/{total}" if lines else "-",
             f"{sum(r['report']['outcome_correct'] for r in done)}/{len(done)}" if done else "-",
+            f"{sum(r['report']['return_complete'] for r in done)}/{len(done)}" if done else "-",
             (f"{statistics.median(errors):,.0f}" if errors else "-") + (f" ({missing} blank)" if missing else ""),
             f"{statistics.mean(r['seconds'] for r in done):.0f}" if done else "-",
             f"{sum(r.get('usage', {}).get('cost', 0) for r in rs):.2f}",

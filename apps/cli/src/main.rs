@@ -1,9 +1,11 @@
 mod documents;
 mod forms;
 mod index;
+mod instructions;
 mod mcp;
 #[cfg(test)]
 mod testutil;
+mod validate;
 
 use anyhow::{Context, Result, bail};
 use clap::{Parser, Subcommand};
@@ -53,10 +55,34 @@ enum Command {
     },
     /// Run the MCP server on stdio (builds the search index in the background).
     Mcp,
+    /// Check filled 2025 federal forms for missing fields, arithmetic, and transfers. Does not edit forms.
+    Validate {
+        #[arg(long)]
+        year: u16,
+        /// Workspace-relative directory (default: <year>/forms).
+        #[arg(long)]
+        forms_dir: Option<String>,
+        /// Workspace-relative W-2 source path; repeat for each W-2. Supports fillable PDFs and labelled text.
+        #[arg(long = "w2")]
+        w2_documents: Vec<String>,
+        /// All W-2s for this return are supplied; permits checking zero wages for a spouse without a W-2.
+        #[arg(long)]
+        w2_complete: bool,
+    },
 }
 
 #[derive(Subcommand)]
 enum FormCommand {
+    /// Read exact-year IRS instructions (shared or embedded where mapped).
+    Instructions {
+        form: String,
+        #[arg(long)]
+        year: u16,
+        #[arg(long)]
+        page: Option<u32>,
+        #[arg(long)]
+        search: Option<String>,
+    },
     /// Download a blank form into <workspace>/<year>/forms/ and print its path.
     Fetch {
         /// Form name or IRS file stem: 1040, W-2, f1040s1, ...
@@ -193,6 +219,24 @@ fn run(cli: Cli) -> Result<()> {
             search(&data_dir, &db_path, &query.join(" "), limit, source)
         }
         Command::Form { command } => form(&data_dir, &workspace, command),
+        Command::Validate {
+            year,
+            forms_dir,
+            w2_documents,
+            w2_complete,
+        } => {
+            let report = validate::run(&workspace, year, forms_dir.as_deref(), &w2_documents, w2_complete)?;
+            println!("{}", serde_json::to_string_pretty(&report)?);
+            if report.status != "checks_passed" {
+                bail!(
+                    "validation {}: {} blocking error(s), {} review item(s)",
+                    report.status,
+                    report.blocking_errors,
+                    report.review_items
+                );
+            }
+            Ok(())
+        }
         Command::Mcp => mcp::serve(mcp::Paths {
             data_dir,
             db_path,
@@ -246,6 +290,17 @@ fn build(data_dir: &Path, db_path: &Path, options: &index::BuildOptions) -> Resu
 
 fn form(data_dir: &Path, workspace: &Path, command: FormCommand) -> Result<()> {
     match command {
+        FormCommand::Instructions {
+            form,
+            year,
+            page,
+            search,
+        } => {
+            println!(
+                "{}",
+                instructions::read(data_dir, workspace, &form, year, page, search.as_deref())?
+            );
+        }
         FormCommand::Fetch { form, year, overwrite } => {
             let fetched = forms::fetch(data_dir, workspace, &form, year, overwrite)?;
             if !fetched.created {

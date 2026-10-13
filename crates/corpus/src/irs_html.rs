@@ -16,10 +16,17 @@ pub const DOCUMENTS: &[&str] = &[
     "instructions/i8949",
     "instructions/i2441",
     "instructions/i1040s8",
+    "instructions/i1040sc",
+    "instructions/i1040se",
+    "instructions/i1040sse",
+    "instructions/i8995",
     "publications/p17",
     "publications/p501",
     "publications/p503",
     "publications/p550",
+    "publications/p334",
+    "publications/p527",
+    "publications/p925",
 ];
 
 const SKIPPED: &[&str] = &["script", "style", "noscript", "nav", "button", "svg", "img"];
@@ -58,6 +65,10 @@ pub fn fetch_guidance(data_dir: &Path, force: bool) -> Result<Vec<Guidance>> {
                 let url = format!("https://www.irs.gov/{path}");
                 let html = crate::download::get_bytes(&url).with_context(|| format!("downloading {url}"))?;
                 std::fs::write(&html_path, html)?;
+                let fetched = std::time::SystemTime::now()
+                    .duration_since(std::time::UNIX_EPOCH)?
+                    .as_secs();
+                std::fs::write(html_path.with_extension("fetched-at"), fetched.to_string())?;
             }
             Ok(Guidance { path, html_path })
         })
@@ -72,7 +83,18 @@ pub fn guidance_chunks(guidance: &Guidance) -> Result<Vec<DocChunk>> {
     } else {
         SourceKind::IrsInstruction
     };
-    parse(&html, &format!("https://www.irs.gov/{}", guidance.path), source)
+    let mut chunks = parse(&html, &format!("https://www.irs.gov/{}", guidance.path), source)?;
+    let fetched = std::fs::read_to_string(guidance.html_path.with_extension("fetched-at"))
+        .ok()
+        .and_then(|s| s.trim().parse::<u64>().ok());
+    for chunk in &mut chunks {
+        let timestamp = fetched.map_or_else(
+            || "Source download time unknown (legacy cache).".to_string(),
+            |t| format!("Source downloaded at Unix time {t}."),
+        );
+        chunk.caveat = Some(format!("{} {timestamp}", chunk.caveat.as_deref().unwrap_or_default()));
+    }
+    Ok(chunks)
 }
 
 struct Heading {
@@ -161,6 +183,15 @@ pub fn parse(html: &str, url: &str, source: SourceKind) -> Result<Vec<DocChunk>>
         .iter()
         .find_map(|sel| doc.select(&Selector::parse(sel).expect("valid selector")).next())
         .context("page has no content")?;
+    // IRS HTML URLs roll forward. Record the edition actually parsed rather
+    // than implying that a current URL is guidance for the requested tax year.
+    let edition = regex::Regex::new(r"\((20\d{2})\)")?
+        .captures(&title)
+        .map(|m| m[1].to_string());
+    let caveat = match edition {
+        Some(year) => format!("IRS guidance edition: {year}. Use only for the matching tax year; this URL serves the current edition."),
+        None => "IRS guidance edition unknown. Verify the tax year before relying on amounts or rules; this URL serves the current edition.".into(),
+    };
 
     let mut walker = Walker::default();
     walker.walk(root);
@@ -186,7 +217,7 @@ pub fn parse(html: &str, url: &str, source: SourceKind) -> Result<Vec<DocChunk>>
                 ordinal: i as u32,
                 url: Some(url.clone()),
                 text,
-                caveat: None,
+                caveat: Some(caveat.clone()),
             });
         }
     }
@@ -254,6 +285,7 @@ mod tests {
         )
         .unwrap();
         assert_eq!((chunks[0].heading.as_str(), chunks[0].url.as_deref()), ("T", Some("u")));
+        assert!(chunks[0].caveat.as_deref().unwrap().contains("edition unknown"));
     }
 
     #[test]
@@ -299,5 +331,27 @@ mod tests {
             ]
         );
         assert!(chunks.iter().all(|c| c.citation == "Instructions for Form 1040 (2025)"));
+        assert!(
+            chunks
+                .iter()
+                .all(|c| c.caveat.as_deref().unwrap().contains("edition: 2025"))
+        );
+    }
+
+    #[test]
+    fn guidance_preserves_download_provenance_and_flags_legacy_caches() {
+        let dir = nii_testkit::scratch("guidance-provenance");
+        let html_path = dir.join("i1040gi.html");
+        std::fs::write(&html_path, PAGE).unwrap();
+        let guidance = Guidance {
+            path: "instructions/i1040gi",
+            html_path: html_path.clone(),
+        };
+        let legacy = guidance_chunks(&guidance).unwrap();
+        assert!(legacy[0].caveat.as_deref().unwrap().contains("download time unknown"));
+        std::fs::write(html_path.with_extension("fetched-at"), "1760000000").unwrap();
+        let chunks = guidance_chunks(&guidance).unwrap();
+        let caveat = chunks[0].caveat.as_deref().unwrap();
+        assert!(caveat.contains("edition: 2025") && caveat.contains("1760000000"));
     }
 }

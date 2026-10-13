@@ -198,6 +198,8 @@ def run_once(case: str, agent: str, model: str, nii: Path, timeout: int, index: 
         "tool_version": tool_version(), "tool_calls": tool_calls, "score": report["passed"], "total": report["total"],
         "net_refund": report["net_refund"], "outcome_error": report["outcome_error"],
         "outcome_correct": report["outcome_correct"], "usage": usage(stdout),
+        "return_complete": report["return_complete"],
+        "consistency_problems": report["consistency_problems"],
         "unneeded_forms": report["unneeded_forms"], "command": cmd,
     }
     for event in events(stdout):

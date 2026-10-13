@@ -495,11 +495,17 @@ mod tests {
 
         assert_eq!(built.chunks, 1 + nii_corpus::irs_html::DOCUMENTS.len());
         assert_eq!(built.release_point, "119-100");
-        assert_eq!(events, ["downloading", "parsing", "0/10", "4/10", "8/10", "10/10"]);
+        let total = built.chunks;
+        let mut expected = vec!["downloading".to_string(), "parsing".into(), format!("0/{total}")];
+        for done in (4..total).step_by(4) {
+            expected.push(format!("{done}/{total}"));
+        }
+        expected.push(format!("{total}/{total}"));
+        assert_eq!(events, expected);
         assert!(is_ready(&db) && !sibling(&db, "partial").exists());
         let conn = nii_search::open(&db).unwrap();
         let meta = |k| nii_search::get_meta(&conn, k).unwrap();
-        assert_eq!(meta("chunks").as_deref(), Some("10"));
+        assert_eq!(meta("chunks"), Some(built.chunks.to_string()));
         assert_eq!(meta("usc_release_point").as_deref(), Some("119-100"));
         assert!(meta("guidance").unwrap().starts_with("Instructions for Form i1040gi; "));
     }

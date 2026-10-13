@@ -8,7 +8,9 @@ use std::collections::HashMap;
 use std::path::Path;
 
 pub const DIM: usize = 384;
-pub const SCHEMA_VERSION: u32 = 2;
+// Version 3 requires edition/download provenance on IRS guidance and the
+// self-employment/rental corpus. Older prebuilt indexes must be rebuilt.
+pub const SCHEMA_VERSION: u32 = 3;
 const RRF_K: f64 = 60.0;
 /// Candidates fetched from each retriever before fusion.
 const CANDIDATES: usize = 100;

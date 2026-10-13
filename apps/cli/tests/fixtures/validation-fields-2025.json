@@ -1,0 +1,5549 @@
+{
+  "f1040": [
+    {
+      "name": "topmostSubform[0].Page1[0].f1_01[0]",
+      "type": "text",
+      "description": "Page 1. For the year Jan. 1–Dec. 31, 2025, or other tax year beginning. Month and day.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_02[0]",
+      "type": "text",
+      "description": ", 2025, ending. Month and day.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_03[0]",
+      "type": "text",
+      "max_len": 2,
+      "description": ", 20. 2 digit year.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].c1_1[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "Filed pursuant to section 301.9100-2.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].c1_2[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "Combat zone.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_04[0]",
+      "type": "text",
+      "description": "Combat zone (specify).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].c1_3[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "Deceased.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_05[0]",
+      "type": "text",
+      "max_len": 2,
+      "description": "M M.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_06[0]",
+      "type": "text",
+      "max_len": 2,
+      "description": "/ D D.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_07[0]",
+      "type": "text",
+      "max_len": 4,
+      "description": "/ Y Y Y Y.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_08[0]",
+      "type": "text",
+      "max_len": 2,
+      "description": "Spouse. M M.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_09[0]",
+      "type": "text",
+      "max_len": 2,
+      "description": "/ D D.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_10[0]",
+      "type": "text",
+      "max_len": 4,
+      "description": "/ Y Y Y Y.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].c1_4[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "Other.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_11[0]",
+      "type": "text",
+      "description": "Other (specify). 1.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_12[0]",
+      "type": "text",
+      "description": "Other (specify). 2.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_13[0]",
+      "type": "text",
+      "description": "Other (specify). 3.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_14[0]",
+      "type": "text",
+      "description": "Your first name and middle initial.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_15[0]",
+      "type": "text",
+      "description": "Last name.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_16[0]",
+      "type": "text",
+      "max_len": 9,
+      "description": "Your social security number.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_17[0]",
+      "type": "text",
+      "description": "If joint return, spouse's first name and middle initial.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_18[0]",
+      "type": "text",
+      "description": "Last name.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_19[0]",
+      "type": "text",
+      "max_len": 9,
+      "description": "Spouse's social security number.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Address_ReadOrder[0].f1_20[0]",
+      "type": "text",
+      "description": "Home address (number and street). If you have a P.O. box, see instructions.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Address_ReadOrder[0].f1_21[0]",
+      "type": "text",
+      "description": "Apt. no.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Address_ReadOrder[0].f1_22[0]",
+      "type": "text",
+      "description": "City, town, or post office. If you have a foreign address, also complete spaces below.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Address_ReadOrder[0].f1_23[0]",
+      "type": "text",
+      "description": "State.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Address_ReadOrder[0].f1_24[0]",
+      "type": "text",
+      "description": "Z I P code.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Address_ReadOrder[0].f1_25[0]",
+      "type": "text",
+      "description": "Foreign country name.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Address_ReadOrder[0].f1_26[0]",
+      "type": "text",
+      "description": "Foreign province/state/county.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Address_ReadOrder[0].f1_27[0]",
+      "type": "text",
+      "description": "Foreign postal code.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].c1_5[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "Check here if your main home, and your spouse's if filing a joint return, was in the U.S. for more than half of 2025.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].c1_6[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "Presidential Election Campaign. Check here if you, or your spouse if filing jointly, want $3 to go to this fund. Checking a box below will not change your tax or refund. You.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].c1_7[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "Spouse.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Checkbox_ReadOrder[0].c1_8[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "Filing Status. Check only one box. Single.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Checkbox_ReadOrder[0].c1_8[1]",
+      "type": "checkbox",
+      "on_states": [
+        "2"
+      ],
+      "description": "Married filing jointly (even if only one had income).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Checkbox_ReadOrder[0].c1_8[2]",
+      "type": "checkbox",
+      "on_states": [
+        "3"
+      ],
+      "description": "Married filing separately (M F S).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Checkbox_ReadOrder[0].f1_28[0]",
+      "type": "text",
+      "description": "Enter spouse’s S S N above and full name here:",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].c1_8[0]",
+      "type": "checkbox",
+      "on_states": [
+        "4"
+      ],
+      "description": "Head of household (H O H).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].c1_8[1]",
+      "type": "checkbox",
+      "on_states": [
+        "5"
+      ],
+      "description": "Qualifying surviving spouse (Q S S).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_29[0]",
+      "type": "text",
+      "description": "If you checked the H O H or Q S S box, enter the child's name if the qualifying person is a child but not your dependent:",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].c1_9[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "If treating a nonresident alien or dual-status alien spouse as a U.S. resident for the entire tax year, check the box.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_30[0]",
+      "type": "text",
+      "description": "and enter their name (see instructions and attach statement if required):",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].c1_10[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "Digital Assets. At any time during 2025, did you: (a) receive (as a reward, award, or payment for property or services); or (b) sell, exchange, or otherwise dispose of a digital asset (or a financial interest in a digital asset)? (See instructions.). Yes.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].c1_10[1]",
+      "type": "checkbox",
+      "on_states": [
+        "2"
+      ],
+      "description": "No.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Dependents_ReadOrder[0].c1_11[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "Dependents (see instructions). If more than four dependents, see instructions and check here.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Dependents[0].Row1[0].f1_31[0]",
+      "type": "text",
+      "description": "Row: (1) First name. Column: Dependent 1.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Dependents[0].Row1[0].f1_32[0]",
+      "type": "text",
+      "description": "Row: (1) First name. Column: Dependent 2.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Dependents[0].Row1[0].f1_33[0]",
+      "type": "text",
+      "description": "Row: (1) First name. Column: Dependent 3.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Dependents[0].Row1[0].f1_34[0]",
+      "type": "text",
+      "description": "Row: (1) First name. Column: Dependent 4.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Dependents[0].Row2[0].f1_35[0]",
+      "type": "text",
+      "description": "Row: (2) Last name. Column: Dependent 1.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Dependents[0].Row2[0].f1_36[0]",
+      "type": "text",
+      "description": "Row: (2) Last name. Column: Dependent 2.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Dependents[0].Row2[0].f1_37[0]",
+      "type": "text",
+      "description": "Row: (2) Last name. Column: Dependent 3.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Dependents[0].Row2[0].f1_38[0]",
+      "type": "text",
+      "description": "Row: (2) Last name. Column: Dependent 4.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Dependents[0].Row3[0].f1_39[0]",
+      "type": "text",
+      "max_len": 9,
+      "description": "Row: (3) S S N. Column: Dependent 1.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Dependents[0].Row3[0].f1_40[0]",
+      "type": "text",
+      "max_len": 9,
+      "description": "Row: (3) S S N. Column: Dependent 2.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Dependents[0].Row3[0].f1_41[0]",
+      "type": "text",
+      "max_len": 9,
+      "description": "Row: (3) S S N. Column: Dependent 3.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Dependents[0].Row3[0].f1_42[0]",
+      "type": "text",
+      "max_len": 9,
+      "description": "Row: (3) S S N. Column: Dependent 4.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Dependents[0].Row4[0].f1_43[0]",
+      "type": "text",
+      "description": "Row: (4) Relationship. Column: Dependent 1.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Dependents[0].Row4[0].f1_44[0]",
+      "type": "text",
+      "description": "Row: (4) Relationship. Column: Dependent 2.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Dependents[0].Row4[0].f1_45[0]",
+      "type": "text",
+      "description": "Row: (4) Relationship. Column: Dependent 3.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Dependents[0].Row4[0].f1_46[0]",
+      "type": "text",
+      "description": "Row: (4) Relationship. Column: Dependent 4.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Dependents[0].Row5[0].Dependent1[0].c1_12[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "Row: (5) Check if lived with you more than half of 2025. Column: Dependent 1. (a) Yes.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Dependents[0].Row5[0].Dependent1[0].c1_13[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "Row: (5) Check if lived with you more than half of 2025. Column: Dependent 1. (b) And in the U.S.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Dependents[0].Row5[0].Dependent2[0].c1_14[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "Row: (5) Check if lived with you more than half of 2025. Column: Dependent 2. (a) Yes.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Dependents[0].Row5[0].Dependent2[0].c1_15[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "Row: (5) Check if lived with you more than half of 2025. Column: Dependent 2. (b) And in the U.S.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Dependents[0].Row5[0].Dependent3[0].c1_16[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "Row: (5) Check if lived with you more than half of 2025. Column: Dependent 3. (a) Yes.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Dependents[0].Row5[0].Dependent3[0].c1_17[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "Row: (5) Check if lived with you more than half of 2025. Column: Dependent 3. (b) And in the U.S.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Dependents[0].Row5[0].Dependent4[0].c1_18[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "Row: (5) Check if lived with you more than half of 2025. Column: Dependent 4. (a) Yes.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Dependents[0].Row5[0].Dependent4[0].c1_19[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "Row: (5) Check if lived with you more than half of 2025. Column: Dependent 4. (b) And in the U.S.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Dependents[0].Row6[0].Dependent1[0].c1_20[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "Row: (6) Check if. Column: Dependent 1. Full-time student.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Dependents[0].Row6[0].Dependent1[0].c1_21[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "Row: (6) Check if. Column: Dependent 1. Permanently and totally disabled.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Dependents[0].Row6[0].Dependent2[0].c1_22[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "Row: (6) Check if. Column: Dependent 2. Full-time student.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Dependents[0].Row6[0].Dependent2[0].c1_23[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "Row: (6) Check if. Column: Dependent 2. Permanently and totally disabled.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Dependents[0].Row6[0].Dependent3[0].c1_24[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "Row: (6) Check if. Column: Dependent 3. Full-time student.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Dependents[0].Row6[0].Dependent3[0].c1_25[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "Row: (6) Check if. Column: Dependent 3. Permanently and totally disabled.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Dependents[0].Row6[0].Dependent4[0].c1_26[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "Row: (6) Check if. Column: Dependent 4. Full-time student.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Dependents[0].Row6[0].Dependent4[0].c1_27[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "Row: (6) Check if. Column: Dependent 4. Permanently and totally disabled.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Dependents[0].Row7[0].Dependent1[0].c1_28[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "Row: (7) Credits. Column: Dependent 1. Child tax credit.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Dependents[0].Row7[0].Dependent1[0].c1_28[1]",
+      "type": "checkbox",
+      "on_states": [
+        "2"
+      ],
+      "description": "Row: (7) Credits. Column: Dependent 1. Credit for other dependents.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Dependents[0].Row7[0].Dependent2[0].c1_29[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "Row: (7) Credits. Column: Dependent 2. Child tax credit.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Dependents[0].Row7[0].Dependent2[0].c1_29[1]",
+      "type": "checkbox",
+      "on_states": [
+        "2"
+      ],
+      "description": "Row: (7) Credits. Column: Dependent 2. Credit for other dependents.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Dependents[0].Row7[0].Dependent3[0].c1_30[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "Row: (7) Credits. Column: Dependent 3. Child tax credit.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Dependents[0].Row7[0].Dependent3[0].c1_30[1]",
+      "type": "checkbox",
+      "on_states": [
+        "2"
+      ],
+      "description": "Row: (7) Credits. Column: Dependent 3. Credit for other dependents.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Dependents[0].Row7[0].Dependent4[0].c1_31[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "Row: (7) Credits. Column: Dependent 4. Child tax credit.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Dependents[0].Row7[0].Dependent4[0].c1_31[1]",
+      "type": "checkbox",
+      "on_states": [
+        "2"
+      ],
+      "description": "Row: (7) Credits. Column: Dependent 4. Credit for other dependents.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].c1_32[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "Check if your filing status is M F S or H O H and you lived apart from your spouse for the last 6 months of 2025, or you are legally separated according to your state law under a written separation agreement or a decree of separate maintenance and you didn't live in the same household as your spouse at the end of 2025.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_47[0]",
+      "type": "text",
+      "description": "Income. Attach Form(s) W-2 here. Also attach Forms W-2G and 1099-R if tax was withheld. If you did not get a Form W-2, see instructions. 1a. Total amount from Form(s) W-2, box 1 (see instructions).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_48[0]",
+      "type": "text",
+      "description": "1b. Household employee wages not reported on Form(s) W-2.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_49[0]",
+      "type": "text",
+      "description": "1c. Tip income not reported on line 1a (see instructions).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_50[0]",
+      "type": "text",
+      "description": "1d. Medicaid waiver payments not reported on Form(s) W-2 (see instructions).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_51[0]",
+      "type": "text",
+      "description": "1e. Taxable dependent care benefits from Form 2441, line 26.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_52[0]",
+      "type": "text",
+      "description": "1f. Employer-provided adoption benefits from Form 8839, line 31.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_53[0]",
+      "type": "text",
+      "description": "1g. Wages from Form 8919, line 6.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_54[0]",
+      "type": "text",
+      "description": "1h. Other earned income (see instructions). Enter type.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_55[0]",
+      "type": "text",
+      "description": "1h. and amount:",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_56[0]",
+      "type": "text",
+      "description": "1i. Nontaxable combat pay election (see instructions).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_57[0]",
+      "type": "text",
+      "description": "1z. Add lines 1a through 1h.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_58[0]",
+      "type": "text",
+      "description": "2a. Tax-exempt interest. Attach Sch. B if required.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_59[0]",
+      "type": "text",
+      "description": "2b. Taxable interest.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_60[0]",
+      "type": "text",
+      "description": "3a. Qualified dividends. Attach Sch. B if required.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_61[0]",
+      "type": "text",
+      "description": "3b. Ordinary dividends.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].c1_33[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "3c. Check if your child's dividends are included in. 1. Line 3a.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].c1_34[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "3c. 2. Line 3b.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_62[0]",
+      "type": "text",
+      "description": "4a. I R A distributions.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_63[0]",
+      "type": "text",
+      "description": "4b. Taxable amount.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].c1_35[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "4c. Check if (see instructions): 1. Rollover.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].c1_36[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "4c. 2. Q C D.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].c1_37[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "4c. 3.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_64[0]",
+      "type": "text",
+      "description": "4c. 3. (specify).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_65[0]",
+      "type": "text",
+      "description": "5a. Pensions and annuities.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_66[0]",
+      "type": "text",
+      "description": "5b. Taxable amount.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].c1_38[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "5c. Check if (see instructions): 1. Rollover.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].c1_39[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "5c. 2. P S O.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].c1_40[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "5c. 3.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_67[0]",
+      "type": "text",
+      "description": "5c. 3. (specify).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_68[0]",
+      "type": "text",
+      "description": "6a. Social security benefits.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_69[0]",
+      "type": "text",
+      "description": "6b. Taxable amount.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].c1_41[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "6c. If you elect to use the lump-sum election method, check here (see instructions).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].c1_42[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "6d. If you are married filing separately and lived apart from your spouse the entire year (see inst.), check here.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_70[0]",
+      "type": "text",
+      "description": "7a. Capital gain or (loss). Attach Schedule D if required.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].c1_43[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "7b. Check if: Schedule D not required.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].c1_44[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "7b. Includes child's capital gain or (loss).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_71[0]",
+      "type": "text",
+      "description": "7b. Amount.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_72[0]",
+      "type": "text",
+      "description": "8. Additional income from Schedule 1, line 10.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_73[0]",
+      "type": "text",
+      "description": "9. Add lines 1z, 2b, 3b, 4b, 5b, 6b, 7a, and 8. This is your total income.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_74[0]",
+      "type": "text",
+      "description": "10. Adjustments to income from Schedule 1, line 26.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_75[0]",
+      "type": "text",
+      "description": "11a. Subtract line 10 from line 9. This is your adjusted gross income.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_01[0]",
+      "type": "text",
+      "description": "Page 2. Tax and Credits. 11b. Amount from line 11a (adjusted gross income).",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].c2_1[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "12a. Someone can claim. You as a dependent.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].c2_2[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "12a. Your spouse as a dependent.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].c2_3[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "12b. Spouse itemizes on a separate return.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].c2_4[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "12c. You were a dual-status alien.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].c2_5[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "12d. You: Were born before January 2, 1961.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].c2_6[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "12d. Are blind.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].c2_7[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "12d. Spouse: Was born before January 2, 1961.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].c2_8[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "12d. Is blind.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_02[0]",
+      "type": "text",
+      "description": "12e. Standard deduction or itemized deductions (from Schedule A). Standard deduction for— Single or Married filing separately, $15,750. Married filing jointly or Qualifying surviving spouse, $31,500. Head of household, $23,625. If you checked a box on line 12a, 12b, 12c, or 12d, see inst.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_03[0]",
+      "type": "text",
+      "description": "13a. Qualified business income deduction from Form 8995 or Form 8995-A.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_04[0]",
+      "type": "text",
+      "description": "13b. Additional deductions from Schedule 1-A, line 38.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_05[0]",
+      "type": "text",
+      "description": "14. Add lines 12e, 13a, and 13b.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_06[0]",
+      "type": "text",
+      "description": "15. Subtract line 14 from line 11b. If zero or less, enter 0. This is your taxable income.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].c2_9[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "16. Tax (see instructions). Check if any from Form(s): 1. 8814.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].c2_10[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "16. 2. 4972.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].c2_11[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "16. 3.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_07[0]",
+      "type": "text",
+      "description": "16. 3. (specify).",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_08[0]",
+      "type": "text",
+      "description": "16. Amount.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_09[0]",
+      "type": "text",
+      "description": "17. Amount from Schedule 2, line 3.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_10[0]",
+      "type": "text",
+      "description": "18. Add lines 16 and 17.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_11[0]",
+      "type": "text",
+      "description": "19. Child tax credit or credit for other dependents from Schedule 8812.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_12[0]",
+      "type": "text",
+      "description": "20. Amount from Schedule 3, line 8.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_13[0]",
+      "type": "text",
+      "description": "21. Add lines 19 and 20.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_14[0]",
+      "type": "text",
+      "description": "22. Subtract line 21 from line 18. If zero or less, enter 0.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_15[0]",
+      "type": "text",
+      "description": "23. Other taxes, including self-employment tax, from Schedule 2, line 21.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_16[0]",
+      "type": "text",
+      "description": "24. Add lines 22 and 23. This is your total tax.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_17[0]",
+      "type": "text",
+      "description": "Payments and Refundable Credits. 25. Federal income tax withheld from: a. Form(s) W-2.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_18[0]",
+      "type": "text",
+      "description": "25b. Form(s) 1099.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_19[0]",
+      "type": "text",
+      "description": "25c. Other forms (see instructions).",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_20[0]",
+      "type": "text",
+      "description": "25d. Add lines 25a through 25c.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_21[0]",
+      "type": "text",
+      "description": "26. 2025 estimated tax payments and amount applied from 2024 return.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].SSN_ReadOrder[0].f2_22[0]",
+      "type": "text",
+      "max_len": 9,
+      "description": "26. If you made estimated tax payments with your former spouse in 2025, enter their S S N (see instructions):",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_23[0]",
+      "type": "text",
+      "description": "27a. Earned income credit (E I C). If you have a qualifying child, you may need to attach Sch. E I C.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].c2_12[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "27b. Clergy filing Schedule S E (see instructions).",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].c2_13[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "27c. If you do not want to claim the E I C, check here.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Line28_ReadOrder[0].c2_14[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "27c. Additional child tax credit (A C T C) from Schedule 8812. If you do not want to claim the A C T C, check here.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_24[0]",
+      "type": "text",
+      "description": "28. Amount.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_25[0]",
+      "type": "text",
+      "description": "29. American opportunity credit from Form 8863, line 8.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_26[0]",
+      "type": "text",
+      "description": "30. Refundable adoption credit from Form 8839, line 13.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_27[0]",
+      "type": "text",
+      "description": "31. Amount from Schedule 3, line 15.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_28[0]",
+      "type": "text",
+      "description": "32. Add lines 27a, 28, 29, 30, and 31. These are your total other payments and refundable credits.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_29[0]",
+      "type": "text",
+      "description": "33. Add lines 25d, 26, and 32. These are your total payments.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_30[0]",
+      "type": "text",
+      "description": "Refund. 34. If line 33 is more than line 24, subtract line 24 from line 33. This is the amount you overpaid.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].c2_15[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "35a. Amount of line 34 you want refunded to you. If Form 8888 is attached, check here.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_31[0]",
+      "type": "text",
+      "description": "35a. Amount.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].RoutingNo[0].f2_32[0]",
+      "type": "text",
+      "max_len": 9,
+      "description": "Direct Deposit? See instructions. 35b. Routing number.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].c2_16[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "35c. Type: Checking.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].c2_16[1]",
+      "type": "checkbox",
+      "on_states": [
+        "2"
+      ],
+      "description": "35c. Savings.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].AccountNo[0].f2_33[0]",
+      "type": "text",
+      "max_len": 17,
+      "description": "35d. Account number.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_34[0]",
+      "type": "text",
+      "description": "36. Amount of line 34 you want applied to your 2026 estimated tax.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_35[0]",
+      "type": "text",
+      "description": "Amount You Owe. 37. Subtract line 33 from line 24. This is the amount you owe. For details on how to pay, go to www.irs.gov/Payments or see instructions.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_36[0]",
+      "type": "text",
+      "description": "38. Estimated tax penalty (see instructions).",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].c2_17[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "Third Party Designee. Do you want to allow another person to discuss this return with the I R S? See instructions. Yes. Complete below.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].c2_17[1]",
+      "type": "checkbox",
+      "on_states": [
+        "2"
+      ],
+      "description": "No.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_37[0]",
+      "type": "text",
+      "multiline": true,
+      "description": "Designee's name.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_38[0]",
+      "type": "text",
+      "description": "Phone no.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_39[0]",
+      "type": "text",
+      "max_len": 5,
+      "description": "Personal identification number (P I N).",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_40[0]",
+      "type": "text",
+      "description": "Sign Here. Joint return? See instructions. Keep a copy for your records. Your occupation.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_41[0]",
+      "type": "text",
+      "max_len": 6,
+      "description": "If the I R S sent you an Identity Protection P I N, enter it here (see inst.).",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_42[0]",
+      "type": "text",
+      "description": "Spouse's occupation.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_43[0]",
+      "type": "text",
+      "max_len": 6,
+      "description": "If the I R S sent your spouse an Identity Protection P I N, enter it here (see inst.).",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_44[0]",
+      "type": "text",
+      "description": "Phone no.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_45[0]",
+      "type": "text",
+      "description": "Email address.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_46[0]",
+      "type": "text",
+      "description": "Paid Preparer Use Only. Preparer’s name.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_47[0]",
+      "type": "text",
+      "max_len": 11,
+      "description": "P T I N.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].c2_18[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "Check if: Self-employed.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_48[0]",
+      "type": "text",
+      "description": "Firm's name.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_49[0]",
+      "type": "text",
+      "description": "Phone no.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_50[0]",
+      "type": "text",
+      "description": "Firm's address.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_51[0]",
+      "type": "text",
+      "max_len": 10,
+      "description": "Firm's E I N.",
+      "page": 2
+    }
+  ],
+  "f1040sc": [
+    {
+      "name": "topmostSubform[0].Page1[0].f1_1[0]",
+      "type": "text",
+      "description": "Page 1. Name of proprietor.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_2[0]",
+      "type": "text",
+      "max_len": 11,
+      "description": "Social security number (S S N).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_3[0]",
+      "type": "text",
+      "description": "A. Principal business or profession, including product or service (see instructions).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].BComb[0].f1_4[0]",
+      "type": "text",
+      "max_len": 6,
+      "description": "B. Enter code from instructions.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_5[0]",
+      "type": "text",
+      "description": "C. Business name. If no separate business name, leave blank.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].DComb[0].f1_6[0]",
+      "type": "text",
+      "max_len": 9,
+      "description": "D. Employer I D number (E I N), (see instr.).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_7[0]",
+      "type": "text",
+      "description": "E. Business address (including suite or room no.).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_8[0]",
+      "type": "text",
+      "description": "E. City, town or post office, state, and Z I P code.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].c1_1[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "F. Accounting method: (1) Cash.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].c1_1[1]",
+      "type": "checkbox",
+      "on_states": [
+        "2"
+      ],
+      "description": "F. (2) Accrual.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].c1_1[2]",
+      "type": "checkbox",
+      "on_states": [
+        "3"
+      ],
+      "description": "F. (3) Other.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_9[0]",
+      "type": "text",
+      "description": "F. (3) Other (specify).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].c1_2[0]",
+      "type": "checkbox",
+      "on_states": [
+        "Yes"
+      ],
+      "description": "G. Did you \"materially participate\" in the operation of this business during 2025? Yes.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].c1_2[1]",
+      "type": "checkbox",
+      "on_states": [
+        "No"
+      ],
+      "description": "G. If \"No\", see instructions for limit on losses. No.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].c1_3[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "H. If you started or acquired this business during 2025, check here.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].c1_4[0]",
+      "type": "checkbox",
+      "on_states": [
+        "Yes"
+      ],
+      "description": "I. Did you make any payments in 2025 that would require you to file Form(s) 1099? See instructions. Yes.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].c1_4[1]",
+      "type": "checkbox",
+      "on_states": [
+        "No"
+      ],
+      "description": "I. No.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].c1_5[0]",
+      "type": "checkbox",
+      "on_states": [
+        "Yes"
+      ],
+      "description": "J. If \"Yes,\" did you or will you file required Form(s) 1099? Yes.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].c1_5[1]",
+      "type": "checkbox",
+      "on_states": [
+        "No"
+      ],
+      "description": "J. No.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Line1_ReadOrder[0].c1_6[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "Part I. Income. 1. Gross receipts or sales. See instructions for line 1 and check the box if this income was reported to you on Form W-2 and the “Statutory employee” box on that form was checked.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_10[0]",
+      "type": "text",
+      "description": "1. Gross receipts or sales.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_11[0]",
+      "type": "text",
+      "description": "2. Returns and allowances.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_12[0]",
+      "type": "text",
+      "description": "3. Subtract line 2 from line 1.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_13[0]",
+      "type": "text",
+      "description": "4. Cost of goods sold (from line 42).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_14[0]",
+      "type": "text",
+      "description": "5. Gross profit. Subtract line 4 from line 3.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_15[0]",
+      "type": "text",
+      "description": "6. Other income, including federal and state gasoline or fuel tax credit or refund (see instructions).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_16[0]",
+      "type": "text",
+      "description": "7. Gross income. Add lines 5 and 6.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Lines8-17[0].f1_17[0]",
+      "type": "text",
+      "description": "Part I I. Expenses. Enter expenses for business use of your home only on line 30. 8. Advertising.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Lines8-17[0].f1_18[0]",
+      "type": "text",
+      "description": "9. Car and truck expenses (see instructions).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Lines8-17[0].f1_19[0]",
+      "type": "text",
+      "description": "10. Commissions and fees.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Lines8-17[0].f1_20[0]",
+      "type": "text",
+      "description": "11. Contract labor (see instructions).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Lines8-17[0].f1_21[0]",
+      "type": "text",
+      "description": "12. Depletion.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Lines8-17[0].f1_22[0]",
+      "type": "text",
+      "description": "13. Depreciation and section 179 expense deduction (not included in Part I I I) (see instructions).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Lines8-17[0].f1_23[0]",
+      "type": "text",
+      "description": "14. Employee benefit programs (other than on line 19).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Lines8-17[0].f1_24[0]",
+      "type": "text",
+      "description": "15. Insurance (other than health).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Lines8-17[0].f1_25[0]",
+      "type": "text",
+      "description": "16. Interest (see instructions): a. Mortgage (paid to banks, etc.).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Lines8-17[0].f1_26[0]",
+      "type": "text",
+      "description": "16b. Other.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Lines8-17[0].f1_27[0]",
+      "type": "text",
+      "description": "17. Legal and professional services.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Lines18-27[0].f1_28[0]",
+      "type": "text",
+      "description": "18. Office expense (see instructions).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Lines18-27[0].f1_29[0]",
+      "type": "text",
+      "description": "19. Pension and profit-sharing plans.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Lines18-27[0].f1_30[0]",
+      "type": "text",
+      "description": "20. Rent or lease (see instructions): a. Vehicles, machinery, and equipment.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Lines18-27[0].f1_31[0]",
+      "type": "text",
+      "description": "20b. Other business property.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Lines18-27[0].f1_32[0]",
+      "type": "text",
+      "description": "21. Repairs and maintenance.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Lines18-27[0].f1_33[0]",
+      "type": "text",
+      "description": "22. Supplies (not included in Part I I I).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Lines18-27[0].f1_34[0]",
+      "type": "text",
+      "description": "23. Taxes and licenses.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Lines18-27[0].f1_35[0]",
+      "type": "text",
+      "description": "24. Travel and meals: a. Travel.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Lines18-27[0].f1_36[0]",
+      "type": "text",
+      "description": "24b. Deductible meals (see instructions).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Lines18-27[0].f1_37[0]",
+      "type": "text",
+      "description": "25. Utilities.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Lines18-27[0].f1_38[0]",
+      "type": "text",
+      "description": "26. Wages (less employment credits).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Lines18-27[0].f1_40[0]",
+      "type": "text",
+      "description": "27a. Energy efficient commercial bldgs deduction (attach Form 7205).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Lines18-27[0].f1_39[0]",
+      "type": "text",
+      "description": "27b. Other expenses (from line 48).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_41[0]",
+      "type": "text",
+      "description": "28. Total expenses before expenses for business use of home. Add lines 8 through 27b.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_42[0]",
+      "type": "text",
+      "description": "29. Tentative profit or (loss). Subtract line 28 from line 7.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Line30_ReadOrder[0].f1_43[0]",
+      "type": "text",
+      "description": "30. Expenses for business use of your home. Do not report these expenses elsewhere. Attach Form 8829 unless using the simplified method. See instructions. Simplified method filers only: Enter the total square footage of (a) your home:",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Line30_ReadOrder[0].f1_44[0]",
+      "type": "text",
+      "description": "30. and (b) the part of your home used for business:",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_45[0]",
+      "type": "text",
+      "description": "30. Use the Simplified Method Worksheet in the instructions to figure the amount to enter on line 30.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_46[0]",
+      "type": "text",
+      "description": "31. Net profit or (loss). Subtract line 30 from line 29. If a profit, enter on both Schedule 1 (Form 1040), line 3, and on Schedule S E, line 2. (If you checked the box on line 1, see instructions.) Estates and trusts, enter on Form 1041, line 3. If a loss, you must go to line 32.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].c1_7[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "32. If you have a loss, check the box that describes your investment in this activity. See instructions. If you checked 32a, enter the loss on both Schedule 1 (Form 1040), line 3 and on Schedule S E, line 2. (If you checked the box on line 1, see the line 31 instructions.) Estates and trusts, enter on Form 1041, line 3. a. All investment is at risk.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].c1_7[1]",
+      "type": "checkbox",
+      "on_states": [
+        "2"
+      ],
+      "description": "If you checked 32b, you must attach Form 6198. Your loss may be limited. 32b. Some investment is not at risk.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].c2_1[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "Page 2. Part I I I. Cost of Goods Sold (see instructions). 33. Method(s) used to value closing inventory: a. Cost.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].c2_2[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "33b. Lower of cost or market.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].c2_3[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "33c. Other (attach explanation).",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].c2_4[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "34. Was there any change in determining quantities, costs, or valuations between opening and closing inventory? If \"Yes,\" attach explanation. Yes.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].c2_4[1]",
+      "type": "checkbox",
+      "on_states": [
+        "2"
+      ],
+      "description": "34. No.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_1[0]",
+      "type": "text",
+      "description": "35. Inventory at beginning of year. If different from last year's closing inventory, attach explanation.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_2[0]",
+      "type": "text",
+      "description": "36. Purchases less cost of items withdrawn for personal use.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_3[0]",
+      "type": "text",
+      "description": "37. Cost of labor. Do not include any amounts paid to yourself.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_4[0]",
+      "type": "text",
+      "description": "38. Materials and supplies.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_5[0]",
+      "type": "text",
+      "description": "39. Other costs.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_6[0]",
+      "type": "text",
+      "description": "40. Add lines 35 through 39.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_7[0]",
+      "type": "text",
+      "description": "41. Inventory at end of year.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_8[0]",
+      "type": "text",
+      "description": "42. Cost of goods sold. Subtract line 41 from line 40. Enter the result here and on line 4.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_9[0]",
+      "type": "text",
+      "max_len": 2,
+      "description": "Part I V. Information on Your Vehicle. Complete this part only if you are claiming car or truck expenses on line 9 and are not required to file Form 4562 for this business. See the instructions for line 13 to find out if you must file Form 4562. 43. When did you place your vehicle in service for business purposes? (month/day/year). 2-digit month.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_10[0]",
+      "type": "text",
+      "max_len": 2,
+      "description": "43. 2-digit day.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_11[0]",
+      "type": "text",
+      "max_len": 4,
+      "description": "43. 4-digit year.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_12[0]",
+      "type": "text",
+      "description": "44. Of the total number of miles you drove your vehicle during 2025, enter the number of miles you used your vehicle for: a Business.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_13[0]",
+      "type": "text",
+      "description": "44b. Commuting (see instructions).",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_14[0]",
+      "type": "text",
+      "description": "44c. Other.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].c2_5[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "45. Was your vehicle available for personal use during off-duty hours? Yes.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].c2_5[1]",
+      "type": "checkbox",
+      "on_states": [
+        "2"
+      ],
+      "description": "45. No.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].c2_6[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "46. Do you (or your spouse) have another vehicle available for personal use? Yes.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].c2_6[1]",
+      "type": "checkbox",
+      "on_states": [
+        "2"
+      ],
+      "description": "46. No.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].c2_7[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "47a. Do you have evidence to support your deduction? Yes.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].c2_7[1]",
+      "type": "checkbox",
+      "on_states": [
+        "2"
+      ],
+      "description": "47a. No.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].c2_8[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "47b. If \"Yes,\" is the evidence written? Yes.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].c2_8[1]",
+      "type": "checkbox",
+      "on_states": [
+        "2"
+      ],
+      "description": "47b. No.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].PartVTable[0].Item1[0].f2_15[0]",
+      "type": "text",
+      "description": "Part V. Other Expenses. List below business expenses not included on lines 8-27a, or line 30. 1. Business expense.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].PartVTable[0].Item1[0].f2_16[0]",
+      "type": "text",
+      "description": "1. Amount.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].PartVTable[0].Item2[0].f2_17[0]",
+      "type": "text",
+      "description": "2. Business Expense.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].PartVTable[0].Item2[0].f2_18[0]",
+      "type": "text",
+      "description": "2. Amount.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].PartVTable[0].Item3[0].f2_19[0]",
+      "type": "text",
+      "description": "3. Business Expense.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].PartVTable[0].Item3[0].f2_20[0]",
+      "type": "text",
+      "description": "3. Amount.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].PartVTable[0].Item4[0].f2_21[0]",
+      "type": "text",
+      "description": "4. Business Expense.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].PartVTable[0].Item4[0].f2_22[0]",
+      "type": "text",
+      "description": "4. Amount.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].PartVTable[0].Item5[0].f2_23[0]",
+      "type": "text",
+      "description": "5. Business Expense.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].PartVTable[0].Item5[0].f2_24[0]",
+      "type": "text",
+      "description": "5. Amount.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].PartVTable[0].Item6[0].f2_25[0]",
+      "type": "text",
+      "description": "6. Business Expense.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].PartVTable[0].Item6[0].f2_26[0]",
+      "type": "text",
+      "description": "6. Amount.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].PartVTable[0].Item7[0].f2_27[0]",
+      "type": "text",
+      "description": "7. Business Expense.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].PartVTable[0].Item7[0].f2_28[0]",
+      "type": "text",
+      "description": "7. Amount.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].PartVTable[0].Item8[0].f2_29[0]",
+      "type": "text",
+      "description": "8. Business Expense.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].PartVTable[0].Item8[0].f2_30[0]",
+      "type": "text",
+      "description": "8. Amount.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].PartVTable[0].Item9[0].f2_31[0]",
+      "type": "text",
+      "description": "9. Business Expense.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].PartVTable[0].Item9[0].f2_32[0]",
+      "type": "text",
+      "description": "9. Amount.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_33[0]",
+      "type": "text",
+      "description": "48. Total other expenses. Enter here and on line 27b.",
+      "page": 2
+    }
+  ],
+  "f1040sse": [
+    {
+      "name": "topmostSubform[0].Page1[0].f1_1[0]",
+      "type": "text",
+      "description": "Page 1. Name of person with self-employment income (as shown on Form 1040, 1040-S R, 1040-S S, or 1040-N R).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_2[0]",
+      "type": "text",
+      "max_len": 11,
+      "description": "Social security number of person with self-employment income.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].c1_1[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "Part I. Self-Employment Tax. Note: If your only income subject to self-employment tax is church employee income, see instructions for how to report your income and the definition of church employee income. A. If you are a minister, member of a religious order, or Christian Science practitioner and you filed Form 4361, but you had $400 or more of other net earnings from self-employment, check here and continue with Part I.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_3[0]",
+      "type": "text",
+      "description": "Skip lines 1a and 1b if you use the farm optional method in Part I I. See instructions. 1a. Net farm profit or (loss) from Schedule F, line 34, and farm partnerships, Schedule K-1 (Form 1065), box 14, code A.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_4[0]",
+      "type": "text",
+      "description": "1b. Open parenthesis. If you received social security retirement or disability benefits, enter the amount of Conservation Reserve Program payments included on Schedule F, line 4b, or listed on Schedule K-1 (Form 1065), box 20, code A Q. Close parenthesis.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_5[0]",
+      "type": "text",
+      "description": "Skip line 2 if you use the nonfarm optional method in Part I I. See instructions. 2. Net profit or (loss) from Schedule C, line 31; and Schedule K-1 (Form 1065), box 14, code A (other than farming). See instructions for other income to report or if you are a minister or member of a religious order.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_6[0]",
+      "type": "text",
+      "description": "3. Combine lines 1a, 1b, and 2.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_7[0]",
+      "type": "text",
+      "description": "4a. If line 3 is more than zero, multiply line 3 by 92.35% (0.9235). Otherwise, enter amount from line 3. Note: If line 4a is less than $400 due to Conservation Reserve Program payments on line 1b, see instructions.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_8[0]",
+      "type": "text",
+      "description": "4b. If you elect one or both of the optional methods, enter the total of lines 15 and 17 here.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_9[0]",
+      "type": "text",
+      "description": "4c. Combine lines 4a and 4b. If less than $400, stop; you don't owe self-employment tax. Exception: If less than $400 and you had church employee income, enter 0 and continue.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Line5a_ReadOrder[0].f1_10[0]",
+      "type": "text",
+      "description": "5a. Enter your church employee income from Form W-2. See instructions for definition of church employee income.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_11[0]",
+      "type": "text",
+      "description": "5b. Multiply line 5a by 92.35% (0.9235). If less than $100, enter 0.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_12[0]",
+      "type": "text",
+      "description": "6. Add lines 4c and 5b.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_13[0]",
+      "type": "text",
+      "description": "7. Maximum amount of combined wages and self-employment earnings subject to social security tax or the 6.2% portion of the 7.65% railroad retirement (tier 1) tax for 2025. $176,100.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Line8a_ReadOrder[0].f1_14[0]",
+      "type": "text",
+      "description": "8a. Total social security wages and tips (total of boxes 3 and 7 on Form(s) W-2) and railroad retirement (tier 1) compensation. If $176,100 or more, skip lines 8b through 10, and go to line 11.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_15[0]",
+      "type": "text",
+      "description": "8b. Unreported tips subject to social security tax from Form 4137, line 10.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_16[0]",
+      "type": "text",
+      "description": "8c. Wages subject to social security tax from Form 8919, line 10.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_17[0]",
+      "type": "text",
+      "description": "8d. Add lines 8a, 8b, and 8c.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_18[0]",
+      "type": "text",
+      "description": "9. Subtract line 8d from line 7. If zero or less, enter 0 here and on line 10 and go to line 11.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_19[0]",
+      "type": "text",
+      "description": "10. Multiply the smaller of line 6 or line 9 by 12.4% (0.124).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_20[0]",
+      "type": "text",
+      "description": "11. Multiply line 6 by 2.9% (0.029).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_21[0]",
+      "type": "text",
+      "description": "12. Self-employment tax. Add lines 10 and 11. Enter here and on Schedule 2 (Form 1040), line 4, or Form 1040-S S, Part I, line 3.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_22[0]",
+      "type": "text",
+      "description": "13. Deduction for one-half of self-employment tax. Multiply line 12 by 50% (0.50). Enter here and on Schedule 1 (Form 1040), line 15.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_1[0]",
+      "type": "text",
+      "description": "Page 2. Part I I. Optional Methods To Figure Net Earnings (see instructions). Farm Optional Method. You may use this method only if (a) your gross farm income Footnote 1. From Sch. F, line 9; and Sch. K-1 (Form 1065), box 14, code B. wasn’t more than $10,860, or (b) your net farm profits Footnote 2. From Sch. F, line 34; and Sch. K-1 (Form 1065), box 14, code A—minus the amount you would have entered on line 1b had you not used the optional method. were less than $7,840. 14. Maximum income for optional methods. $7,240.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_2[0]",
+      "type": "text",
+      "description": "15. Enter the smaller of: two-thirds (2/3) of gross farm income (From Sch. F, line 9; and Sch. K-1 (Form 1065), box 14, code B.) (not less than zero) or $7,240. Also, include this amount on line 4b above.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_3[0]",
+      "type": "text",
+      "description": "Nonfarm Optional Method. You may use this method only if (a) your net nonfarm profits Footnote 3. From Sch. C, line 31; and Sch. K-1 (Form 1065), box 14, code A. were less than $7,840 and also less than 72.189% of your gross nonfarm income, Footnote 4. From Sch. C, line 7; and Sch. K-1 (Form 1065), box 14, code C. and (b) you had net earnings from self-employment of at least $400 in 2 of the prior 3 years. Caution: You may use this method no more than five times. 16. Subtract line 15 from line 14.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_4[0]",
+      "type": "text",
+      "description": "17. Enter the smaller of: two-thirds (2/3) of gross nonfarm income (From Sch. C, line 7; and Sch. K-1 (Form 1065), box 14, code C.) (not less than zero) or the amount on line 16. Also, include this amount on line 4b above.",
+      "page": 2
+    }
+  ],
+  "f1040s1": [
+    {
+      "name": "topmostSubform[0].Page1[0].f1_01[0]",
+      "type": "text",
+      "description": "Page 1. Name(s) shown on Form 1040, 1040-S R, or 1040-N R.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_02[0]",
+      "type": "text",
+      "max_len": 11,
+      "description": "Your social security number.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_03[0]",
+      "type": "text",
+      "description": "For 2025, enter the amount reported to you on Form(s) 1099-K that was included in error or for personal items sold at a loss. Note: The remaining amounts reported to you on Form(s) 1099-K should be reported elsewhere on your return depending on the nature of the transaction. See www.irs.gov/1099k.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_04[0]",
+      "type": "text",
+      "description": "Part I. Additional Income. 1. Taxable refunds, credits, or offsets of state and local income taxes.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_05[0]",
+      "type": "text",
+      "description": "2a. Alimony received.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_06[0]",
+      "type": "text",
+      "description": "2b. Date of original divorce or separation agreement (see instructions):",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_07[0]",
+      "type": "text",
+      "description": "3. Business income or (loss). Attach Schedule C.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].c1_1[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "4. Other gains or (losses). Check if any from Form(s): 4797.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].c1_2[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "4. 4684.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_08[0]",
+      "type": "text",
+      "description": "4. Amount.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_09[0]",
+      "type": "text",
+      "description": "5. Rental real estate, royalties, partnerships, S corporations, trusts, etc. Attach Schedule E.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_10[0]",
+      "type": "text",
+      "description": "6. Farm income or (loss). Attach Schedule F.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Line7_ReadOrder[0].c1_3[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "7. Unemployment compensation. If you repaid a 2025 overpayment (see instructions), check here.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Line7_ReadOrder[0].f1_11[0]",
+      "type": "text",
+      "description": "7. and enter amount repaid:",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_12[0]",
+      "type": "text",
+      "description": "7. Amount.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Line8a_ReadOrder[0].f1_13[0]",
+      "type": "text",
+      "description": "8. Other income: a. Open parenthesis. Net operating loss. Close parenthesis.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_14[0]",
+      "type": "text",
+      "description": "8b. Gambling.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_15[0]",
+      "type": "text",
+      "description": "8c. Cancellation of debt.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_16[0]",
+      "type": "text",
+      "description": "8d. Open parenthesis. Foreign earned income exclusion from Form 2555. Close parenthesis.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_17[0]",
+      "type": "text",
+      "description": "8e. Income from Form 8853.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_18[0]",
+      "type": "text",
+      "description": "8f. Income from Form 8889.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_19[0]",
+      "type": "text",
+      "description": "8g. Alaska Permanent Fund dividends.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_20[0]",
+      "type": "text",
+      "description": "8h. Jury duty pay.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_21[0]",
+      "type": "text",
+      "description": "8i. Prizes and awards.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_22[0]",
+      "type": "text",
+      "description": "8j. Activity not engaged in for profit income.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_23[0]",
+      "type": "text",
+      "description": "8k. Stock options.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_24[0]",
+      "type": "text",
+      "description": "8l. Income from the rental of personal property if you engaged in the rental for profit but were not in the business of renting such property.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_25[0]",
+      "type": "text",
+      "description": "8m. Olympic and Paralympic medals and U S O C prize money (see instructions).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_26[0]",
+      "type": "text",
+      "description": "8n. Section 951(a) inclusion (see instructions).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_27[0]",
+      "type": "text",
+      "description": "8o. Section 951A(a) inclusion (see instructions).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_28[0]",
+      "type": "text",
+      "description": "8p. Section 461(l) excess business loss adjustment.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_29[0]",
+      "type": "text",
+      "description": "8q. Taxable distributions from an A B L E account (see instructions).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_30[0]",
+      "type": "text",
+      "description": "8r. Scholarship and fellowship grants not reported on Form W-2.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_31[0]",
+      "type": "text",
+      "description": "8s. Open parenthesis. Nontaxable amount of Medicaid waiver payments included on Form 1040, line 1a or 1d. Close parenthesis.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_32[0]",
+      "type": "text",
+      "description": "8t. Pension or annuity from a nonqualifed deferred compensation plan or a nongovernmental section 457 plan.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_33[0]",
+      "type": "text",
+      "description": "8u. Wages earned while incarcerated.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_34[0]",
+      "type": "text",
+      "description": "8v. Digital assets received as ordinary income not reported elsewhere. See instructions.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Line8z_ReadOrder[0].f1_35[0]",
+      "type": "text",
+      "multiline": true,
+      "description": "8z. Other income. List type.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_36[0]",
+      "type": "text",
+      "description": "8z. and amount:",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_37[0]",
+      "type": "text",
+      "description": "9. Total other income. Add lines 8a through 8z.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_38[0]",
+      "type": "text",
+      "description": "10. Combine lines 1 through 7 and 9. This is your additional income. Enter here and on Form 1040, 1040-S R, or 1040-N R, line 8.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_01[0]",
+      "type": "text",
+      "description": "Page 2. Part I I. Adjustments to Income. 11. Educator expenses.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_02[0]",
+      "type": "text",
+      "description": "12. Certain business expenses of reservists, performing artists, and fee-basis government officials. Attach Form 2106.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_03[0]",
+      "type": "text",
+      "description": "13. Health savings account deduction. Attach Form 8889.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].c2_1[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "14. Moving expenses for members of the Armed Forces. Attach Form 3903. If claiming only storage fees (see instructions), check here.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_04[0]",
+      "type": "text",
+      "description": "14. Amount.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_05[0]",
+      "type": "text",
+      "description": "15. Deductible part of self-employment tax. Attach Schedule S E.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_06[0]",
+      "type": "text",
+      "description": "16. Self-employed S E P, S I M P L E, and qualified plans.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_07[0]",
+      "type": "text",
+      "description": "17. Self-employed health insurance deduction.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_08[0]",
+      "type": "text",
+      "description": "18. Penalty on early withdrawal of savings.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_09[0]",
+      "type": "text",
+      "description": "19a. Alimony paid.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Line19b_CombField[0].f2_10[0]",
+      "type": "text",
+      "max_len": 9,
+      "description": "19b. Recipient's S S N.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_11[0]",
+      "type": "text",
+      "description": "19c. Date of original divorce or separation agreement (see instructions):",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].c2_2[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "20. I R A deduction. If you are married filing separately and lived apart from your spouse for the entire year (see instructions), check here.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_12[0]",
+      "type": "text",
+      "description": "20. Amount.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_13[0]",
+      "type": "text",
+      "description": "21. Student loan interest deduction.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_14[0]",
+      "type": "text",
+      "description": "22. Reserved for future use.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_15[0]",
+      "type": "text",
+      "description": "23. Archer M S A deduction.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Line24a_ReadOrder[0].f2_16[0]",
+      "type": "text",
+      "description": "24. Other adjustments: a. Jury duty pay (see instructions).",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_17[0]",
+      "type": "text",
+      "description": "24b. Deductible expenses related to income reported on line 8l from the rental of personal property engaged in for profit.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_18[0]",
+      "type": "text",
+      "description": "24c. Nontaxable amount of the value of Olympic and Paralympic medals and U S O C prize money reported on line 8m.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_19[0]",
+      "type": "text",
+      "description": "24d. Reforestation amortization and expenses.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_20[0]",
+      "type": "text",
+      "description": "24e. Repayment of supplemental unemployment benefits under the Trade Act of 1974.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_21[0]",
+      "type": "text",
+      "description": "24f. Contributions to section 501(c)(18)(D) pension plans.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_22[0]",
+      "type": "text",
+      "description": "24g. Contributions by certain chaplains to section 403(b) plans.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_23[0]",
+      "type": "text",
+      "description": "24h. Attorney fees and court costs for actions involving certain unlawful discrimination claims (see instructions).",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_24[0]",
+      "type": "text",
+      "description": "24i. Attorney fees and court costs you paid in connection with an award from the I R S for information you provided that helped the I R S detect tax law violations.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_25[0]",
+      "type": "text",
+      "description": "24j. Housing deduction from Form 2555.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_26[0]",
+      "type": "text",
+      "description": "24k. Excess deductions of section 67(e) expenses from Schedule K-1 (Form 1041).",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Line24z_ReadOrder[0].f2_27[0]",
+      "type": "text",
+      "multiline": true,
+      "description": "24z. Other adjustments. List type.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_28[0]",
+      "type": "text",
+      "description": "24z. and amount:",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_29[0]",
+      "type": "text",
+      "description": "25. Total other adjustments. Add lines 24a through 24z.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_30[0]",
+      "type": "text",
+      "description": "26. Add lines 11 through 23 and 25. These are your adjustments to income. Enter here and on Form 1040, 1040-S R, or 1040-N R, line 10.",
+      "page": 2
+    }
+  ],
+  "f1040s2": [
+    {
+      "name": "form1[0].Page1[0].f1_01[0]",
+      "type": "text",
+      "description": "Page 1. Name(s) shown on Form 1040, 1040-S R, or 1040-N R.",
+      "page": 1
+    },
+    {
+      "name": "form1[0].Page1[0].f1_02[0]",
+      "type": "text",
+      "max_len": 11,
+      "description": "Your social security number.",
+      "page": 1
+    },
+    {
+      "name": "form1[0].Page1[0].Line1a_ReadOrder[0].f1_03[0]",
+      "type": "text",
+      "description": "Part I. Tax. 1. Additions to tax: a. Excess advance premium tax credit repayment. Attach Form 8962.",
+      "page": 1
+    },
+    {
+      "name": "form1[0].Page1[0].f1_04[0]",
+      "type": "text",
+      "description": "1b. Repayment of new clean vehicle credit(s) transferred to a registered dealer from Schedule A (Form 8936), Part I I. Attach Form 8936 and Schedule A (Form 8936).",
+      "page": 1
+    },
+    {
+      "name": "form1[0].Page1[0].f1_05[0]",
+      "type": "text",
+      "description": "1c. Repayment of previously owned clean vehicle credit(s) transferred to a registered dealer from Schedule A (Form 8936), Part I V. Attach Form 8936 and Schedule A (Form 8936).",
+      "page": 1
+    },
+    {
+      "name": "form1[0].Page1[0].f1_06[0]",
+      "type": "text",
+      "description": "1d. Recapture of net E P E from Form 4255, line 2a, column (l).",
+      "page": 1
+    },
+    {
+      "name": "form1[0].Page1[0].Line1e_ReadOrder[0].c1_1[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "1e. Excessive payments (E Ps) on gross E P E from Form 4255. Check applicable box and enter amount. See instructions. (i). Line 1a.",
+      "page": 1
+    },
+    {
+      "name": "form1[0].Page1[0].Line1e_ReadOrder[0].c1_1[1]",
+      "type": "checkbox",
+      "on_states": [
+        "2"
+      ],
+      "description": "1e. (i i). Line 1c.",
+      "page": 1
+    },
+    {
+      "name": "form1[0].Page1[0].Line1e_ReadOrder[0].c1_1[2]",
+      "type": "checkbox",
+      "on_states": [
+        "3"
+      ],
+      "description": "1e. (i i i). Line 1d.",
+      "page": 1
+    },
+    {
+      "name": "form1[0].Page1[0].Line1e_ReadOrder[0].c1_1[3]",
+      "type": "checkbox",
+      "on_states": [
+        "4"
+      ],
+      "description": "1e. (i v). Line 2a.",
+      "page": 1
+    },
+    {
+      "name": "form1[0].Page1[0].f1_07[0]",
+      "type": "text",
+      "description": "1e. Amount.",
+      "page": 1
+    },
+    {
+      "name": "form1[0].Page1[0].Line1f_ReadOrder[0].c1_2[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "1f. 20% E P from Form 4255. Check applicable box and enter amount. See instructions. (i). Line 1a.",
+      "page": 1
+    },
+    {
+      "name": "form1[0].Page1[0].Line1f_ReadOrder[0].c1_2[1]",
+      "type": "checkbox",
+      "on_states": [
+        "2"
+      ],
+      "description": "1f. (i i). Line 1c.",
+      "page": 1
+    },
+    {
+      "name": "form1[0].Page1[0].Line1f_ReadOrder[0].c1_2[2]",
+      "type": "checkbox",
+      "on_states": [
+        "3"
+      ],
+      "description": "1f. (i i i). Line 1d.",
+      "page": 1
+    },
+    {
+      "name": "form1[0].Page1[0].Line1f_ReadOrder[0].c1_2[3]",
+      "type": "checkbox",
+      "on_states": [
+        "4"
+      ],
+      "description": "1f. (i v). Line 2a.",
+      "page": 1
+    },
+    {
+      "name": "form1[0].Page1[0].f1_08[0]",
+      "type": "text",
+      "description": "1f. Amount.",
+      "page": 1
+    },
+    {
+      "name": "form1[0].Page1[0].f1_09[0]",
+      "type": "text",
+      "description": "1y. Other additions to tax (see instructions):",
+      "page": 1
+    },
+    {
+      "name": "form1[0].Page1[0].f1_10[0]",
+      "type": "text",
+      "description": "1y. Amount.",
+      "page": 1
+    },
+    {
+      "name": "form1[0].Page1[0].f1_11[0]",
+      "type": "text",
+      "description": "1z. Add lines 1a through 1y.",
+      "page": 1
+    },
+    {
+      "name": "form1[0].Page1[0].f1_12[0]",
+      "type": "text",
+      "description": "2. Alternative minimum tax. Attach Form 6251.",
+      "page": 1
+    },
+    {
+      "name": "form1[0].Page1[0].f1_13[0]",
+      "type": "text",
+      "description": "3. Add lines 1z and 2. Enter here and on Form 1040, 1040-S R, or 1040-N R, line 17.",
+      "page": 1
+    },
+    {
+      "name": "form1[0].Page1[0].Line4_ReadOrder[0].c1_3[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "Part I I. Other Taxes. 4. Self-employment tax. Attach Schedule S E. Check if any exemption from (see instructions): 1. 4361.",
+      "page": 1
+    },
+    {
+      "name": "form1[0].Page1[0].Line4_ReadOrder[0].c1_4[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "4. 2. 4029.",
+      "page": 1
+    },
+    {
+      "name": "form1[0].Page1[0].Line4_ReadOrder[0].c1_5[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "4. 3.",
+      "page": 1
+    },
+    {
+      "name": "form1[0].Page1[0].Line4_ReadOrder[0].f1_14[0]",
+      "type": "text",
+      "description": "4. 3. (specify).",
+      "page": 1
+    },
+    {
+      "name": "form1[0].Page1[0].f1_15[0]",
+      "type": "text",
+      "description": "4. Amount.",
+      "page": 1
+    },
+    {
+      "name": "form1[0].Page1[0].f1_16[0]",
+      "type": "text",
+      "description": "5. Social security and Medicare tax on unreported tip income. Attach Form 4137.",
+      "page": 1
+    },
+    {
+      "name": "form1[0].Page1[0].f1_17[0]",
+      "type": "text",
+      "description": "6. Uncollected social security and Medicare tax on wages. Attach Form 8919.",
+      "page": 1
+    },
+    {
+      "name": "form1[0].Page1[0].f1_18[0]",
+      "type": "text",
+      "description": "7. Total additional social security and Medicare tax. Add lines 5 and 6.",
+      "page": 1
+    },
+    {
+      "name": "form1[0].Page1[0].Line8_ReadOrder[0].c1_6[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "8. Additional tax on I R As or other tax-favored accounts. Attach Form 5329 if required. If not required, check here.",
+      "page": 1
+    },
+    {
+      "name": "form1[0].Page1[0].f1_19[0]",
+      "type": "text",
+      "description": "8. Amount.",
+      "page": 1
+    },
+    {
+      "name": "form1[0].Page1[0].f1_20[0]",
+      "type": "text",
+      "description": "9. Household employment taxes. Attach Schedule H.",
+      "page": 1
+    },
+    {
+      "name": "form1[0].Page1[0].f1_21[0]",
+      "type": "text",
+      "description": "10. Reserved for future use.",
+      "page": 1
+    },
+    {
+      "name": "form1[0].Page1[0].f1_22[0]",
+      "type": "text",
+      "description": "11. Additional Medicare Tax. Attach Form 8959.",
+      "page": 1
+    },
+    {
+      "name": "form1[0].Page1[0].f1_23[0]",
+      "type": "text",
+      "description": "12. Net investment income tax. Attach Form 8960.",
+      "page": 1
+    },
+    {
+      "name": "form1[0].Page1[0].f1_24[0]",
+      "type": "text",
+      "description": "13. Uncollected social security and Medicare or R R T A tax on tips or group-term life insurance from Form W-2, box 12.",
+      "page": 1
+    },
+    {
+      "name": "form1[0].Page1[0].f1_25[0]",
+      "type": "text",
+      "description": "14. Interest on tax due on installment income from the sale of certain residential lots and timeshares.",
+      "page": 1
+    },
+    {
+      "name": "form1[0].Page1[0].f1_26[0]",
+      "type": "text",
+      "description": "15. Interest on the deferred tax on gain from certain installment sales with a sales price over $150,000.",
+      "page": 1
+    },
+    {
+      "name": "form1[0].Page1[0].f1_27[0]",
+      "type": "text",
+      "description": "16. Recapture of low-income housing credit. Attach Form 8611.",
+      "page": 1
+    },
+    {
+      "name": "form1[0].Page2[0].Line17a_ReadOrder[0].Line17_ReadOrder[0].f2_01[0]",
+      "type": "text",
+      "description": "Page 2. Part I I. Other Taxes (continued). 17. Other additional taxes: a. Recapture of other credits. List type, form number.",
+      "page": 2
+    },
+    {
+      "name": "form1[0].Page2[0].Line17a_ReadOrder[0].f2_02[0]",
+      "type": "text",
+      "description": "17a. and amount:",
+      "page": 2
+    },
+    {
+      "name": "form1[0].Page2[0].f2_03[0]",
+      "type": "text",
+      "description": "17b. Recapture of federal mortgage subsidy. If you sold your home, see instructions.",
+      "page": 2
+    },
+    {
+      "name": "form1[0].Page2[0].f2_04[0]",
+      "type": "text",
+      "description": "17c. Additional tax on H S A distributions. Attach Form 8889.",
+      "page": 2
+    },
+    {
+      "name": "form1[0].Page2[0].f2_05[0]",
+      "type": "text",
+      "description": "17d. Additional tax on an H S A because you didn't remain an eligible individual. Attach Form 8889.",
+      "page": 2
+    },
+    {
+      "name": "form1[0].Page2[0].f2_06[0]",
+      "type": "text",
+      "description": "17e. Additional tax on Archer M S A distributions. Attach Form 8853.",
+      "page": 2
+    },
+    {
+      "name": "form1[0].Page2[0].f2_07[0]",
+      "type": "text",
+      "description": "17f. Additional tax on Medicare Advantage M S A distributions. Attach Form 8853.",
+      "page": 2
+    },
+    {
+      "name": "form1[0].Page2[0].f2_08[0]",
+      "type": "text",
+      "description": "17g. Recapture of a charitable contribution deduction related to a fractional interest in tangible personal property.",
+      "page": 2
+    },
+    {
+      "name": "form1[0].Page2[0].f2_09[0]",
+      "type": "text",
+      "description": "17h. Income your received from a nonqualified deferred compensation plan that fails to meet the requirements of section 409A.",
+      "page": 2
+    },
+    {
+      "name": "form1[0].Page2[0].f2_10[0]",
+      "type": "text",
+      "description": "17i. Compensation you received from a nonqualified deferred compensation plan described in section 457A.",
+      "page": 2
+    },
+    {
+      "name": "form1[0].Page2[0].f2_11[0]",
+      "type": "text",
+      "description": "17j. Section 72(m)(5) excess benefits tax.",
+      "page": 2
+    },
+    {
+      "name": "form1[0].Page2[0].f2_12[0]",
+      "type": "text",
+      "description": "17k. Golden parachute payments.",
+      "page": 2
+    },
+    {
+      "name": "form1[0].Page2[0].f2_13[0]",
+      "type": "text",
+      "description": "17l. Tax on accumulation distribution of trusts.",
+      "page": 2
+    },
+    {
+      "name": "form1[0].Page2[0].f2_14[0]",
+      "type": "text",
+      "description": "17m. Excise tax on insider stock compensation from an expatriated corporation.",
+      "page": 2
+    },
+    {
+      "name": "form1[0].Page2[0].f2_15[0]",
+      "type": "text",
+      "description": "17n. Look-back interest under section 167(g) or 460(b) from Form 8697 or 8866.",
+      "page": 2
+    },
+    {
+      "name": "form1[0].Page2[0].f2_16[0]",
+      "type": "text",
+      "description": "17o. Tax on non-effectively connected income for any part of the year you were a nonresident alien from Form 1040-N R.",
+      "page": 2
+    },
+    {
+      "name": "form1[0].Page2[0].f2_17[0]",
+      "type": "text",
+      "description": "17p. Any interest from Form 8621, line 16f, relating to distributions from, and dispositions of, stock of a section 1291 fund.",
+      "page": 2
+    },
+    {
+      "name": "form1[0].Page2[0].f2_18[0]",
+      "type": "text",
+      "description": "17q. Any interest from Form 8621, line 24.",
+      "page": 2
+    },
+    {
+      "name": "form1[0].Page2[0].Line17z_ReadOrder[0].f2_19[0]",
+      "type": "text",
+      "multiline": true,
+      "description": "17z. Any other taxes. List type.",
+      "page": 2
+    },
+    {
+      "name": "form1[0].Page2[0].f2_20[0]",
+      "type": "text",
+      "description": "17z. and amount:",
+      "page": 2
+    },
+    {
+      "name": "form1[0].Page2[0].f2_21[0]",
+      "type": "text",
+      "description": "18. Total additional taxes. Add lines 17a through 17z.",
+      "page": 2
+    },
+    {
+      "name": "form1[0].Page2[0].f2_22[0]",
+      "type": "text",
+      "description": "19. Recapture of net E P E from Form 4255, line 1d, column (l).",
+      "page": 2
+    },
+    {
+      "name": "form1[0].Page2[0].f2_23[0]",
+      "type": "text",
+      "description": "20. Section 965 net tax liability installment from Form 965-A.",
+      "page": 2
+    },
+    {
+      "name": "form1[0].Page2[0].f2_24[0]",
+      "type": "text",
+      "description": "21. Add lines 4, 7 through 16, 18, and 19. These are your total other taxes. Enter here and on Form 1040 or 1040-S R, line 23; or Form 1040-N R, line 23b.",
+      "page": 2
+    }
+  ],
+  "f8995": [
+    {
+      "name": "topmostSubform[0].Page1[0].f1_01[0]",
+      "type": "text",
+      "description": "Page 1. Name(s) shown on return.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_02[0]",
+      "type": "text",
+      "max_len": 11,
+      "description": "Your taxpayer identification number.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table[0].Row1i[0].f1_03[0]",
+      "type": "text",
+      "multiline": true,
+      "description": "Note: You can claim the qualified business income deduction only if you have qualified business income from a qualified trade or business, real estate investment trust dividends, publicly traded partnership income, or a domestic production activities deduction passed through from an agricultural or horticultural cooperative. See instructions. Use this form if your taxable income, before your qualified business income deduction, is at or below $197,300 ($394,600 if married filing jointly), and you aren’t a patron of an agricultural or horticultural cooperative. 1. Row: i. Column: (a) Trade, business, or aggregation name.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table[0].Row1i[0].f1_04[0]",
+      "type": "text",
+      "max_len": 11,
+      "description": "Row: i. Column: (b) Taxpayer identification number.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table[0].Row1i[0].f1_05[0]",
+      "type": "text",
+      "description": "Row: i. Column: (c) Qualified business income or (loss).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table[0].Row1ii[0].f1_06[0]",
+      "type": "text",
+      "multiline": true,
+      "description": "Row: i i. Column: (a) Trade, business, or aggregation name.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table[0].Row1ii[0].f1_07[0]",
+      "type": "text",
+      "max_len": 11,
+      "description": "Row: i i. Column: (b) Taxpayer identification number.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table[0].Row1ii[0].f1_08[0]",
+      "type": "text",
+      "description": "Row: i i. Column: (c) Qualified business income or (loss).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table[0].Row1iii[0].f1_09[0]",
+      "type": "text",
+      "multiline": true,
+      "description": "Row: i i i. Column: (a) Trade, business, or aggregation name.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table[0].Row1iii[0].f1_10[0]",
+      "type": "text",
+      "max_len": 11,
+      "description": "Row: i i i. Column: (b) Taxpayer identification number.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table[0].Row1iii[0].f1_11[0]",
+      "type": "text",
+      "description": "Row: i i i. Column: (c) Qualified business income or (loss).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table[0].Row1iv[0].f1_12[0]",
+      "type": "text",
+      "multiline": true,
+      "description": "Row: i v. Column: (a) Trade, business, or aggregation name.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table[0].Row1iv[0].f1_13[0]",
+      "type": "text",
+      "max_len": 11,
+      "description": "Row: i v. Column: (b) Taxpayer identification number.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table[0].Row1iv[0].f1_14[0]",
+      "type": "text",
+      "description": "Row: i v. Column: (c) Qualified business income or (loss).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table[0].Row1v[0].f1_15[0]",
+      "type": "text",
+      "multiline": true,
+      "description": "Row: v. Column: (a) Trade, business, or aggregation name.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table[0].Row1v[0].f1_16[0]",
+      "type": "text",
+      "max_len": 11,
+      "description": "Row: v. Column: (b) Taxpayer identification number.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table[0].Row1v[0].f1_17[0]",
+      "type": "text",
+      "description": "Row: v. Column: (c) Qualified business income or (loss).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Line2_ReadOrder[0].f1_18[0]",
+      "type": "text",
+      "description": "2. Total qualified business income or (loss). Combine lines 1 i through 1 v, column (c).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_19[0]",
+      "type": "text",
+      "description": "3. Open parenthesis. Qualified business net (loss) carryforward from the prior year. Close parenthesis.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_20[0]",
+      "type": "text",
+      "description": "4. Total qualified business income. Combine lines 2 and 3. If zero or less, enter 0.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_21[0]",
+      "type": "text",
+      "description": "5. Qualified business income component. Multiply line 4 by 20% (0.20).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Line6_ReadOrder[0].f1_22[0]",
+      "type": "text",
+      "description": "6. Qualified R E I T dividends and publicly traded partnership (P T P) income or (loss) (see instructions).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_23[0]",
+      "type": "text",
+      "description": "7. Open parenthesis. Qualified R E I T dividends and qualified P T P (loss) carryforward from the prior year. Close parenthesis.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_24[0]",
+      "type": "text",
+      "description": "8. Total qualified R E I T dividends and P T P income. Combine lines 6 and 7. If zero or less, enter 0.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_25[0]",
+      "type": "text",
+      "description": "9. R E I T and P T P component. Multiply line 8 by 20% (0.20).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_26[0]",
+      "type": "text",
+      "description": "10. Qualified business income deduction before the income limitation. Add lines 5 and 9.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_27[0]",
+      "type": "text",
+      "description": "11. Taxable income before qualified business income deduction (see instructions).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_28[0]",
+      "type": "text",
+      "description": "12. Enter your net capital gain, if any, increased by any qualified dividends (see instructions).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_29[0]",
+      "type": "text",
+      "description": "13. Subtract line 12 from line 11. If zero or less, enter 0.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_30[0]",
+      "type": "text",
+      "description": "14. Income limitation. Multiply line 13 by 20% (0.20).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_31[0]",
+      "type": "text",
+      "description": "15. Qualified business income deduction. Enter the smaller of line 10 or line 14. Also enter this amount on the applicable line of your return (see instructions).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_32[0]",
+      "type": "text",
+      "description": "16. Open parenthesis. Total qualified business (loss) carryforward. Combine lines 2 and 3. If greater than zero, enter 0. Close parenthesis.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_33[0]",
+      "type": "text",
+      "description": "17. Open parenthesis. Total qualified R E I T dividends and P T P (loss) carryforward. Combine lines 6 and 7. If greater than zero, enter 0. Close parenthesis.",
+      "page": 1
+    }
+  ],
+  "f1040se": [
+    {
+      "name": "topmostSubform[0].Page1[0].f1_1[0]",
+      "type": "text",
+      "description": "Page 1. Name(s) shown on return.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_2[0]",
+      "type": "text",
+      "max_len": 11,
+      "description": "Your social security number.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].c1_1[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "Part I. Income or Loss From Rental Real Estate and Royalties. Note: If you are in the business of renting personal property, use Schedule C. See instructions. If you are an individual, report farm rental income or loss from Form 4835 on page 2, line 40. A. Did you make any payments in 2025 that would require you to file Form(s) 1099? See instructions. Yes.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].c1_1[1]",
+      "type": "checkbox",
+      "on_states": [
+        "2"
+      ],
+      "description": "A. No.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].c1_2[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "B. If “Yes,” did you or will you file required Form(s) 1099? Yes.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].c1_2[1]",
+      "type": "checkbox",
+      "on_states": [
+        "2"
+      ],
+      "description": "B. No.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Line1a[0].RowA[0].f1_3[0]",
+      "type": "text",
+      "description": "1a. Row: A. Column: Physical address of each property (street, city, state, Z I P code).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Line1a[0].RowB[0].f1_4[0]",
+      "type": "text",
+      "description": "1a. Row: B. Column: Physical address of each property (street, city, state, Z I P code).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Line1a[0].RowC[0].f1_5[0]",
+      "type": "text",
+      "description": "1a. Row: C. Column: Physical address of each property (street, city, state, Z I P code).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Line1b[0].RowA[0].f1_6[0]",
+      "type": "text",
+      "max_len": 1,
+      "description": "1b. Row: A. Column: Type of Property (from list below).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Line1b[0].RowB[0].f1_7[0]",
+      "type": "text",
+      "max_len": 1,
+      "description": "1b. Row: B. Column: Type of Property (from list below).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Line1b[0].RowC[0].f1_8[0]",
+      "type": "text",
+      "max_len": 1,
+      "description": "1b. Row: C. Column: Type of Property (from list below).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Line2[0].RowA[0].f1_9[0]",
+      "type": "text",
+      "description": "2. For each rental real estate property listed above, report the number of fair rental and personal use days. Check the Q J V box only if you meet the requirements to file as a qualified joint venture. See instructions. Row: A. Column: Fair Rental Days.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Line2[0].RowA[0].f1_10[0]",
+      "type": "text",
+      "description": "Row: A. Column: Personal Use Days.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Line2[0].RowA[0].c1_3[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "Row: A. Column: Q J V.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Line2[0].RowB[0].f1_11[0]",
+      "type": "text",
+      "description": "Row: B. Column: Fair Rental Days.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Line2[0].RowB[0].f1_12[0]",
+      "type": "text",
+      "description": "Row: B. Column: Personal Use Days.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Line2[0].RowB[0].c1_4[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "Row: B. Column: Q J V.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Line2[0].RowC[0].f1_13[0]",
+      "type": "text",
+      "description": "Row: C. Column: Fair Rental Days.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Line2[0].RowC[0].f1_14[0]",
+      "type": "text",
+      "description": "Row: C. Column: Personal Use Days.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Line2[0].RowC[0].c1_5[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "Row: C. Column: Q J V.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_15[0]",
+      "type": "text",
+      "description": "Type of Property: 8. Other (describe).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Income[0].Line3[0].f1_16[0]",
+      "type": "text",
+      "description": "Income. Row: 3. Rents received. Properties. Column: A.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Income[0].Line3[0].f1_17[0]",
+      "type": "text",
+      "description": "Row: 3. Rents received. Properties. Column: B.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Income[0].Line3[0].f1_18[0]",
+      "type": "text",
+      "description": "Row: 3. Rents received. Properties. Column: C.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Income[0].Line4[0].f1_19[0]",
+      "type": "text",
+      "description": "Row: 4. Royalties received. Column: Properties. A.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Income[0].Line4[0].f1_20[0]",
+      "type": "text",
+      "description": "Row: 4. Royalties received. Column: Properties. B.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Income[0].Line4[0].f1_21[0]",
+      "type": "text",
+      "description": "Row: 4. Royalties received. Column: Properties. C.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Expenses[0].Line5[0].f1_22[0]",
+      "type": "text",
+      "description": "Expenses. Row: 5. Advertising. Column: Properties. A.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Expenses[0].Line5[0].f1_23[0]",
+      "type": "text",
+      "description": "Row: 5. Advertising. Column: Properties. B.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Expenses[0].Line5[0].f1_24[0]",
+      "type": "text",
+      "description": "Row: 5. Advertising. Column: Properties. C.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Expenses[0].Line6[0].f1_25[0]",
+      "type": "text",
+      "description": "Row: 6. Auto and travel (see instructions). Column: Properties. A.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Expenses[0].Line6[0].f1_26[0]",
+      "type": "text",
+      "description": "Row: 6. Auto and travel (see instructions). Column: Properties. B.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Expenses[0].Line6[0].f1_27[0]",
+      "type": "text",
+      "description": "Row: 6. Auto and travel (see instructions). Column: Properties. C.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Expenses[0].Line7[0].f1_28[0]",
+      "type": "text",
+      "description": "Row: 7. Cleaning and maintenance. Column: Properties. A.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Expenses[0].Line7[0].f1_29[0]",
+      "type": "text",
+      "description": "Row: 7. Cleaning and maintenance. Column: Properties. B.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Expenses[0].Line7[0].f1_30[0]",
+      "type": "text",
+      "description": "Row: 7. Cleaning and maintenance. Column: Properties. C.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Expenses[0].Line8[0].f1_31[0]",
+      "type": "text",
+      "description": "Row: 8. Commissions. Column: Properties. A.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Expenses[0].Line8[0].f1_32[0]",
+      "type": "text",
+      "description": "Row: 8. Commissions. Column: Properties. B.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Expenses[0].Line8[0].f1_33[0]",
+      "type": "text",
+      "description": "Row: 8. Commissions. Column: Properties. C.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Expenses[0].Line9[0].f1_34[0]",
+      "type": "text",
+      "description": "Row: 9. Insurance. Column: Properties. A.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Expenses[0].Line9[0].f1_35[0]",
+      "type": "text",
+      "description": "Row: 9. Insurance. Column: Properties. B.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Expenses[0].Line9[0].f1_36[0]",
+      "type": "text",
+      "description": "Row: 9. Insurance. Column: Properties. C.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Expenses[0].Line10[0].f1_37[0]",
+      "type": "text",
+      "description": "Row: 10. Legal and other professional fees. Column: Properties. A.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Expenses[0].Line10[0].f1_38[0]",
+      "type": "text",
+      "description": "Row: 10. Legal and other professional fees. Column: Properties. B.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Expenses[0].Line10[0].f1_39[0]",
+      "type": "text",
+      "description": "Row: 10. Legal and other professional fees. Column: Properties. C.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Expenses[0].Line11[0].f1_40[0]",
+      "type": "text",
+      "description": "Row: 11. Management fees. Column: Properties. A.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Expenses[0].Line11[0].f1_41[0]",
+      "type": "text",
+      "description": "Row: 11. Management fees. Column: Properties. B.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Expenses[0].Line11[0].f1_42[0]",
+      "type": "text",
+      "description": "Row: 11. Management fees. Column: Properties. C.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Expenses[0].Line12[0].f1_43[0]",
+      "type": "text",
+      "description": "Row: 12. Mortgage interest paid to banks, etc. (see instructions). Column: Properties. A.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Expenses[0].Line12[0].f1_44[0]",
+      "type": "text",
+      "description": "Row: 12. Mortgage interest paid to banks, etc. (see instructions). Column: Properties. B.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Expenses[0].Line12[0].f1_45[0]",
+      "type": "text",
+      "description": "Row: 12. Mortgage interest paid to banks, etc. (see instructions). Column: Properties. C.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Expenses[0].Line13[0].f1_46[0]",
+      "type": "text",
+      "description": "Row: 13. Other interest. Column: Properties. A.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Expenses[0].Line13[0].f1_47[0]",
+      "type": "text",
+      "description": "Row: 13. Other interest. Column: Properties. B.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Expenses[0].Line13[0].f1_48[0]",
+      "type": "text",
+      "description": "Row: 13. Other interest. Column: Properties. C.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Expenses[0].Line14[0].f1_49[0]",
+      "type": "text",
+      "description": "Row: 14. Repairs. Column: Properties. A.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Expenses[0].Line14[0].f1_50[0]",
+      "type": "text",
+      "description": "Row: 14. Repairs. Column: Properties. B.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Expenses[0].Line14[0].f1_51[0]",
+      "type": "text",
+      "description": "Row: 14. Repairs. Column: Properties. C.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Expenses[0].Line15[0].f1_52[0]",
+      "type": "text",
+      "description": "Row: 15. Supplies. Column: Properties. A.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Expenses[0].Line15[0].f1_53[0]",
+      "type": "text",
+      "description": "Row: 15. Supplies. Column: Properties. B.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Expenses[0].Line15[0].f1_54[0]",
+      "type": "text",
+      "description": "Row: 15. Supplies. Column: Properties. C.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Expenses[0].Line16[0].f1_55[0]",
+      "type": "text",
+      "description": "Row: 16. Taxes. Column: Properties. A.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Expenses[0].Line16[0].f1_56[0]",
+      "type": "text",
+      "description": "Row: 16. Taxes. Column: Properties. B.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Expenses[0].Line16[0].f1_57[0]",
+      "type": "text",
+      "description": "Row: 16. Taxes. Column: Properties. C.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Expenses[0].Line17[0].f1_58[0]",
+      "type": "text",
+      "description": "Row: 17. Utilities. Column: Properties. A.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Expenses[0].Line17[0].f1_59[0]",
+      "type": "text",
+      "description": "Row: 17. Utilities. Column: Properties. B.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Expenses[0].Line17[0].f1_60[0]",
+      "type": "text",
+      "description": "Row: 17. Utilities. Column: Properties. C.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Expenses[0].Line18[0].f1_61[0]",
+      "type": "text",
+      "description": "Row: 18. Depreciation expense or depletion. Column: Properties. A.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Expenses[0].Line18[0].f1_62[0]",
+      "type": "text",
+      "description": "Row: 18. Depreciation expense or depletion. Column: Properties. B.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Expenses[0].Line18[0].f1_63[0]",
+      "type": "text",
+      "description": "Row: 18. Depreciation expense or depletion. Column: Properties. C.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Expenses[0].Line19[0].f1_64[0]",
+      "type": "text",
+      "description": "Row: 19. Column: Expenses. Other (list).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Expenses[0].Line19[0].f1_65[0]",
+      "type": "text",
+      "description": "Row: 19. Other. Column: Properties. A.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Expenses[0].Line19[0].f1_66[0]",
+      "type": "text",
+      "description": "Row: 19. Other. Column: Properties. B.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Expenses[0].Line19[0].f1_67[0]",
+      "type": "text",
+      "description": "Row: 19. Other. Column: Properties. C.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Expenses[0].Line20[0].f1_68[0]",
+      "type": "text",
+      "description": "Row: 20. Total expenses. Add lines 5 through 19. Column: Properties. A.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Expenses[0].Line20[0].f1_69[0]",
+      "type": "text",
+      "description": "Row: 20. Total expenses. Add lines 5 through 19. Column: Properties. B.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Expenses[0].Line20[0].f1_70[0]",
+      "type": "text",
+      "description": "Row: 20. Total expenses. Add lines 5 through 19. Column: Properties. C.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Expenses[0].Line21[0].f1_71[0]",
+      "type": "text",
+      "description": "Row: 21. Subtract line 20 from line 3 (rents) and/or 4 (royalties). If result is a (loss), see instructions to find out if you must file Form 6198. Column: Properties. A.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Expenses[0].Line21[0].f1_72[0]",
+      "type": "text",
+      "description": "Row: 21. Subtract line 20 from line 3 (rents) and/or 4 (royalties). If result is a (loss), see instructions to find out if you must file Form 6198. Column: Properties. B.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Expenses[0].Line21[0].f1_73[0]",
+      "type": "text",
+      "description": "Row: 21. Subtract line 20 from line 3 (rents) and/or 4 (royalties). If result is a (loss), see instructions to find out if you must file Form 6198. Column: Properties. C.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Expenses[0].Line22[0].f1_74[0]",
+      "type": "text",
+      "description": "Row: 22. Deductible rental real estate loss after limitation, if any, on Form 8582 (see instructions). Column: Open parenthesis. Properties. A. Close parenthesis.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Expenses[0].Line22[0].f1_75[0]",
+      "type": "text",
+      "description": "Row: 22. Deductible rental real estate loss after limitation, if any, on Form 8582 (see instructions). Column: Open parenthesis. Properties. B. Close parenthesis.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Table_Expenses[0].Line22[0].f1_76[0]",
+      "type": "text",
+      "description": "Row: 22. Deductible rental real estate loss after limitation, if any, on Form 8582 (see instructions). Column: Open parenthesis. Properties. C. Close parenthesis.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_77[0]",
+      "type": "text",
+      "description": "23a. Total of all amounts reported on line 3 for all rental properties.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_78[0]",
+      "type": "text",
+      "description": "23b. Total of all amounts reported on line 4 for all royalty properties.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_79[0]",
+      "type": "text",
+      "description": "23c. Total of all amounts reported on line 12 for all properties.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_80[0]",
+      "type": "text",
+      "description": "23d. Total of all amounts reported on line 18 for all properties.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_81[0]",
+      "type": "text",
+      "description": "23e. Total of all amounts reported on line 20 for all properties.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_82[0]",
+      "type": "text",
+      "description": "24. Income. Add positive amounts shown on line 21. Do not include any losses.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_83[0]",
+      "type": "text",
+      "description": "25. Losses. Add royalty losses from line 21 and rental real estate losses from line 22. Enter total losses here. Open parenthesis. Close parenthesis.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_84[0]",
+      "type": "text",
+      "description": "26. Total rental real estate and royalty income or (loss). Combine lines 24 and 25. Enter the result here. If Parts I I, I I I, and I V, and line 40 on page 2 do not apply to you, also enter this amount on Schedule 1 (Form 1040), line 5. Otherwise, include this amount in the total on line 41 on page 2.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_1[0]",
+      "type": "text",
+      "description": "Page 2. Name(s) shown on return. Do not enter name and social security number if shown on other side.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_2[0]",
+      "type": "text",
+      "max_len": 11,
+      "description": "Your social security number.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].c2_1[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "Caution: The I R S compares amounts reported on your tax return with amounts shown on Schedule(s) K-1. Part I I. Income or Loss From Partnerships and S Corporations. Note: If you report a loss, receive a distribution, dispose of stock, or receive a loan repayment from an S corporation, you must check the box in column (e) on line 28 and attach the required basis computation. If you report a loss from an at-risk activity for which any amount is not at risk, you must check the box in column (f) on line 28 and attach Form 6198. See instructions. 27. Are you reporting any loss not allowed in a prior year due to the at-risk or basis limitations, a prior year unallowed loss from a passive activity (if that loss was not reported on Form 8582), or unreimbursed partnership expenses? If you answered \"Yes,\" see instructions before completing this section. Yes.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].c2_1[1]",
+      "type": "checkbox",
+      "on_states": [
+        "2"
+      ],
+      "description": "27. No.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line28a-f[0].RowA[0].f2_3[0]",
+      "type": "text",
+      "description": "28. Row: A. Column: (a) Name.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line28a-f[0].RowA[0].f2_4[0]",
+      "type": "text",
+      "max_len": 1,
+      "description": "Row: A. Column: (b) Enter P for partnership; S for S corporation.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line28a-f[0].RowA[0].c2_2[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "Row: A. Column: (c) Check if foreign partnership.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line28a-f[0].RowA[0].f2_5[0]",
+      "type": "text",
+      "max_len": 10,
+      "description": "Row: A. Column: (d) Employer identification number.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line28a-f[0].RowA[0].c2_3[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "Row: A. Column: (e) Check if basis computation is required.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line28a-f[0].RowA[0].c2_4[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "Row: A. Column: (f) Check if any amount is not at risk.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line28a-f[0].RowB[0].f2_6[0]",
+      "type": "text",
+      "description": "Row: B. Column: (a) Name.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line28a-f[0].RowB[0].f2_7[0]",
+      "type": "text",
+      "max_len": 1,
+      "description": "Row: B. Column: (b) Enter P for partnership; S for S corporation.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line28a-f[0].RowB[0].c2_5[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "Row: B. Column: (c) Check if foreign partnership.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line28a-f[0].RowB[0].f2_8[0]",
+      "type": "text",
+      "max_len": 10,
+      "description": "Row: B. Column: (d) Employer identification number.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line28a-f[0].RowB[0].c2_6[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "Row: B. Column: (e) Check if basis computation is required.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line28a-f[0].RowB[0].c2_7[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "Row: B. Column: (f) Check if any amount is not at risk.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line28a-f[0].RowC[0].f2_9[0]",
+      "type": "text",
+      "description": "Row: C. Column: (a) Name.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line28a-f[0].RowC[0].f2_10[0]",
+      "type": "text",
+      "max_len": 1,
+      "description": "Row: C. Column: (b) Enter P for partnership; S for S corporation.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line28a-f[0].RowC[0].c2_8[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "Row: C. Column: (c) Check if foreign partnership.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line28a-f[0].RowC[0].f2_11[0]",
+      "type": "text",
+      "max_len": 10,
+      "description": "Row: C. Column: (d) Employer identification number.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line28a-f[0].RowC[0].c2_9[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "Row: C. Column: (e) Check if basis computation is required.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line28a-f[0].RowC[0].c2_10[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "Row: C. Column: (f) Check if any amount is not at risk.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line28a-f[0].RowD[0].f2_12[0]",
+      "type": "text",
+      "description": "Row: D. Column: (a) Name.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line28a-f[0].RowD[0].f2_13[0]",
+      "type": "text",
+      "max_len": 1,
+      "description": "Row: D. Column: (b) Enter P for partnership; S for S corporation.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line28a-f[0].RowD[0].c2_11[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "Row: D. Column: (c) Check if foreign partnership.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line28a-f[0].RowD[0].f2_14[0]",
+      "type": "text",
+      "max_len": 10,
+      "description": "Row: D. Column: (d) Employer identification number.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line28a-f[0].RowD[0].c2_12[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "Row: D. Column: (e) Check if basis computation is required.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line28a-f[0].RowD[0].c2_13[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "Row: D. Column: (f) Check if any amount is not at risk.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line28g-k[0].RowA[0].f2_15[0]",
+      "type": "text",
+      "description": "Row: A. Column: Passive Income and Loss. (g) Passive loss allowed (attach Form 8582 if required).",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line28g-k[0].RowA[0].f2_16[0]",
+      "type": "text",
+      "description": "Row: A. Column: Passive Income and Loss. (h) Passive income from Schedule K-1.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line28g-k[0].RowA[0].f2_17[0]",
+      "type": "text",
+      "description": "Row: A. Column: Nonpassive Income and Loss. (i) Nonpassive loss allowed (see Schedule K-1).",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line28g-k[0].RowA[0].f2_18[0]",
+      "type": "text",
+      "description": "Row: A. Column: Nonpassive Income and Loss. (j) Section 179 expense deduction from Form 4562.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line28g-k[0].RowA[0].f2_19[0]",
+      "type": "text",
+      "description": "Row: A. Column: Nonpassive Income and Loss. (k) Nonpassive income from Schedule K-1.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line28g-k[0].RowB[0].f2_20[0]",
+      "type": "text",
+      "description": "Row: B. Column: Passive Income and Loss. (g) Passive loss allowed (attach Form 8582 if required).",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line28g-k[0].RowB[0].f2_21[0]",
+      "type": "text",
+      "description": "Row: B. Column: Passive Income and Loss. (h) Passive income from Schedule K-1.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line28g-k[0].RowB[0].f2_22[0]",
+      "type": "text",
+      "description": "Row: B. Column: Nonpassive Income and Loss. (i) Nonpassive loss allowed (see Schedule K-1).",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line28g-k[0].RowB[0].f2_23[0]",
+      "type": "text",
+      "description": "Row: B. Column: Nonpassive Income and Loss. (j) Section 179 expense deduction from Form 4562.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line28g-k[0].RowB[0].f2_24[0]",
+      "type": "text",
+      "description": "Row: B. Column: Nonpassive Income and Loss. (k) Nonpassive income from Schedule K-1.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line28g-k[0].RowC[0].f2_25[0]",
+      "type": "text",
+      "description": "Row: C. Column: Passive Income and Loss. (g) Passive loss allowed (attach Form 8582 if required).",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line28g-k[0].RowC[0].f2_26[0]",
+      "type": "text",
+      "description": "Row: C. Column: Passive Income and Loss. (h) Passive income from Schedule K-1.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line28g-k[0].RowC[0].f2_27[0]",
+      "type": "text",
+      "description": "Row: C. Column: Nonpassive Income and Loss. (i) Nonpassive loss allowed (see Schedule K-1).",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line28g-k[0].RowC[0].f2_28[0]",
+      "type": "text",
+      "description": "Row: C. Column: Nonpassive Income and Loss. (j) Section 179 expense deduction from Form 4562.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line28g-k[0].RowC[0].f2_29[0]",
+      "type": "text",
+      "description": "Row: C. Column: Nonpassive Income and Loss. (k) Nonpassive income from Schedule K-1.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line28g-k[0].RowD[0].f2_30[0]",
+      "type": "text",
+      "description": "Row: D. Column: Passive Income and Loss. (g) Passive loss allowed (attach Form 8582 if required).",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line28g-k[0].RowD[0].f2_31[0]",
+      "type": "text",
+      "description": "Row: D. Column: Passive Income and Loss. (h) Passive income from Schedule K-1.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line28g-k[0].RowD[0].f2_32[0]",
+      "type": "text",
+      "description": "Row: D. Column: Nonpassive Income and Loss. (i) Nonpassive loss allowed (see Schedule K-1).",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line28g-k[0].RowD[0].f2_33[0]",
+      "type": "text",
+      "description": "Row: D. Column: Nonpassive Income and Loss. (j) Section 179 expense deduction from Form 4562.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line28g-k[0].RowD[0].f2_34[0]",
+      "type": "text",
+      "description": "Row: D. Column: Nonpassive Income and Loss. (k) Nonpassive income from Schedule K-1.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_35[0]",
+      "type": "text",
+      "description": "29a. Totals. (g) Passive loss allowed (attach Form 8582 if required).",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_36[0]",
+      "type": "text",
+      "description": "29a. (h) Passive income from Schedule K-1.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_37[0]",
+      "type": "text",
+      "description": "29a. (i) Nonpassive loss allowed (see Schedule K-1).",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_38[0]",
+      "type": "text",
+      "description": "29a. (j) Section 179 expense deduction from Form 4562.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_39[0]",
+      "type": "text",
+      "description": "29a. (k) Nonpassive income from Schedule K-1.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_40[0]",
+      "type": "text",
+      "description": "29b. Totals. (g) Passive loss allowed (attach Form 8582 if required).",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_41[0]",
+      "type": "text",
+      "description": "29b. (h) Passive income from Schedule K-1.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_42[0]",
+      "type": "text",
+      "description": "29b. (i) Nonpassive loss allowed (see Schedule K-1).",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_43[0]",
+      "type": "text",
+      "description": "29b. (j) Section 179 expense deduction from Form 4562.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_44[0]",
+      "type": "text",
+      "description": "29b. (k) Nonpassive income from Schedule K-1.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_45[0]",
+      "type": "text",
+      "description": "30. Add columns (h) and (k) of line 29a.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_46[0]",
+      "type": "text",
+      "description": "31. Add columns (g), (i), and (j) of line 29b. Open parenthesis. Close parenthesis.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_47[0]",
+      "type": "text",
+      "description": "32. Total partnership and S corporation income or (loss). Combine lines 30 and 31.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line33a-b[0].RowA[0].f2_48[0]",
+      "type": "text",
+      "description": "Part I I I. Income or Loss From Estates and Trusts. 33. Row: A. Column: (a) Name.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line33a-b[0].RowA[0].f2_49[0]",
+      "type": "text",
+      "max_len": 10,
+      "description": "Row: A. Column: (b) Employer identification number.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line33a-b[0].RowB[0].f2_50[0]",
+      "type": "text",
+      "description": "Row: B. Column: (a) Name.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line33a-b[0].RowB[0].f2_51[0]",
+      "type": "text",
+      "max_len": 10,
+      "description": "Row: B. Column: (b) Employer identification number.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line33c-f[0].RowA[0].f2_52[0]",
+      "type": "text",
+      "description": "Row: A. Column: Passive Income and Loss. (c) Passive deduction or loss allowed (attach Form 8582 if required).",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line33c-f[0].RowA[0].f2_53[0]",
+      "type": "text",
+      "description": "Row: A. Column: Passive Income and Loss. (d) Passive income from Schedule K-1.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line33c-f[0].RowA[0].f2_54[0]",
+      "type": "text",
+      "description": "Row: A. Column: Nonpassive Income and Loss. (e) Deduction or loss from Schedule K-1.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line33c-f[0].RowA[0].f2_55[0]",
+      "type": "text",
+      "description": "Row: A. Column: Nonpassive Income and Loss. (f) Other income from Schedule K-1.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line33c-f[0].RowB[0].f2_56[0]",
+      "type": "text",
+      "description": "Row: B. Column: Passive Income and Loss. (c) Passive deduction or loss allowed (attach Form 8582 if required).",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line33c-f[0].RowB[0].f2_57[0]",
+      "type": "text",
+      "description": "Row: B. Column: Passive Income and Loss. (d) Passive income from Schedule K-1.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line33c-f[0].RowB[0].f2_58[0]",
+      "type": "text",
+      "description": "Row: B. Column: Nonpassive Income and Loss. (e) Deduction or loss from Schedule K-1.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line33c-f[0].RowB[0].f2_59[0]",
+      "type": "text",
+      "description": "Row: B. Column: Nonpassive Income and Loss. (f) Other income from Schedule K-1.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_60[0]",
+      "type": "text",
+      "description": "34a. Totals. (c) Passive deduction or loss allowed (attach Form 8582 if required).",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_61[0]",
+      "type": "text",
+      "description": "34a. (d) Passive income from Schedule K-1.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_62[0]",
+      "type": "text",
+      "description": "34a. (e) Deduction or loss from Schedule K-1.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_63[0]",
+      "type": "text",
+      "description": "34a. (f) Other income from Schedule K-1.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_64[0]",
+      "type": "text",
+      "description": "34b. Totals. (c) Passive deduction or loss allowed (attach Form 8582 if required).",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_65[0]",
+      "type": "text",
+      "description": "34b. (d) Passive income from Schedule K-1.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_66[0]",
+      "type": "text",
+      "description": "34b. (e) Deduction or loss from Schedule K-1.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_67[0]",
+      "type": "text",
+      "description": "34b. (f) Other income from Schedule K-1.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_68[0]",
+      "type": "text",
+      "description": "35. Add columns (d) and (f) of line 34a.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_69[0]",
+      "type": "text",
+      "description": "36. Add columns (c) and (e) of line 34b. Open parenthesis. Close parenthesis.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_70[0]",
+      "type": "text",
+      "description": "37. Total estate and trust income or (loss). Combine lines 35 and 36.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line38[0].Row1[0].f2_71[0]",
+      "type": "text",
+      "description": "Part I V. Income or Loss From Real Estate Mortgage Investment Conduits (R E M I Cs)-Residual Holder. 38. Row: 1. Column: (a) Name.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line38[0].Row1[0].f2_72[0]",
+      "type": "text",
+      "max_len": 10,
+      "description": "Row: 1. Column: (b) Employer identification number.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line38[0].Row1[0].f2_73[0]",
+      "type": "text",
+      "description": "Row: 1. Column: (c) Excess inclusion from Schedules Q, line 2c (see instructions).",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line38[0].Row1[0].f2_74[0]",
+      "type": "text",
+      "description": "Row: 1. Column: (d) Taxable income (net loss) from Schedules Q, line 1b.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Table_Line38[0].Row1[0].f2_75[0]",
+      "type": "text",
+      "description": "Row: 1. Column: (e) Income from Schedules Q, line 3b.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_76[0]",
+      "type": "text",
+      "description": "39. Combine columns (d) and (e) only. Enter the result here and include in the total on line 41 below.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_77[0]",
+      "type": "text",
+      "description": "Part V. Summary. 40. Net farm rental income or (loss) from Form 4835. Also, complete line 42 below.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_78[0]",
+      "type": "text",
+      "description": "41. Total income or (loss). Combine lines 26, 32, 37, 39, and 40. Enter the result here and on Schedule 1 (Form 1040), line 5.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].Line42_ReadOrder[0].f2_79[0]",
+      "type": "text",
+      "description": "42. Reconciliation of farming and fishing income. Enter your gross farming and fishing income reported on Form 4835, line 7; Schedule K-1 (Form 1065), box 14, code B; Schedule K-1 (Form 1120-S), box 17, code A N; and Schedule K-1 (Form 1041), box 14, code F. See instructions.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_80[0]",
+      "type": "text",
+      "description": "43. Reconciliation for real estate professionals. If you were a real estate professional (see instructions), enter the net income or (loss) you reported anywhere on Form 1040, Form 1040-S R, or Form 1040-N R from all rental real estate activities in which you materially participated under the passive activity loss rules.",
+      "page": 2
+    }
+  ],
+  "f1040s8": [
+    {
+      "name": "topmostSubform[0].Page1[0].f1_1[0]",
+      "type": "text",
+      "description": "Page 1. Name(s) shown on return.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_2[0]",
+      "type": "text",
+      "max_len": 11,
+      "description": "Your social security number.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_3[0]",
+      "type": "text",
+      "description": "Part I. Child Tax Credit and Credit for Other Dependents. 1. Enter the amount from line 11a of your Form 1040, 1040-S R, or 1040-N R.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_4[0]",
+      "type": "text",
+      "description": "2a. Enter income from Puerto Rico that you excluded.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_5[0]",
+      "type": "text",
+      "description": "2b. Enter the amounts from lines 45 and 50 of your Form 2555.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_6[0]",
+      "type": "text",
+      "description": "2c. Enter the amount from line 15 of your Form 4563.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_7[0]",
+      "type": "text",
+      "description": "2d. Add lines 2a through 2c.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_8[0]",
+      "type": "text",
+      "description": "3. Add lines 1 and 2d.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_9[0]",
+      "type": "text",
+      "description": "4. Number of qualifying children under age 17 with the required social security number.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_10[0]",
+      "type": "text",
+      "description": "5. Multiply line 4 by $2,200.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Line6ReadOrder[0].f1_11[0]",
+      "type": "text",
+      "description": "6. Number of other dependents, including any qualifying children who are not under age 17 or who do not have the required social security number. Caution: Do not include yourself, your spouse, or anyone who is not a U.S. citizen, U.S. national, or U.S. resident alien. Also, do not include anyone you included on line 4.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_12[0]",
+      "type": "text",
+      "description": "7. Multiply line 6 by $500.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_13[0]",
+      "type": "text",
+      "description": "8. Add lines 5 and 7.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_14[0]",
+      "type": "text",
+      "description": "9. Enter the amount shown below for your filing status. Married filing jointly—$400,000. All other filing statuses—$200,000.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_15[0]",
+      "type": "text",
+      "description": "10. Subtract line 9 from line 3. If zero or less, enter 0. If more than zero and not a multiple of $1,000, enter the next multiple of $1,000. For example, if the result is $425, enter $1,000; if the result is $1,025, enter $2,000, etc.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_16[0]",
+      "type": "text",
+      "description": "11. Multiply line 10 by 5% (0.05).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_17[0]",
+      "type": "text",
+      "description": "12. Is the amount on line 8 more than the amount on line 11?",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].c1_1[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "12. No. Stop here. You cannot take the child tax credit, credit for other dependents, or additional child tax credit.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].c1_1[1]",
+      "type": "checkbox",
+      "on_states": [
+        "2"
+      ],
+      "description": "12. Yes. Subtract line 11 from line 8. Enter the result.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_18[0]",
+      "type": "text",
+      "description": ",lv13. Enter the amount from Credit Limit Worksheet A.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_19[0]",
+      "type": "text",
+      "description": "14. Enter the smaller of line 12 or line 13. This is your child tax credit and credit for other dependents. Enter this amount on Form 1040, 1040-S R, or 1040-N R, line 19.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_1[0]",
+      "type": "text",
+      "description": "Page 2. Part I I-A. Additional Child Tax Credit for All Filers. Caution: If you file Form 2555, you cannot claim the additional child tax credit. 15. Reserved for future use.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_2[0]",
+      "type": "text",
+      "description": "16a. Subtract line 14 from line 12. If zero, stop here; you cannot take the additional child tax credit.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_3[0]",
+      "type": "text",
+      "description": "16b. Number of qualifying children under age 17 with the required social security number:",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_4[0]",
+      "type": "text",
+      "description": "16b. Number of qualifying children under age 17 with the required social security number multiplied by $1,700. Enter the result. If zero; stop here; you cannot claim the additional child tax credit. TIP: The number of children you use for this line is the same as the number of children you used for line 4.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_5[0]",
+      "type": "text",
+      "description": "17. Enter the smaller of line 16a or line 16b.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_6[0]",
+      "type": "text",
+      "description": "18a. Earned income (see instructions).",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_7[0]",
+      "type": "text",
+      "description": "18b. Nontaxable combat pay (see instructions).",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].c2_1[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "19. Is the amount on line 18a more than $2,500? No. Leave line 19 blank and enter 0 on line 20.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].c2_1[1]",
+      "type": "checkbox",
+      "on_states": [
+        "2"
+      ],
+      "description": "19. Yes. Subtract $2,500 from the amount on line 18a. Enter the result.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_8[0]",
+      "type": "text",
+      "description": "19. Amount.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_9[0]",
+      "type": "text",
+      "description": "20. Multiply the amount on line 19 by 15% (0.15) and enter the result.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].c2_2[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "20. Next. On line 16b, is the amount $5,100 or more? No. If you are a bona fide resident of Puerto Rico, go to line 21. Otherwise, skip Part I I-B and enter the smaller of line 17 or line 20 on line 27.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].c2_2[1]",
+      "type": "checkbox",
+      "on_states": [
+        "2"
+      ],
+      "description": "20. Yes. If line 20 is equal to or more than line 17, skip Part I I-B and enter the amount from line 17 on line 27. Otherwise, go to line 21.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_10[0]",
+      "type": "text",
+      "description": "Part I I-B. Certain Filers Who Have Three or More Qualifying Children and Bona Fide Residents of Puerto Rico. 21. Withheld social security, Medicare, and Additional Medicare taxes from Form(s) W-2, boxes 4 and 6. If married filing jointly, include your spouse’s amounts with yours. If your employer withheld or you paid Additional Medicare Tax or tier 1 R R T A taxes, or if you are a bona fide resident of Puerto Rico, see instructions.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_11[0]",
+      "type": "text",
+      "description": "22. Enter the total of the amounts from Schedule 1 (Form 1040), line 15; Schedule 2 (Form 1040), line 5; Schedule 2 (Form 1040), line 6; and Schedule 2 (Form 1040), line 13.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_12[0]",
+      "type": "text",
+      "description": "23. Add lines 21 and 22.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_13[0]",
+      "type": "text",
+      "description": "24. 1040 and 1040-S R filers: Enter the total of the amounts from Form 1040 or 1040-S R, line 27a, and Schedule 3 (Form 1040), line 11. 1040-N R filers: Enter the amount from Schedule 3 (Form 1040), line 11.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_14[0]",
+      "type": "text",
+      "description": "25. Subtract line 24 from line 23. If zero or less, enter 0.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_15[0]",
+      "type": "text",
+      "description": "26. Enter the larger of line 20 or line 25. Next, enter the smaller of line 17 or line 26 on line 27.",
+      "page": 2
+    },
+    {
+      "name": "topmostSubform[0].Page2[0].f2_16[0]",
+      "type": "text",
+      "description": "Part I I-C Additional Child Tax Credit. 27. This is your additional child tax credit. Enter this amount on Form 1040, 1040-S R, or 1040-N R, line 28.",
+      "page": 2
+    }
+  ],
+  "f1040sb": [
+    {
+      "name": "topmostSubform[0].Page1[0].f1_01[0]",
+      "type": "text",
+      "description": "Page 1. Name(s) shown on return.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_02[0]",
+      "type": "text",
+      "max_len": 11,
+      "description": "Your social security number.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Line1_ReadOrder[0].f1_03[0]",
+      "type": "text",
+      "description": "Part I. Interest. (See instructions and the Instructions for Form 1040, line 2b.). Note: If you received a Form 1099-I N T, Form 1099-O I D, or substitute statement from a brokerage firm, list the firm’s name as the payer and enter the total interest shown on that form. 1. List name of payer. If any interest is from a seller-financed mortgage and the buyer used the property as a personal residence, see the instructions and list this interest first. Also, show that buyer’s social security number and address: Line 1 of 14.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_04[0]",
+      "type": "text",
+      "description": "1. Amount. Line 1 of 14.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_05[0]",
+      "type": "text",
+      "description": "1. Line 2 of 14.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_06[0]",
+      "type": "text",
+      "description": "1. Amount. Line 2 of 14.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_07[0]",
+      "type": "text",
+      "description": "1. Line 3 of 14.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_08[0]",
+      "type": "text",
+      "description": "1. Amount. Line 3 of 14.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_09[0]",
+      "type": "text",
+      "description": "1. Line 4 of 14.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_10[0]",
+      "type": "text",
+      "description": "1. Amount. Line 4 of 14.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_11[0]",
+      "type": "text",
+      "description": "1. Line 5 of 14.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_12[0]",
+      "type": "text",
+      "description": "1. Amount. Line 5 of 14.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_13[0]",
+      "type": "text",
+      "description": "1. Line 6 of 14.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_14[0]",
+      "type": "text",
+      "description": "1. Amount. Line 6 of 14.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_15[0]",
+      "type": "text",
+      "description": "1. Line 7 of 14.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_16[0]",
+      "type": "text",
+      "description": "1. Amount. Line 7 of 14.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_17[0]",
+      "type": "text",
+      "description": "1. Line 8 of 14.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_18[0]",
+      "type": "text",
+      "description": "1. Amount. Line 8 of 14.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_19[0]",
+      "type": "text",
+      "description": "1. Line 9 of 14.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_20[0]",
+      "type": "text",
+      "description": "1. Amount. Line 9 of 14.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_21[0]",
+      "type": "text",
+      "description": "1. Line 10 of 14.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_22[0]",
+      "type": "text",
+      "description": "1. Amount. Line 10 of 14.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_23[0]",
+      "type": "text",
+      "description": "1. Line 11 of 14.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_24[0]",
+      "type": "text",
+      "description": "1. Amount. Line 11 of 14.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_25[0]",
+      "type": "text",
+      "description": "1. Line 12 of 14.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_26[0]",
+      "type": "text",
+      "description": "1. Amount. Line 12 of 14.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_27[0]",
+      "type": "text",
+      "description": "1. Line 13 of 14.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_28[0]",
+      "type": "text",
+      "description": "1. Amount. Line 13 of 14.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_29[0]",
+      "type": "text",
+      "description": "1. Line 14 of 14.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_30[0]",
+      "type": "text",
+      "description": "1. Amount. Line 14 of 14.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_31[0]",
+      "type": "text",
+      "description": "2. Add the amounts on line 1.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_32[0]",
+      "type": "text",
+      "description": "3. Excludable interest on series E E and I U.S. savings bonds issued after 1989. Attach Form 8815.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_33[0]",
+      "type": "text",
+      "description": "4. Subtract line 3 from line 2. Enter the result here and on Form 1040 or 1040-S R, line 2b. Note: If line 4 is over $1,500, you must complete Part I I I.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].ReadOrderControl[0].f1_34[0]",
+      "type": "text",
+      "description": "Part I I. Ordinary Dividends. (See instructions and the Instructions for Form 1040, line 3b.). Note: If you received a Form 1099-D I V or substitute statement from a brokerage firm, list the firm’s name as the payer and enter the ordinary dividends shown on that form. 5. List name of payer: Line 1 of 15.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_35[0]",
+      "type": "text",
+      "description": "5. Amount. Line 1 of 15.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_36[0]",
+      "type": "text",
+      "description": "5. Line 2 of 15.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_37[0]",
+      "type": "text",
+      "description": "5. Amount. Line 2 of 15.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_38[0]",
+      "type": "text",
+      "description": "5. Line 3 of 15.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_39[0]",
+      "type": "text",
+      "description": "5. Amount. Line 3 of 15.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_40[0]",
+      "type": "text",
+      "description": "5. Line 4 of 15.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_41[0]",
+      "type": "text",
+      "description": "5. Amount. Line 4 of 15.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_42[0]",
+      "type": "text",
+      "description": "5. Line 5 of 15.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_43[0]",
+      "type": "text",
+      "description": "5. Amount. Line 5 of 15.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_44[0]",
+      "type": "text",
+      "description": "5. Line 6 of 15.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_45[0]",
+      "type": "text",
+      "description": "5. Amount. Line 6 of 15.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_46[0]",
+      "type": "text",
+      "description": "5. Line 7 of 15.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_47[0]",
+      "type": "text",
+      "description": "5. Amount. Line 7 of 15.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_48[0]",
+      "type": "text",
+      "description": "5. Line 8 of 15.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_49[0]",
+      "type": "text",
+      "description": "5. Amount. Line 8 of 15.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_50[0]",
+      "type": "text",
+      "description": "5. Line 9 of 15.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_51[0]",
+      "type": "text",
+      "description": "5. Amount. Line 9 of 15.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_52[0]",
+      "type": "text",
+      "description": "5. Line 10 of 15.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_53[0]",
+      "type": "text",
+      "description": "5. Amount. Line 10 of 15.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_54[0]",
+      "type": "text",
+      "description": "5. Line 11 of 15.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_55[0]",
+      "type": "text",
+      "description": "5. Amount. Line 11 of 15.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_56[0]",
+      "type": "text",
+      "description": "5. Line 12 of 15.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_57[0]",
+      "type": "text",
+      "description": "5. Amount. Line 12 of 15.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_58[0]",
+      "type": "text",
+      "description": "5. Line 13 of 15.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_59[0]",
+      "type": "text",
+      "description": "5. Amount. Line 13 of 15.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_60[0]",
+      "type": "text",
+      "description": "5. Line 14 of 15.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_61[0]",
+      "type": "text",
+      "description": "5. Amount. Line 14 of 15.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_62[0]",
+      "type": "text",
+      "description": "5. Line 15 of 15.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_63[0]",
+      "type": "text",
+      "description": "5. Amount. Line 15 of 15.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_64[0]",
+      "type": "text",
+      "description": "6. Add the amounts on line 5. Enter the total here and on Form 1040 or 1040-S R, line 3b. Note: If line 6 is over $1,500, you must complete Part I I I.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].TagcorrectingSubform[0].c1_1[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "Part I I I. Foreign Accounts and Trusts. Caution: If required, failure to file F i n C E N Form 114 may result in substantial penalties. Additionally, you may be required to file Form 8938, Statement of Specified Foreign Financial Assets. See instructions. You must complete this part if you (a) had over $1,500 of taxable interest or ordinary dividends; (b) had a foreign account; or (c) received a distribution from, or were a grantor of, or a transferor to, a foreign trust. 7a. At any time during 2025, did you have a financial interest in or signature authority over a financial account (such as a bank account, securities account, or brokerage account) located in a foreign country? See instructions. Yes.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].TagcorrectingSubform[0].c1_1[1]",
+      "type": "checkbox",
+      "on_states": [
+        "2"
+      ],
+      "description": "7a. No.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].c1_2[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "7a. If “Yes,\" are you required to file F i n C E N Form 114, Report of Foreign Bank and Financial Accounts (F B A R), to report that financial interest or signature authority? See Fin C E N Form 114 and its instructions for filing requirements and exceptions to those requirements. Yes.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].c1_2[1]",
+      "type": "checkbox",
+      "on_states": [
+        "2"
+      ],
+      "description": "7a. No.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_65[0]",
+      "type": "text",
+      "description": "7b. If you are required to file F i n C E N Form 114, list the name(s) of the foreign country(-ies) where the financial account(s) is (are) located: Line 1 of 2.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_66[0]",
+      "type": "text",
+      "description": "7b. Line 2 of 2.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].c1_3[0]",
+      "type": "checkbox",
+      "on_states": [
+        "1"
+      ],
+      "description": "8. During 2025, did you receive a distribution from, or were you the grantor of, or transferor to, a foreign trust? If “Yes,” you may have to file Form 3520. See instructions. Yes.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].c1_3[1]",
+      "type": "checkbox",
+      "on_states": [
+        "2"
+      ],
+      "description": "8. No.",
+      "page": 1
+    }
+  ],
+  "f1040s3": [
+    {
+      "name": "topmostSubform[0].Page1[0].f1_01[0]",
+      "type": "text",
+      "description": "Page 1. Name(s) shown on Form 1040, 1040-S R, or 1040-N R.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_02[0]",
+      "type": "text",
+      "max_len": 11,
+      "description": "Your social security number.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_03[0]",
+      "type": "text",
+      "description": "Part I. Nonrefundable Credits. 1. Foreign tax credit. Attach Form 1116 if required.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_04[0]",
+      "type": "text",
+      "description": "2. Credit for child and dependent care expenses from Form 2441, line 11. Attach Form 2441.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_05[0]",
+      "type": "text",
+      "description": "3. Education credits from Form 8863, line 19.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_06[0]",
+      "type": "text",
+      "description": "4. Retirement savings contributions credit. Attach Form 8880.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_07[0]",
+      "type": "text",
+      "description": "5a. Residential clean energy credit from Form 5695, line 15.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_08[0]",
+      "type": "text",
+      "description": "5b. Energy efficient home improvement credit from Form 5695, line 32.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Line6a_ReadOrder[0].f1_09[0]",
+      "type": "text",
+      "description": "6. Other nonrefundable credits: a. General business credit. Attach Form 3800.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_10[0]",
+      "type": "text",
+      "description": "6b. Credit for prior year minimum tax. Attach Form 8801.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_11[0]",
+      "type": "text",
+      "description": "6c. Adoption credit. Attach Form 8839.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_12[0]",
+      "type": "text",
+      "description": "6d. Credit for the elderly or disabled. Attach Schedule R.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_13[0]",
+      "type": "text",
+      "description": "6e. Reserved for future use.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_14[0]",
+      "type": "text",
+      "description": "6f. Clean vehicle credit. Attach Form 8936.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_15[0]",
+      "type": "text",
+      "description": "6g. Mortgage interest credit. Attach Form 8396.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_16[0]",
+      "type": "text",
+      "description": "6h. District of Columbia first-time homebuyer credit. Attach Form 8859.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_17[0]",
+      "type": "text",
+      "description": "6i. Qualified electric vehicle credit. Attach Form 8834.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_18[0]",
+      "type": "text",
+      "description": "6j. Alternative fuel vehicle refueling property credit. Attach Form 8911.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_19[0]",
+      "type": "text",
+      "description": "6k. Credit to holders of tax credit bonds. Attach Form 8912.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_20[0]",
+      "type": "text",
+      "description": "6l. Amount on Form 8978, line 14. See instructions.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_21[0]",
+      "type": "text",
+      "description": "6m. Credit for previously owned clean vehicles. Attach Form 8936.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Line6z_ReadOrder[0].f2_22[0]",
+      "type": "text",
+      "multiline": true,
+      "description": "6z. Other nonrefundable credits. List type.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_23[0]",
+      "type": "text",
+      "description": "6z. and amount:",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_24[0]",
+      "type": "text",
+      "description": "7. Total other nonrefundable credits. Add lines 6a through 6z.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_25[0]",
+      "type": "text",
+      "description": "8. Add lines 1 through 4, 5a, 5b, and 7. Enter here and on Form 1040, 1040-S R, or 1040-N R, line 20.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_26[0]",
+      "type": "text",
+      "description": "Part I I. Other Payments and Refundable Credits. 9. Net premium tax credit. Attach Form 8962.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_27[0]",
+      "type": "text",
+      "description": "10. Amount paid with request for extension to file (see instructions).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_28[0]",
+      "type": "text",
+      "description": "11. Excess social security and tier 1 R R T A tax withheld.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_29[0]",
+      "type": "text",
+      "description": "12. Credit for federal tax on fuels. Attach Form 4136.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Line13_ReadOrder[0].f1_30[0]",
+      "type": "text",
+      "description": "13. Other payments or refundable credits: a. Form 2439.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_31[0]",
+      "type": "text",
+      "description": "13b. Section 1341 credit for repayment of amounts included in income from earlier years.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_32[0]",
+      "type": "text",
+      "description": "13c. Net elective payment election amount from Form 3800, Part I I I, line 6, column (j).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_33[0]",
+      "type": "text",
+      "description": "13d. Deferred amount of net 965 tax liability (see instructions).",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].Line13z_ReadOrder[0].f1_34[0]",
+      "type": "text",
+      "multiline": true,
+      "description": "13z. Other nonrefundable credits (see instructions):",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_35[0]",
+      "type": "text",
+      "description": "13z. Amount.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_36[0]",
+      "type": "text",
+      "description": "14. Total other payments or refundable credits. Add lines 13a through 13z.",
+      "page": 1
+    },
+    {
+      "name": "topmostSubform[0].Page1[0].f1_37[0]",
+      "type": "text",
+      "description": "15. Add lines 9 through 12 and 14. Enter here and on Form 1040, 1040-S R, or 1040-N R, line 31.",
+      "page": 1
+    }
+  ]
+}

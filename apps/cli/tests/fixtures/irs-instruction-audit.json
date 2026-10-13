@@ -1,0 +1,1671 @@
+{
+  "scope": "Existing mappings and common US individual/family return forms; not an exhaustive catalog of every IRS product.",
+  "unique_stems_checked": 108,
+  "sources": [
+    {
+      "stem": "i1040gi",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i1040gi--2025.pdf",
+      "title_excerpt": "1040 (and 1040-SR) TAX YEAR R 2025 INSTRUCTIONS Including the instructions for Schedules 1 through 3 2025 Changes See What\u2019s New in these instructions. Future Developments See IRS.gov and IRS.gov/Forms, and for the latest information about developments related"
+    },
+    {
+      "stem": "i1040gi",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i1040gi.pdf",
+      "title_excerpt": "1040 (and 1040-SR) TAX YEAR R 2025 INSTRUCTIONS Including the instructions for Schedules 1 through 3 2025 Changes See What\u2019s New in these instructions. Future Developments See IRS.gov and IRS.gov/Forms, and for the latest information about developments related"
+    },
+    {
+      "stem": "i1040sca",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i1040sca--2025.pdf",
+      "title_excerpt": "2025 Instructions for Schedule A (Form 1040) Itemized Deductions Section references are to the Internal Revenue Code unless Deceased taxpayer. Certain medical expenses paid out of a otherwise noted. deceased taxpayer's estate can be claimed on the deceased tax"
+    },
+    {
+      "stem": "i1040sca",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i1040sca.pdf",
+      "title_excerpt": "2025 Instructions for Schedule A (Form 1040) Itemized Deductions Section references are to the Internal Revenue Code unless Deceased taxpayer. Certain medical expenses paid out of a otherwise noted. deceased taxpayer's estate can be claimed on the deceased tax"
+    },
+    {
+      "stem": "i1040sb",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i1040sb--2025.pdf",
+      "title_excerpt": "2025 Instructions for Schedule B (Form 1040) Interest and Ordinary Dividends Section references are to the Internal Revenue Code unless otherwise noted. Specific Instructions Interest and Ordinary Dividends Future Developments Part I. Interest For the latest i"
+    },
+    {
+      "stem": "i1040sb",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i1040sb.pdf",
+      "title_excerpt": "2025 Instructions for Schedule B (Form 1040) Interest and Ordinary Dividends Section references are to the Internal Revenue Code unless otherwise noted. Specific Instructions Interest and Ordinary Dividends Future Developments Part I. Interest For the latest i"
+    },
+    {
+      "stem": "i1040sc",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i1040sc--2025.pdf",
+      "title_excerpt": "2025 Instructions for Schedule C (Form 1040) Profit or Loss From Business Section references are to the Internal Revenue Code unless No tax on car loan interest. If you are self-employed and use otherwise noted. your vehicle for personal and business use, you "
+    },
+    {
+      "stem": "i1040sc",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i1040sc.pdf",
+      "title_excerpt": "2025 Instructions for Schedule C (Form 1040) Profit or Loss From Business Section references are to the Internal Revenue Code unless No tax on car loan interest. If you are self-employed and use otherwise noted. your vehicle for personal and business use, you "
+    },
+    {
+      "stem": "i1040sd",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i1040sd--2025.pdf",
+      "title_excerpt": "2025 Instructions for Schedule D (Form 1040) Capital Gains and Losses Section references are to the Internal Revenue Code unless otherwise noted. Other Forms You May Have Use Form 6781 to report gains and losses from section 1256 contracts and To File straddle"
+    },
+    {
+      "stem": "i1040sd",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i1040sd.pdf",
+      "title_excerpt": "2025 Instructions for Schedule D (Form 1040) Capital Gains and Losses Section references are to the Internal Revenue Code unless otherwise noted. Other Forms You May Have Use Form 6781 to report gains and losses from section 1256 contracts and To File straddle"
+    },
+    {
+      "stem": "i1040se",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i1040se--2025.pdf",
+      "title_excerpt": "2025 2025 Instructions for Schedule E (Form 1040) Supplemental Income and Loss Section references are to the Internal Revenue Code unless determine the amount of your excess business loss, which will otherwise noted. be included as income on Schedule 1 (Form 1"
+    },
+    {
+      "stem": "i1040se",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i1040se.pdf",
+      "title_excerpt": "2025 2025 Instructions for Schedule E (Form 1040) Supplemental Income and Loss Section references are to the Internal Revenue Code unless determine the amount of your excess business loss, which will otherwise noted. be included as income on Schedule 1 (Form 1"
+    },
+    {
+      "stem": "i1040sse",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i1040sse--2025.pdf",
+      "title_excerpt": "2025 Instructions for Schedule SE (Form 1040) Section references are to the Internal Revenue Code unless otherwise You must also pay SE tax on your share of certain partnership income noted. and your guaranteed payments. See Partnership Income or Loss, later. "
+    },
+    {
+      "stem": "i1040sse",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i1040sse.pdf",
+      "title_excerpt": "2025 Instructions for Schedule SE (Form 1040) Section references are to the Internal Revenue Code unless otherwise You must also pay SE tax on your share of certain partnership income noted. and your guaranteed payments. See Partnership Income or Loss, later. "
+    },
+    {
+      "stem": "i1040s8",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i1040s8--2025.pdf",
+      "title_excerpt": "2025 Instructions for Schedule 8812 (Form 1040) Credits for Qualifying Children and Other Dependents Section references are to the Internal Revenue Code unless otherwise noted. General Instructions Future Developments Purpose of Form Use Schedule 8812 (Form 10"
+    },
+    {
+      "stem": "i1040s8",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i1040s8.pdf",
+      "title_excerpt": "2025 Instructions for Schedule 8812 (Form 1040) Credits for Qualifying Children and Other Dependents Section references are to the Internal Revenue Code unless otherwise noted. General Instructions Future Developments Purpose of Form Use Schedule 8812 (Form 10"
+    },
+    {
+      "stem": "i1040sf",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i1040sf--2025.pdf",
+      "title_excerpt": "2025 Instructions for Schedule F (Form 1040) Profit or Loss From Farming Section references are to the Internal Revenue Code unless otherwise noted. Reminders Farmers and ranchers affected by drought may be eligible Future Developments for extension of tax rel"
+    },
+    {
+      "stem": "i1040sf",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i1040sf.pdf",
+      "title_excerpt": "2025 Instructions for Schedule F (Form 1040) Profit or Loss From Farming Section references are to the Internal Revenue Code unless otherwise noted. Reminders Farmers and ranchers affected by drought may be eligible Future Developments for extension of tax rel"
+    },
+    {
+      "stem": "i1040sh",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i1040sh--2025.pdf",
+      "title_excerpt": "2025 Instructions for Schedule H Household Employment Taxes Section references are to the Internal Revenue Code compensation is still generally subject to both the unless otherwise noted. employer share and employee share of social security tax and Medicare ta"
+    },
+    {
+      "stem": "i1040sh",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i1040sh.pdf",
+      "title_excerpt": "2025 Instructions for Schedule H Household Employment Taxes Section references are to the Internal Revenue Code compensation is still generally subject to both the unless otherwise noted. employer share and employee share of social security tax and Medicare ta"
+    },
+    {
+      "stem": "i1040sj",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i1040sj--2025.pdf",
+      "title_excerpt": "2025 Instructions for Schedule J (Form 1040) Income Averaging for Individuals With Income from Farming or Fishing Section references are to the Internal Revenue 2023, and 2024 to figure your tax on the fish harvested, either in whole or in Code unless otherwis"
+    },
+    {
+      "stem": "i1040sj",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i1040sj.pdf",
+      "title_excerpt": "2025 Instructions for Schedule J (Form 1040) Income Averaging for Individuals With Income from Farming or Fishing Section references are to the Internal Revenue 2023, and 2024 to figure your tax on the fish harvested, either in whole or in Code unless otherwis"
+    },
+    {
+      "stem": "i1040sr",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i1040sr--2025.pdf",
+      "title_excerpt": "2025 Instructions for Schedule R (Form 1040) Credit for the Elderly or the Disabled Section references are to the Internal Revenue Code unless 1960, and died on February 13, 2025, the taxpayer is considered otherwise noted. age 65 at the time of death. However"
+    },
+    {
+      "stem": "i1040sr",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i1040sr.pdf",
+      "title_excerpt": "2025 Instructions for Schedule R (Form 1040) Credit for the Elderly or the Disabled Section references are to the Internal Revenue Code unless 1960, and died on February 13, 2025, the taxpayer is considered otherwise noted. age 65 at the time of death. However"
+    },
+    {
+      "stem": "iw2w3",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/iw2w3--2025.pdf",
+      "title_excerpt": "2025 General Instructions for Forms W-2 and W-3 (Including Forms W-2AS, W-2CM, W-2GU, W-2VI, W-3SS, W-2c, and W-3c) Section references are to the Internal Revenue Code Number and certain editorial changes were also made to unless otherwise noted. the forms. Co"
+    },
+    {
+      "stem": "iw2w3",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/iw2w3.pdf",
+      "title_excerpt": "2026 General Instructions for Forms W-2 and W-3 (Including Forms W-2AS, W-2CM, W-2GU, W-2VI, W-3SS, W-2c, and W-3c) Section references are to the Internal Revenue Code wage reporting threshold from $600 to $2,000 if no federal unless otherwise noted. income, s"
+    },
+    {
+      "stem": "i1099mec",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i1099mec--2025.pdf",
+      "title_excerpt": "Instructions for Forms 1099-MISC and 1099-NEC (Rev. April 2025) Miscellaneous Information and Nonemployee Compensation Section references are to the Internal Revenue Code unless Application system, see Pub. 5718. For electronic corrections otherwise noted. in "
+    },
+    {
+      "stem": "i1099mec",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i1099mec.pdf",
+      "title_excerpt": "Instructions for Forms 1099-MISC and 1099-NEC (Rev. December 2026) Miscellaneous Information and Nonemployee Compensation Section references are to the Internal Revenue Code unless Corrections to forms. If you need to correct a Form otherwise noted. 1099-MISC "
+    },
+    {
+      "stem": "i1099int",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i1099int.pdf",
+      "title_excerpt": "Instructions for Forms Department of the Treasury Internal Revenue Service 1099-INT and 1099-OID (Rev. January 2024) Interest Income and Original Issue Discount Section references are to the Internal Revenue Code unless 1. To whom you paid amounts reportable i"
+    },
+    {
+      "stem": "i1099r",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i1099r--2025.pdf",
+      "title_excerpt": "2025 Instructions for Forms 1099-R and 5498 Distributions From Pensions, Annuities, Retirement or Profit-Sharing Plans, IRAs, Insurance Contracts, etc. Section references are to the Internal Revenue Code unless otherwise noted. Specific Instructions for Form 1"
+    },
+    {
+      "stem": "i1099r",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i1099r.pdf",
+      "title_excerpt": "2026 Instructions for Forms 1099-R and 5498 Distributions From Pensions, Annuities, Retirement or Profit-Sharing Plans, IRAs, Insurance Contracts, etc. Section references are to the Internal Revenue Code satisfy their Internal Revenue Code chapter 4 reporting "
+    },
+    {
+      "stem": "i1099b",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i1099b--2025.pdf",
+      "title_excerpt": "2025 Instructions for Form 1099-B Proceeds From Broker and Barter Exchange Transactions Section references are to the Internal Revenue Code \u2022 For whom the broker has sold (including short sales) unless otherwise noted. stocks, commodities, regulated futures co"
+    },
+    {
+      "stem": "i1099b",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i1099b.pdf",
+      "title_excerpt": "2026 Instructions for Form 1099-B Proceeds From Broker and Barter Exchange Transactions Section references are to the Internal Revenue Code unless otherwise noted. Specific Instructions A broker or barter exchange must file Form 1099-B for Future Developments "
+    },
+    {
+      "stem": "i1099k",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i1099k.pdf",
+      "title_excerpt": "Instructions for Form 1099-K (Rev. December 2026) Payment Card and Third Party Network Transactions Section references are to the Internal Revenue Code unless otherwise noted. Specific Instructions A payment settlement entity (PSE) must file Form 1099-K, Futur"
+    },
+    {
+      "stem": "i1099g",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i1099g.pdf",
+      "title_excerpt": "Instructions for Form 1099-G (Rev. December 2026) Certain Government Payments Section references are to the Internal Revenue Code unless Continuous-use instructions. Use these instructions for tax otherwise noted. year 2026 and subsequent years until a superse"
+    },
+    {
+      "stem": "i1099s",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i1099s--2025.pdf",
+      "title_excerpt": "Instructions for Form 1099-S (Rev. April 2025) Proceeds From Real Estate Transactions Section references are to the Internal Revenue Code unless Sale or exchange. A sale or exchange includes any transaction otherwise noted. properly treated as a sale or exchan"
+    },
+    {
+      "stem": "i1099s",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i1099s.pdf",
+      "title_excerpt": "Instructions for Form 1099-S (Rev. December 2026) Proceeds From Real Estate Transactions Section references are to the Internal Revenue Code unless property, or services of any present or future ownership interest in otherwise noted. any of the following. 1. I"
+    },
+    {
+      "stem": "i1099div",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i1099div.pdf",
+      "title_excerpt": "Instructions for Form Department of the Treasury Internal Revenue Service 1099-DIV (Rev. January 2024) Dividends and Distributions Section references are to the Internal Revenue Code furnishing statements to recipients and for retaining in unless otherwise not"
+    },
+    {
+      "stem": "i1098",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i1098--2025.pdf",
+      "title_excerpt": "Instructions for Form 1098 (Rev. April 2025) Mortgage Interest Statement Section references are to the Internal Revenue Code \u2022 Corrected and void returns. unless otherwise noted. \u2022 Statements to recipients. \u2022 Taxpayer identification numbers (TINs). Future Deve"
+    },
+    {
+      "stem": "i1098",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i1098.pdf",
+      "title_excerpt": "Instructions for Form 1098 (Rev. December 2026) Mortgage Interest Statement Section references are to the Internal Revenue Code threshold. T.D. 9972, published February 23, 2023, unless otherwise noted. lowered the e-file threshold to 10 (calculated by aggrega"
+    },
+    {
+      "stem": "i1099q",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i1099q--2025.pdf",
+      "title_excerpt": "Instructions for Form 1099-Q (Rev. April 2025) Payments From Qualified Education Programs (Under Sections 529 and 530) Section references are to the Internal Revenue Code unless the black-and-white Copy(ies) A with a Form 1096 you also otherwise noted. printed"
+    },
+    {
+      "stem": "i1099q",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i1099q.pdf",
+      "title_excerpt": "Instructions for Form 1099-Q (Rev. April 2025) Payments From Qualified Education Programs (Under Sections 529 and 530) Section references are to the Internal Revenue Code unless the black-and-white Copy(ies) A with a Form 1096 you also otherwise noted. printed"
+    },
+    {
+      "stem": "i1099sa",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i1099sa--2025.pdf",
+      "title_excerpt": "2025 Instructions for Forms 1099-SA and 5498-SA Distributions From an HSA, Archer MSA, or Medicare Advantage MSA, and HSA, Archer MSA, or Medicare Advantage MSA Information Section references are to the Internal Revenue Code unless otherwise noted. Specific In"
+    },
+    {
+      "stem": "i1099sa",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i1099sa.pdf",
+      "title_excerpt": "Instructions for Forms 1099-SA and 5498-SA (Rev. December 2026) (Use with the April 2025 revision of Form 1099-SA and the December 2026 revision of Form 5498-SA.) Distributions From an HSA, Archer MSA, or Medicare Advantage MSA, and HSA, Archer MSA, or Medicar"
+    },
+    {
+      "stem": "i1099h",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i1099h--2025.pdf",
+      "title_excerpt": "Instructions for Form 1099-H (Rev. April 2025) Health Coverage Tax Credit (HCTC) Advance Payments Section references are to the Internal Revenue Code returns and statements on your own. Contact the HCTC unless otherwise noted. Program for this purpose by email"
+    },
+    {
+      "stem": "i1099h",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i1099h.pdf",
+      "title_excerpt": "Instructions for Form 1099-H (Rev. April 2025) Health Coverage Tax Credit (HCTC) Advance Payments Section references are to the Internal Revenue Code returns and statements on your own. Contact the HCTC unless otherwise noted. Program for this purpose by email"
+    },
+    {
+      "stem": "i1099ac",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i1099ac--2025.pdf",
+      "title_excerpt": "Instructions for Forms 1099-A and 1099-C (Rev. April 2025) Acquisition or Abandonment of Secured Property and Cancellation of Debt Section references are to the Internal Revenue Code unless otherwise noted. Specific Instructions for Form 1099-A File Form 1099-"
+    },
+    {
+      "stem": "i1099ac",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i1099ac.pdf",
+      "title_excerpt": "Instructions for Forms 1099-A and 1099-C (Rev. April 2025) Acquisition or Abandonment of Secured Property and Cancellation of Debt Section references are to the Internal Revenue Code unless otherwise noted. Specific Instructions for Form 1099-A File Form 1099-"
+    },
+    {
+      "stem": "i1099cap",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i1099cap--2025.pdf",
+      "title_excerpt": "Instructions for Form 1099-CAP (Rev. April 2025) Changes in Corporate Control and Capital Structure Section references are to the Internal Revenue Code control of the corporation was acquired or it underwent a unless otherwise noted. substantial change in capi"
+    },
+    {
+      "stem": "i1099cap",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i1099cap.pdf",
+      "title_excerpt": "Instructions for Form 1099-CAP (Rev. April 2025) Changes in Corporate Control and Capital Structure Section references are to the Internal Revenue Code control of the corporation was acquired or it underwent a unless otherwise noted. substantial change in capi"
+    },
+    {
+      "stem": "i1099ltc",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i1099ltc--2025.pdf",
+      "title_excerpt": "Instructions for Form 1099-LTC (Rev. April 2025) Long-Term Care and Accelerated Death Benefits Future Developments 1. Is regularly engaged in the trade or business of purchasing or taking assignments of life insurance contracts on For the latest information ab"
+    },
+    {
+      "stem": "i1099ltc",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i1099ltc.pdf",
+      "title_excerpt": "Instructions for Form 1099-LTC (Rev. April 2025) Long-Term Care and Accelerated Death Benefits Future Developments 1. Is regularly engaged in the trade or business of purchasing or taking assignments of life insurance contracts on For the latest information ab"
+    },
+    {
+      "stem": "i1099da",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i1099da--2025.pdf",
+      "title_excerpt": "2025 Instructions for Form 1099-DA Digital Asset Proceeds From Broker Transactions Section references are to the Internal Revenue Code \u2022 Taxpayer identification numbers (TINs). unless otherwise noted. \u2022 Backup withholding. \u2022 Penalties. Future Developments \u2022 Ot"
+    },
+    {
+      "stem": "i1099da",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i1099da.pdf",
+      "title_excerpt": "2026 Instructions for Form 1099-DA Digital Asset Proceeds From Broker Transactions Section references are to the Internal Revenue Code broker has effected for customers after 2025 of digital unless otherwise noted. assets that are noncovered securities, the br"
+    },
+    {
+      "stem": "i8949",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i8949--2025.pdf",
+      "title_excerpt": "2025 Instructions for Form 8949 Sales and Other Dispositions of Capital Assets Section references are to the Internal Revenue Code unless If you received Schedule A (Form 8971) for property and Part otherwise noted. II, column (f), of Schedule A (Form 8971) in"
+    },
+    {
+      "stem": "i8949",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i8949.pdf",
+      "title_excerpt": "2025 Instructions for Form 8949 Sales and Other Dispositions of Capital Assets Section references are to the Internal Revenue Code unless If you received Schedule A (Form 8971) for property and Part otherwise noted. II, column (f), of Schedule A (Form 8971) in"
+    },
+    {
+      "stem": "i2441",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i2441--2025.pdf",
+      "title_excerpt": "2025 Instructions for Form 2441 Child and Dependent Care Expenses Section references are to the Internal Revenue Code unless 2. Your disabled spouse who wasn't physically or mentally otherwise noted. able to care for themselves and lived with you for more than"
+    },
+    {
+      "stem": "i2441",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i2441.pdf",
+      "title_excerpt": "2025 Instructions for Form 2441 Child and Dependent Care Expenses Section references are to the Internal Revenue Code unless 2. Your disabled spouse who wasn't physically or mentally otherwise noted. able to care for themselves and lived with you for more than"
+    },
+    {
+      "stem": "i8995",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i8995--2025.pdf",
+      "title_excerpt": "2025 Instructions for Form 8995 Qualified Business Income Deduction Simplified Computation Section references are to the Internal Revenue Code unless Estates and trusts. To the extent that a grantor or another otherwise noted. person is treated as owning all o"
+    },
+    {
+      "stem": "i8995",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i8995.pdf",
+      "title_excerpt": "2025 Instructions for Form 8995 Qualified Business Income Deduction Simplified Computation Section references are to the Internal Revenue Code unless Estates and trusts. To the extent that a grantor or another otherwise noted. person is treated as owning all o"
+    },
+    {
+      "stem": "i8995a",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i8995a--2025.pdf",
+      "title_excerpt": "2025 Instructions for Form 8995-A Deduction for Qualified Business Income Section references are to the Internal Revenue Code unless 1099-PATR or an attachment to help eligible patrons figure their otherwise noted. deduction. Certain agricultural or horticultu"
+    },
+    {
+      "stem": "i8995a",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i8995a.pdf",
+      "title_excerpt": "2025 Instructions for Form 8995-A Deduction for Qualified Business Income Section references are to the Internal Revenue Code unless 1099-PATR or an attachment to help eligible patrons figure their otherwise noted. deduction. Certain agricultural or horticultu"
+    },
+    {
+      "stem": "i4562",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i4562--2025.pdf",
+      "title_excerpt": "2025 Instructions for Form 4562 Depreciation and Amortization (Including Information on Listed Property) Section references are to the Internal Revenue Code unless Special depreciation allowance for certain qualified otherwise noted. property acquired after Ja"
+    },
+    {
+      "stem": "i4562",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i4562.pdf",
+      "title_excerpt": "2025 Instructions for Form 4562 Depreciation and Amortization (Including Information on Listed Property) Section references are to the Internal Revenue Code unless Special depreciation allowance for certain qualified otherwise noted. property acquired after Ja"
+    },
+    {
+      "stem": "i8582",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i8582--2025.pdf",
+      "title_excerpt": "2025 Instructions for Form 8582 Passive Activity Loss Limitations Section references are to the Internal Revenue Code tax year and to report the application of prior-year unless otherwise noted. unallowed PALs. A PAL occurs when total losses (including prior-y"
+    },
+    {
+      "stem": "i8582",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i8582.pdf",
+      "title_excerpt": "2025 Instructions for Form 8582 Passive Activity Loss Limitations Section references are to the Internal Revenue Code tax year and to report the application of prior-year unless otherwise noted. unallowed PALs. A PAL occurs when total losses (including prior-y"
+    },
+    {
+      "stem": "i8962",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i8962--2025.pdf",
+      "title_excerpt": "2025 Instructions for Form 8962 Premium Tax Credit (PTC) Section references are to the Internal Revenue Code the month. If the QSEHRA is unaffordable for a month, unless otherwise noted. you must reduce the monthly PTC (but not below -0-) by the monthly permit"
+    },
+    {
+      "stem": "i8962",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i8962.pdf",
+      "title_excerpt": "2025 Instructions for Form 8962 Premium Tax Credit (PTC) Section references are to the Internal Revenue Code the month. If the QSEHRA is unaffordable for a month, unless otherwise noted. you must reduce the monthly PTC (but not below -0-) by the monthly permit"
+    },
+    {
+      "stem": "i8863",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i8863--2025.pdf",
+      "title_excerpt": "2025 Instructions for Form 8863 Education Credits (American Opportunity and Lifetime Learning Credits) Section references are to the Internal Revenue Code educational institution, and substantiate the payment of unless otherwise noted. qualified tuition and re"
+    },
+    {
+      "stem": "i8863",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i8863.pdf",
+      "title_excerpt": "2025 Instructions for Form 8863 Education Credits (American Opportunity and Lifetime Learning Credits) Section references are to the Internal Revenue Code educational institution, and substantiate the payment of unless otherwise noted. qualified tuition and re"
+    },
+    {
+      "stem": "i8889",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i8889--2025.pdf",
+      "title_excerpt": "2025 Instructions for Form 8889 Health Savings Accounts (HSAs) Section references are to the Internal Revenue Code unless amounts are also eligible to be paid or reimbursed under a otherwise noted. health FSA, Archer MSA, HRA, or HSA. However, if an amount pai"
+    },
+    {
+      "stem": "i8889",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i8889.pdf",
+      "title_excerpt": "2025 Instructions for Form 8889 Health Savings Accounts (HSAs) Section references are to the Internal Revenue Code unless amounts are also eligible to be paid or reimbursed under a otherwise noted. health FSA, Archer MSA, HRA, or HSA. However, if an amount pai"
+    },
+    {
+      "stem": "i8606",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i8606--2025.pdf",
+      "title_excerpt": "2025 Instructions for Form 8606 Nondeductible IRAs Section references are to the Internal Revenue Code \u2022 $146,000 if married filing jointly or qualifying surviving unless otherwise noted. spouse; \u2022 $89,000 if single, head of household, or married filing Future"
+    },
+    {
+      "stem": "i8606",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i8606.pdf",
+      "title_excerpt": "2025 Instructions for Form 8606 Nondeductible IRAs Section references are to the Internal Revenue Code \u2022 $146,000 if married filing jointly or qualifying surviving unless otherwise noted. spouse; \u2022 $89,000 if single, head of household, or married filing Future"
+    },
+    {
+      "stem": "i5329",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i5329--2025.pdf",
+      "title_excerpt": "2025 Instructions for Form 5329 Additional Taxes on Qualified Plans (Including IRAs) and Other Tax-Favored Accounts Section references are to the Internal Revenue Code unless In general, you must file Form 5329 to report an otherwise noted. ! exception to the "
+    },
+    {
+      "stem": "i5329",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i5329.pdf",
+      "title_excerpt": "2025 Instructions for Form 5329 Additional Taxes on Qualified Plans (Including IRAs) and Other Tax-Favored Accounts Section references are to the Internal Revenue Code unless In general, you must file Form 5329 to report an otherwise noted. ! exception to the "
+    },
+    {
+      "stem": "i8959",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i8959--2025.pdf",
+      "title_excerpt": "2025 Instructions for Form 8959 Additional Medicare Tax Section references are to the Internal Revenue Code Your employer is responsible for withholding the 0.9% unless otherwise noted. Additional Medicare Tax on your Medicare wages or RRTA compensation paid i"
+    },
+    {
+      "stem": "i8959",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i8959.pdf",
+      "title_excerpt": "2025 Instructions for Form 8959 Additional Medicare Tax Section references are to the Internal Revenue Code Your employer is responsible for withholding the 0.9% unless otherwise noted. Additional Medicare Tax on your Medicare wages or RRTA compensation paid i"
+    },
+    {
+      "stem": "i8960",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i8960--2025.pdf",
+      "title_excerpt": "2025 Instructions for Form 8960 Net Investment Income Tax\u2014Individuals, Estates, and Trusts Section references are to the Internal Revenue Code Definitions unless otherwise noted. Controlled foreign corporation (CFC). Generally, a CFC is any foreign corporation"
+    },
+    {
+      "stem": "i8960",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i8960.pdf",
+      "title_excerpt": "2025 Instructions for Form 8960 Net Investment Income Tax\u2014Individuals, Estates, and Trusts Section references are to the Internal Revenue Code Definitions unless otherwise noted. Controlled foreign corporation (CFC). Generally, a CFC is any foreign corporation"
+    },
+    {
+      "stem": "i2210",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i2210--2025.pdf",
+      "title_excerpt": "2025 Instructions for Form 2210 Underpayment of Estimated Tax by Individuals, Estates, and Trusts Section references are to the Internal Revenue Code unless otherwise noted. Other Methods of Figuring the Penalty There are different ways to figure the correct p"
+    },
+    {
+      "stem": "i2210",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i2210.pdf",
+      "title_excerpt": "2025 Instructions for Form 2210 Underpayment of Estimated Tax by Individuals, Estates, and Trusts Section references are to the Internal Revenue Code unless otherwise noted. Other Methods of Figuring the Penalty There are different ways to figure the correct p"
+    },
+    {
+      "stem": "i6251",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i6251--2025.pdf",
+      "title_excerpt": "2025 Instructions for Form 6251 Alternative Minimum Tax\u2014Individuals Section references are to the Internal Revenue Code unless treatment or who qualify for certain deductions under the tax otherwise noted. law. These tax benefits can significantly reduce the r"
+    },
+    {
+      "stem": "i6251",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i6251.pdf",
+      "title_excerpt": "2025 Instructions for Form 6251 Alternative Minimum Tax\u2014Individuals Section references are to the Internal Revenue Code unless treatment or who qualify for certain deductions under the tax otherwise noted. law. These tax benefits can significantly reduce the r"
+    },
+    {
+      "stem": "i8283",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i8283--2025.pdf",
+      "title_excerpt": "Instructions for Form 8283 (Rev. December 2025) Noncash Charitable Contributions Section references are to the Internal Revenue Code Form 8283 is filed by individuals, partnerships, and unless otherwise noted. corporations. Future Developments Business Entitie"
+    },
+    {
+      "stem": "i8283",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i8283.pdf",
+      "title_excerpt": "Instructions for Form 8283 (Rev. December 2025) Noncash Charitable Contributions Section references are to the Internal Revenue Code Form 8283 is filed by individuals, partnerships, and unless otherwise noted. corporations. Future Developments Business Entitie"
+    },
+    {
+      "stem": "i5695",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i5695--2025.pdf",
+      "title_excerpt": "2025 Instructions for Form 5695 Residential Energy Credits Section references are to the Internal Revenue Code unless The limits for each category of these items that qualify for a credit is otherwise noted. discussed later in Energy Efficient Home Improvement"
+    },
+    {
+      "stem": "i5695",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i5695.pdf",
+      "title_excerpt": "2025 Instructions for Form 5695 Residential Energy Credits Section references are to the Internal Revenue Code unless The limits for each category of these items that qualify for a credit is otherwise noted. discussed later in Energy Efficient Home Improvement"
+    },
+    {
+      "stem": "i8936",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i8936--2025.pdf",
+      "title_excerpt": "2025 Instructions for Form 8936 Clean Vehicle Credits (and Schedule A (Form 8936), Clean Vehicle Credit Amount) Section references are to the Internal Revenue Code unless otherwise noted. General Instructions Future Developments Purpose of Form For the latest "
+    },
+    {
+      "stem": "i8936",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i8936.pdf",
+      "title_excerpt": "2025 Instructions for Form 8936 Clean Vehicle Credits (and Schedule A (Form 8936), Clean Vehicle Credit Amount) Section references are to the Internal Revenue Code unless otherwise noted. General Instructions Future Developments Purpose of Form For the latest "
+    },
+    {
+      "stem": "i3903",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i3903--2025.pdf",
+      "title_excerpt": "2025 Instructions for Form 3903 Moving Expenses Section references are to the Internal Revenue Code unless excess in your wages on Form W-2. However, if any reimbursements otherwise noted. or allowances (other than dislocation allowances, temporary lodging exp"
+    },
+    {
+      "stem": "i3903",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i3903.pdf",
+      "title_excerpt": "2025 Instructions for Form 3903 Moving Expenses Section references are to the Internal Revenue Code unless excess in your wages on Form W-2. However, if any reimbursements otherwise noted. or allowances (other than dislocation allowances, temporary lodging exp"
+    },
+    {
+      "stem": "i2106",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i2106--2025.pdf",
+      "title_excerpt": "2025 Instructions for Form 2106 Employee Business Expenses Section references are to the Internal Revenue Code section 168(k) additional first-year depreciation deduction unless otherwise noted. applies is $12,200 for the 1st tax year, $19,600 for the 2nd tax "
+    },
+    {
+      "stem": "i2106",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i2106.pdf",
+      "title_excerpt": "2025 Instructions for Form 2106 Employee Business Expenses Section references are to the Internal Revenue Code section 168(k) additional first-year depreciation deduction unless otherwise noted. applies is $12,200 for the 1st tax year, $19,600 for the 2nd tax "
+    },
+    {
+      "stem": "i1040x",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i1040x--2025.pdf",
+      "title_excerpt": "Instructions for Form 1040-X (Rev. December 2025) Amended U.S. Individual Income Tax Return (Use With the December 2025 Revision of Form 1040-X) Section references are to the Internal Revenue Code unless Contents Page otherwise noted. Line 22\u2014Overpayment Recei"
+    },
+    {
+      "stem": "i1040x",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i1040x.pdf",
+      "title_excerpt": "Instructions for Form 1040-X (Rev. December 2025) Amended U.S. Individual Income Tax Return (Use With the December 2025 Revision of Form 1040-X) Section references are to the Internal Revenue Code unless Contents Page otherwise noted. Line 22\u2014Overpayment Recei"
+    },
+    {
+      "stem": "i1040nr",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i1040nr--2025.pdf",
+      "title_excerpt": "2025 Instructions for Form 1040-NR U.S. Nonresident Alien Income Tax Return Contents Page Contents Page Contents Page Form 1040-NR Helpful Hints . . . . . . . 2 Payments . . . . . . . . . . . . . . . 22 Instructions for Schedule 3 What\u2019s New . . . . . . . . . "
+    },
+    {
+      "stem": "i1040nr",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i1040nr.pdf",
+      "title_excerpt": "2025 Instructions for Form 1040-NR U.S. Nonresident Alien Income Tax Return Contents Page Contents Page Contents Page Form 1040-NR Helpful Hints . . . . . . . 2 Payments . . . . . . . . . . . . . . . 22 Instructions for Schedule 3 What\u2019s New . . . . . . . . . "
+    },
+    {
+      "stem": "i8829",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i8829--2025.pdf",
+      "title_excerpt": "2025 Instructions for Form 8829 Expenses for Business Use of Your Home Section references are to the Internal Revenue Code unless business use of each home for which you are not electing to use otherwise noted. the simplified method. For more information about"
+    },
+    {
+      "stem": "i8829",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i8829.pdf",
+      "title_excerpt": "2025 Instructions for Form 8829 Expenses for Business Use of Your Home Section references are to the Internal Revenue Code unless business use of each home for which you are not electing to use otherwise noted. the simplified method. For more information about"
+    },
+    {
+      "stem": "i7206",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i7206--2025.pdf",
+      "title_excerpt": "2025 Instructions for Form 7206 Self-Employed Health Insurance Deduction Section references are to the Internal Revenue Code unless \u2022 For partners, a policy can be either in the name of the otherwise noted. partnership or in the name of the partner. You can ei"
+    },
+    {
+      "stem": "i7206",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i7206.pdf",
+      "title_excerpt": "2025 Instructions for Form 7206 Self-Employed Health Insurance Deduction Section references are to the Internal Revenue Code unless \u2022 For partners, a policy can be either in the name of the otherwise noted. partnership or in the name of the partner. You can ei"
+    },
+    {
+      "stem": "i8814",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i8814--2025.pdf",
+      "title_excerpt": "2025 Instructions for Form 8814 Parents\u2019 Election To Report Child\u2019s Interest and Dividends Section references are to the Internal Revenue Code unless Parents who qualify to make the election. You qualify to otherwise noted. make this election if you file Form "
+    },
+    {
+      "stem": "i8814",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i8814.pdf",
+      "title_excerpt": "2025 Instructions for Form 8814 Parents\u2019 Election To Report Child\u2019s Interest and Dividends Section references are to the Internal Revenue Code unless Parents who qualify to make the election. You qualify to otherwise noted. make this election if you file Form "
+    },
+    {
+      "stem": "i8615",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i8615--2025.pdf",
+      "title_excerpt": "2025 Instructions for Form 8615 Tax for Certain Children Who Have Unearned Income Section references are to the Internal Revenue Code unless others. However, a scholarship received by your child isn\u2019t otherwise noted. considered support if your child is a full"
+    },
+    {
+      "stem": "i8615",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i8615.pdf",
+      "title_excerpt": "2025 Instructions for Form 8615 Tax for Certain Children Who Have Unearned Income Section references are to the Internal Revenue Code unless others. However, a scholarship received by your child isn\u2019t otherwise noted. considered support if your child is a full"
+    },
+    {
+      "stem": "i1116",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i1116--2025.pdf",
+      "title_excerpt": "2025 Instructions for Form 1116 Foreign Tax Credit (Individual, Estate, or Trust) Section references are to the Internal Revenue Code unless Notice 2023-80, 2023-52 I.R.B. 1583, available at otherwise noted. IRS.gov/irb/2023-52_IRB#NOT-2023-80. Alternative min"
+    },
+    {
+      "stem": "i1116",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i1116.pdf",
+      "title_excerpt": "2025 Instructions for Form 1116 Foreign Tax Credit (Individual, Estate, or Trust) Section references are to the Internal Revenue Code unless Notice 2023-80, 2023-52 I.R.B. 1583, available at otherwise noted. IRS.gov/irb/2023-52_IRB#NOT-2023-80. Alternative min"
+    },
+    {
+      "stem": "i8839",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i8839--2025.pdf",
+      "title_excerpt": "2025 Instructions for Form 8839 Qualified Adoption Expenses Section references are to the Internal Revenue Code unless 3. You paid qualified adoption expenses in connection with otherwise noted. the adoption of an eligible foreign child in: a. 2025 or prior ye"
+    },
+    {
+      "stem": "i8839",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i8839.pdf",
+      "title_excerpt": "2025 Instructions for Form 8839 Qualified Adoption Expenses Section references are to the Internal Revenue Code unless 3. You paid qualified adoption expenses in connection with otherwise noted. the adoption of an eligible foreign child in: a. 2025 or prior ye"
+    },
+    {
+      "stem": "f1040es",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/f1040es--2025.pdf",
+      "title_excerpt": "2025 Form 1040-ES Estimated Tax for Individuals Purpose of This Package Exception. You don\u2019t have to pay estimated tax for 2025 Use Form 1040-ES to figure and pay your estimated tax if you were a U.S. citizen or resident alien for all of 2024 for 2025. and you"
+    },
+    {
+      "stem": "f1040es",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/f1040es.pdf",
+      "title_excerpt": "2026 Form 1040-ES Estimated Tax for Individuals Purpose of This Package Exception. You don\u2019t have to pay estimated tax for 2026 Use Form 1040-ES to figure and pay your estimated tax if you were a U.S. citizen or resident alien for all of 2025 for 2026. and you"
+    },
+    {
+      "stem": "f1040v",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/f1040v--2025.pdf",
+      "title_excerpt": "2025 Form 1040-V Department of the Treasury Internal Revenue Service Notice to taxpayers presenting checks. When you provide a What Is Form 1040-V? check as payment, you authorize us either to use information It\u2019s a statement you send with your check or money "
+    },
+    {
+      "stem": "f1040v",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/f1040v.pdf",
+      "title_excerpt": "2025 Form 1040-V Department of the Treasury Internal Revenue Service Notice to taxpayers presenting checks. When you provide a What Is Form 1040-V? check as payment, you authorize us either to use information It\u2019s a statement you send with your check or money "
+    },
+    {
+      "stem": "f4506t",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/f4506t.pdf",
+      "title_excerpt": "Form 4506-T (April 2025) Request for Transcript of Tax Return Do not sign this form unless all applicable lines have been completed. OMB No. 1545-1872 Request may be rejected if the form is incomplete or illegible. Department of the Treasury Internal Revenue S"
+    },
+    {
+      "stem": "fw9",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/fw9.pdf",
+      "title_excerpt": "Form (Rev. March 2024) W-9 Request for Taxpayer Identification Number and Certification Give form to the requester. Do not Department of the Treasury Go to www.irs.gov/FormW9 for instructions and the latest information. send to the IRS. Internal Revenue Servic"
+    },
+    {
+      "stem": "fw4",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/fw4--2025.pdf",
+      "title_excerpt": "Form W-4 Employee\u2019s Withholding Certificate Complete Form W-4 so that your employer can withhold the correct federal income tax from your pay. OMB No. 1545-0074 Department of the Treasury Internal Revenue Service Give Form W-4 to your employer. Your withholdin"
+    },
+    {
+      "stem": "fw4",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/fw4.pdf",
+      "title_excerpt": "Form W-4 Employee\u2019s Withholding Certificate Complete Form W-4 so that your employer can withhold the correct federal income tax from your pay. OMB No. 1545-0074 Department of the Treasury Internal Revenue Service Give Form W-4 to your employer. Your withholdin"
+    },
+    {
+      "stem": "f4868",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/f4868--2025.pdf",
+      "title_excerpt": "Form 4868 Application for Automatic Extension of Time To File U.S. Individual Income Tax Return OMB No. 1545-0074 Department of the Treasury Internal Revenue Service Go to www.irs.gov/Form4868 for the latest information. 2025 There are three ways to request an"
+    },
+    {
+      "stem": "f4868",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/f4868.pdf",
+      "title_excerpt": "Form 4868 Application for Automatic Extension of Time To File U.S. Individual Income Tax Return OMB No. 1545-0074 Department of the Treasury Internal Revenue Service Go to www.irs.gov/Form4868 for the latest information. 2025 There are three ways to request an"
+    },
+    {
+      "stem": "f8332",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/f8332--2025.pdf",
+      "title_excerpt": "Form 8332 (Rev. December 2025) Release/Revocation of Release of Claim to Exemption for Child by Custodial Parent OMB No. 1545-0074 Attachment Department of the Treasury Attach a separate form for each child. Sequence No. 115 Internal Revenue Service Go to www."
+    },
+    {
+      "stem": "f8332",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/f8332.pdf",
+      "title_excerpt": "Form 8332 (Rev. December 2025) Release/Revocation of Release of Claim to Exemption for Child by Custodial Parent OMB No. 1545-0074 Attachment Department of the Treasury Attach a separate form for each child. Sequence No. 115 Internal Revenue Service Go to www."
+    },
+    {
+      "stem": "f8862",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/f8862--2025.pdf",
+      "title_excerpt": "Form 8862 (Rev. December 2025) Information To Claim Certain Credits After Disallowance Earned Income Credit (EIC), Child Tax Credit (CTC), Additional Child Tax Credit (ACTC), OMB No. 1545-0074 Credit for Other Dependents (ODC), and American Opportunity Tax Cre"
+    },
+    {
+      "stem": "f8862",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/f8862.pdf",
+      "title_excerpt": "Form 8862 (Rev. December 2025) Information To Claim Certain Credits After Disallowance Earned Income Credit (EIC), Child Tax Credit (CTC), Additional Child Tax Credit (ACTC), OMB No. 1545-0074 Credit for Other Dependents (ODC), and American Opportunity Tax Cre"
+    },
+    {
+      "stem": "f8879",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/f8879.pdf",
+      "title_excerpt": "Form 8879 IRS e-file Signature Authorization (Rev. January 2021) OMB No. 1545-0074 \u25b6 ERO must obtain and retain completed Form 8879. Department of the Treasury \u25b6 Go to www.irs.gov/Form8879 for the latest information. Internal Revenue Service Submission Identif"
+    },
+    {
+      "stem": "f1040sei",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/f1040sei--2025.pdf",
+      "title_excerpt": "SCHEDULE EIC Earned Income Credit OMB No. 1545-0074 (Form 1040) Department of the Treasury Qualifying Child Information Complete and attach to Form 1040 or 1040-SR only if you have a qualifying child. 2025 Attachment Internal Revenue Service Go to www.irs.gov/"
+    },
+    {
+      "stem": "f1040sei",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/f1040sei.pdf",
+      "title_excerpt": "SCHEDULE EIC Earned Income Credit OMB No. 1545-0074 (Form 1040) Department of the Treasury Qualifying Child Information Complete and attach to Form 1040 or 1040-SR only if you have a qualifying child. 2025 Attachment Internal Revenue Service Go to www.irs.gov/"
+    },
+    {
+      "stem": "i1098et",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i1098et--2025.pdf",
+      "title_excerpt": "2025 Instructions for Forms 1098-E and 1098-T Student Loan Interest Statement and Tuition Statement Section references are to the Internal Revenue Code and Certification, to obtain the student\u2019s or borrower\u2019s unless otherwise noted. name, address, TIN, and stu"
+    },
+    {
+      "stem": "i1098et",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i1098et.pdf",
+      "title_excerpt": "2026 Instructions for Forms 1098-E and 1098-T Student Loan Interest Statement and Tuition Statement Section references are to the Internal Revenue Code Form W-9S. You may use Form W-9S, Request for unless otherwise noted. Student\u2019s or Borrower\u2019s Taxpayer Ident"
+    },
+    {
+      "stem": "iw2g",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/iw2g.pdf",
+      "title_excerpt": "Instructions for Forms W-2G and 5754 (Rev. January 2026) Section references are to the Internal Revenue Code unless Withholding for Certain Games, and Backup Withholding otherwise noted. sections under Specific Instructions for Form W-2G; the Withholding secti"
+    },
+    {
+      "stem": "i1099ptr",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i1099ptr--2025.pdf",
+      "title_excerpt": "Instructions for Form 1099-PATR (Rev. April 2025) Taxable Distributions Received From Cooperatives Section references are to the Internal Revenue Code unless Statements to Recipients otherwise noted. If you are required to file Form 1099-PATR, you must furnish"
+    },
+    {
+      "stem": "i1099ptr",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i1099ptr.pdf",
+      "title_excerpt": "Instructions for Form 1099-PATR (Rev. April 2025) Taxable Distributions Received From Cooperatives Section references are to the Internal Revenue Code unless Statements to Recipients otherwise noted. If you are required to file Form 1099-PATR, you must furnish"
+    },
+    {
+      "stem": "f8880",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/f8880--2025.pdf",
+      "title_excerpt": "Form 8880 Credit for Qualified Retirement Savings Contributions OMB No. 1545-0074 2025 Attach to Form 1040, 1040-SR, or 1040-NR. Department of the Treasury Attachment Internal Revenue Service Go to www.irs.gov/Form8880 for the latest information. Sequence No. "
+    },
+    {
+      "stem": "f8880",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/f8880.pdf",
+      "title_excerpt": "Form 8880 Credit for Qualified Retirement Savings Contributions OMB No. 1545-0074 2025 Attach to Form 1040, 1040-SR, or 1040-NR. Department of the Treasury Attachment Internal Revenue Service Go to www.irs.gov/Form8880 for the latest information. Sequence No. "
+    },
+    {
+      "stem": "i8862",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i8862--2025.pdf",
+      "title_excerpt": "Instructions for Form 8862 (Rev. December 2025) Information To Claim Certain Credits After Disallowance Section references are to the Internal Revenue Code unless Credit for other dependents (ODC). You (if filing a joint return, otherwise noted. you and your s"
+    },
+    {
+      "stem": "i8862",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i8862.pdf",
+      "title_excerpt": "Instructions for Form 8862 (Rev. December 2025) Information To Claim Certain Credits After Disallowance Section references are to the Internal Revenue Code unless Credit for other dependents (ODC). You (if filing a joint return, otherwise noted. you and your s"
+    },
+    {
+      "stem": "i4797",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i4797--2025.pdf",
+      "title_excerpt": "2025 Instructions for Form 4797 Sales of Business Property (Also Involuntary Conversions and Recapture Amounts Under Sections 179 and 280F(b)(2)) Section references are to the Internal Revenue Code 2. Depreciable and amortizable tangible property used unless o"
+    },
+    {
+      "stem": "i4797",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i4797.pdf",
+      "title_excerpt": "2025 Instructions for Form 4797 Sales of Business Property (Also Involuntary Conversions and Recapture Amounts Under Sections 179 and 280F(b)(2)) Section references are to the Internal Revenue Code 2. Depreciable and amortizable tangible property used unless o"
+    },
+    {
+      "stem": "i6198",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i6198.pdf",
+      "title_excerpt": "Instructions for Form 6198 (Rev. November 2025) At-Risk Limitations For use with Form 6198 (Rev. November 2025) or later revision Section references are to the Internal Revenue section 1245(a)(3). interest in the activity other than as a Code unless otherwise "
+    },
+    {
+      "stem": "i982",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i982.pdf",
+      "title_excerpt": "Instructions for Form 982 Department of the Treasury Internal Revenue Service (Rev. December 2021) Reduction of Tax Attributes Due to Discharge of Indebtedness (and Section 1082 Basis Adjustment) (For use with Form 982 (Rev. March 2018)) Section references are"
+    },
+    {
+      "stem": "i2555",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i2555--2025.pdf",
+      "title_excerpt": "2025 Instructions for Form 2555 Foreign Earned Income Section references are to the Internal Revenue Code The term \u201cforeign country\u201d includes the country's unless otherwise noted. territorial waters and airspace, but not international waters and the airspace a"
+    },
+    {
+      "stem": "i2555",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i2555.pdf",
+      "title_excerpt": "2025 Instructions for Form 2555 Foreign Earned Income Section references are to the Internal Revenue Code The term \u201cforeign country\u201d includes the country's unless otherwise noted. territorial waters and airspace, but not international waters and the airspace a"
+    },
+    {
+      "stem": "i8853",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i8853--2025.pdf",
+      "title_excerpt": "2025 Instructions for Form 8853 Archer MSAs and Long-Term Care Insurance Contracts Section references are to the Internal Revenue Code \u2022 You (or your spouse, if filing jointly) received Archer unless otherwise noted. MSA or Medicare Advantage MSA distributions"
+    },
+    {
+      "stem": "i8853",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i8853.pdf",
+      "title_excerpt": "2025 Instructions for Form 8853 Archer MSAs and Long-Term Care Insurance Contracts Section references are to the Internal Revenue Code \u2022 You (or your spouse, if filing jointly) received Archer unless otherwise noted. MSA or Medicare Advantage MSA distributions"
+    },
+    {
+      "stem": "i8867",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i8867--2025.pdf",
+      "title_excerpt": "Instructions for Form 8867 (Rev. November 2025) Paid Preparer\u2019s Due Diligence Checklist for the Earned Income Credit, American Opportunity Tax Credit, Child Tax Credit (Including the Additional Child Tax Credit and Credit for Other Dependents), and/or Head of "
+    },
+    {
+      "stem": "i8867",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i8867.pdf",
+      "title_excerpt": "Instructions for Form 8867 (Rev. November 2025) Paid Preparer\u2019s Due Diligence Checklist for the Earned Income Credit, American Opportunity Tax Credit, Child Tax Credit (Including the Additional Child Tax Credit and Credit for Other Dependents), and/or Head of "
+    },
+    {
+      "stem": "i8857",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i8857.pdf",
+      "title_excerpt": "Instructions for Form 8857 Department of the Treasury Internal Revenue Service (Rev. June 2021) Request for Innocent Spouse Relief Section references are to the Internal Revenue Code unless Note. We recognize that some of the questions on the form otherwise no"
+    },
+    {
+      "stem": "f4506",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/f4506.pdf",
+      "title_excerpt": "Form 4506 Request for Copy of Tax Return (April 2025) Do not sign this form unless all applicable lines have been completed. OMB No. 1545-0429 Request may be rejected if the form is incomplete or illegible. Department of the Treasury Internal Revenue Service F"
+    },
+    {
+      "stem": "f2120",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/f2120--2025.pdf",
+      "title_excerpt": "Form 2120 (Rev. December 2025) Multiple Support Declaration OMB No. 1545-0074 Attach to Form 1040 or 1040-SR. Attachment Department of the Treasury Internal Revenue Service Go to www.irs.gov/Form2120 for the latest information. Sequence No. 114 Name(s) shown o"
+    },
+    {
+      "stem": "f2120",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/f2120.pdf",
+      "title_excerpt": "Form 2120 (Rev. December 2025) Multiple Support Declaration OMB No. 1545-0074 Attach to Form 1040 or 1040-SR. Attachment Department of the Treasury Internal Revenue Service Go to www.irs.gov/Form2120 for the latest information. Sequence No. 114 Name(s) shown o"
+    },
+    {
+      "stem": "f8922",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/f8922.pdf",
+      "title_excerpt": "8888 CORRECTED FILER\u2019S name, street address, city or town, province or state, country, ZIP Filer is an (check one): OMB No. 1545-0029 or foreign postal code, and telephone no. Form 8922 Third-Party Employer (Rev. October 2024) Sick Pay Insurer/Agent For calend"
+    },
+    {
+      "stem": "f8919",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/f8919--2025.pdf",
+      "title_excerpt": "Form 8919 Uncollected Social Security and Medicare Tax on Wages OMB No. 1545-0074 2025 Attach to Form 1040, 1040-SR, 1040-NR, or 1040-SS. Department of the Treasury Attachment Internal Revenue Service Go to www.irs.gov/Form8919 for the latest information. Sequ"
+    },
+    {
+      "stem": "f8919",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/f8919.pdf",
+      "title_excerpt": "Form 8919 Uncollected Social Security and Medicare Tax on Wages OMB No. 1545-0074 2025 Attach to Form 1040, 1040-SR, 1040-NR, or 1040-SS. Department of the Treasury Attachment Internal Revenue Service Go to www.irs.gov/Form8919 for the latest information. Sequ"
+    },
+    {
+      "stem": "f4137",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/f4137--2025.pdf",
+      "title_excerpt": "Form 4137 Social Security and Medicare Tax on Unreported Tip Income OMB No. 1545-0074 Attach to your tax return. 2025 Department of the Treasury Attachment Internal Revenue Service Go to www.irs.gov/Form4137 for the latest information. Sequence No. 24 Name of "
+    },
+    {
+      "stem": "f4137",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/f4137.pdf",
+      "title_excerpt": "Form 4137 Social Security and Medicare Tax on Unreported Tip Income OMB No. 1545-0074 Attach to your tax return. 2025 Department of the Treasury Attachment Internal Revenue Service Go to www.irs.gov/Form4137 for the latest information. Sequence No. 24 Name of "
+    },
+    {
+      "stem": "f8888",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/f8888--2025.pdf",
+      "title_excerpt": "Form 8888 Allocation of Refund OMB No. 1545-0074 For calendar year (Rev. December 2025) 20 Department of the Treasury Attach to Form 1040, 1040-SR, 1040-SS, or 1040-NR. Attachment Internal Revenue Service Go to www.irs.gov/Form8888 for the latest information. "
+    },
+    {
+      "stem": "f8888",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/f8888.pdf",
+      "title_excerpt": "Form 8888 Allocation of Refund OMB No. 1545-0074 For calendar year (Rev. December 2025) 20 Department of the Treasury Attach to Form 1040, 1040-SR, 1040-SS, or 1040-NR. Attachment Internal Revenue Service Go to www.irs.gov/Form8888 for the latest information. "
+    },
+    {
+      "stem": "f9465",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/f9465.pdf",
+      "title_excerpt": "Form 9465 (Rev. September 2020) Installment Agreement Request \u25b6 Go to www.irs.gov/Form9465 for instructions and the latest information. OMB No. 1545-0074 \u25b6 If you are filing this form with your tax return, attach it to the front of the return. Department of th"
+    },
+    {
+      "stem": "i9465",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/i9465.pdf",
+      "title_excerpt": "Instructions for Form 9465 Department of the Treasury Internal Revenue Service (Rev. July 2024) Installment Agreement Request (For use with Form 9465 (Rev. September 2020)) Section references are to the Internal Revenue Code installment agreement, later, for m"
+    },
+    {
+      "stem": "f1040s",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/f1040s--2025.pdf",
+      "title_excerpt": "1040-SR U.S. Income Tax Return for Seniors 2025 Department of the Treasury\u2014Internal Revenue Service Form OMB No. 1545-0074 IRS Use Only\u2014Do not write or staple in this space. For the year Jan. 1\u2013Dec. 31, 2025, or other tax year beginning , 2025, ending , 20 See"
+    },
+    {
+      "stem": "f1040s",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/f1040s.pdf",
+      "title_excerpt": "1040-SR U.S. Income Tax Return for Seniors 2025 Department of the Treasury\u2014Internal Revenue Service Form OMB No. 1545-0074 IRS Use Only\u2014Do not write or staple in this space. For the year Jan. 1\u2013Dec. 31, 2025, or other tax year beginning , 2025, ending , 20 See"
+    },
+    {
+      "stem": "f1040sr",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/f1040sr--2025.pdf",
+      "title_excerpt": "SCHEDULE R OMB No. 1545-0074 (Form 1040) Credit for the Elderly or the Disabled Attach to Form 1040 or 1040-SR. 2025 Department of the Treasury Go to www.irs.gov/ScheduleR for instructions and the latest information. Attachment Internal Revenue Service Sequenc"
+    },
+    {
+      "stem": "f1040sr",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/f1040sr.pdf",
+      "title_excerpt": "SCHEDULE R OMB No. 1545-0074 (Form 1040) Credit for the Elderly or the Disabled Attach to Form 1040 or 1040-SR. 2025 Department of the Treasury Go to www.irs.gov/ScheduleR for instructions and the latest information. Attachment Internal Revenue Service Sequenc"
+    },
+    {
+      "stem": "f1040s1a",
+      "edition_requested": "2025",
+      "url": "https://www.irs.gov/pub/irs-prior/f1040s1a--2025.pdf",
+      "title_excerpt": "SCHEDULE 1-A OMB No. 1545-0074 Additional Deductions (Form 1040) Department of the Treasury Attach to Form 1040, 1040-SR, or 1040-NR. 2025 Attachment Internal Revenue Service Go to www.irs.gov/Form1040 for instructions and the latest information. Sequence No. "
+    },
+    {
+      "stem": "f1040s1a",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/f1040s1a.pdf",
+      "title_excerpt": "SCHEDULE 1-A OMB No. 1545-0074 Additional Deductions (Form 1040) Department of the Treasury Attach to Form 1040, 1040-SR, or 1040-NR. 2025 Attachment Internal Revenue Service Go to www.irs.gov/Form1040 for instructions and the latest information. Sequence No. "
+    },
+    {
+      "stem": "f1099int",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/f1099int.pdf",
+      "title_excerpt": "Attention: Copy A of this form is provided for informational purposes only. Copy A appears in red, similar to the official IRS form. The official printed version of Copy A of this IRS form is scannable, but the online version of it, printed from this website, "
+    },
+    {
+      "stem": "f1099div",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/f1099div.pdf",
+      "title_excerpt": "Attention: Copy A of this form is provided for informational purposes only. Copy A appears in red, similar to the official IRS form. The official printed version of Copy A of this IRS form is scannable, but the online version of it, printed from this website, "
+    },
+    {
+      "stem": "f1099k",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/f1099k.pdf",
+      "title_excerpt": "Attention: Which Revision To Use for Which Year. We issue information returns up to a year in advance of when issuers will first file them. For all forms that we do not issue annually (such as Form 1040), the year of the revision date is the first year for whi"
+    },
+    {
+      "stem": "f1099g",
+      "edition_requested": "current",
+      "url": "https://www.irs.gov/pub/irs-pdf/f1099g.pdf",
+      "title_excerpt": "Attention: Which Revision To Use for Which Year. We issue information returns up to a year in advance of when issuers will first file them. For all forms that we do not issue annually (such as Form 1040), the year of the revision date is the first year for whi"
+    }
+  ],
+  "checked_date": "2026-10-13",
+  "archive_outcomes": [
+    {
+      "stem": "i1040gi",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i1040sca",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i1040sb",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i1040sc",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i1040sd",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i1040se",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i1040sse",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i1040s8",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i1040sf",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i1040sh",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i1040sj",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i1040sr",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "iw2w3",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i1099mec",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i1099int",
+      "year": 2025,
+      "available": false,
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "stem": "i1099r",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i1099b",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i1099k",
+      "year": 2025,
+      "available": false,
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "stem": "i1099g",
+      "year": 2025,
+      "available": false,
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "stem": "i1099s",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i1099div",
+      "year": 2025,
+      "available": false,
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "stem": "i1098",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i1098e",
+      "year": 2025,
+      "available": false,
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "stem": "i1098t",
+      "year": 2025,
+      "available": false,
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "stem": "i1099q",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i5498",
+      "year": 2025,
+      "available": false,
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "stem": "i5498sa",
+      "year": 2025,
+      "available": false,
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "stem": "i1099sa",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i1099h",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i1099c",
+      "year": 2025,
+      "available": false,
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "stem": "i1099ac",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i1099cap",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i1099ltc",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i1099patr",
+      "year": 2025,
+      "available": false,
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "stem": "i1099a",
+      "year": 2025,
+      "available": false,
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "stem": "i1099da",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i8949",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i2441",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i8995",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i8995a",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i4562",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i8582",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i8962",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i8863",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i8889",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i8606",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i5329",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i8959",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i8960",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i2210",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i6251",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i8283",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i5695",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i8936",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i3903",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i2106",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i1040x",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i1040nr",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i4868",
+      "year": 2025,
+      "available": false,
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "stem": "i8332",
+      "year": 2025,
+      "available": false,
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "stem": "i8829",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i7206",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i8814",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i8615",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i1116",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i8839",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i8880",
+      "year": 2025,
+      "available": false,
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "stem": "f1040es",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "f1040v",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "f4506t",
+      "year": 2025,
+      "available": false,
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "stem": "fw9",
+      "year": 2025,
+      "available": false,
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "stem": "fw4",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "f4868",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "f8332",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "f8862",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "f8879",
+      "year": 2025,
+      "available": false,
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "stem": "f1040sei",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i1098et",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "iw2g",
+      "year": 2025,
+      "available": false,
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "stem": "i1099ptr",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "f8880",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i8862",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i8879",
+      "year": 2025,
+      "available": false,
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "stem": "i8919",
+      "year": 2025,
+      "available": false,
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "stem": "i4137",
+      "year": 2025,
+      "available": false,
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "stem": "i4797",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i6198",
+      "year": 2025,
+      "available": false,
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "stem": "i982",
+      "year": 2025,
+      "available": false,
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "stem": "i2555",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i8853",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i8867",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "i8857",
+      "year": 2025,
+      "available": false,
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "stem": "f4506",
+      "year": 2025,
+      "available": false,
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "stem": "f2120",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "f8850",
+      "year": 2025,
+      "available": false,
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "stem": "f8922",
+      "year": 2025,
+      "available": false,
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "stem": "f8919",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "f4137",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "f8888",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "f9465",
+      "year": 2025,
+      "available": false,
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "stem": "i9465",
+      "year": 2025,
+      "available": false,
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "stem": "f1040s",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "f1040sr",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "f1040s1a",
+      "year": 2025,
+      "available": true,
+      "error": null
+    },
+    {
+      "stem": "f1099int",
+      "year": 2025,
+      "available": false,
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "stem": "f1099div",
+      "year": 2025,
+      "available": false,
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "stem": "f1099k",
+      "year": 2025,
+      "available": false,
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "stem": "f1099g",
+      "year": 2025,
+      "available": false,
+      "error": "HTTP Error 404: Not Found"
+    }
+  ]
+}
