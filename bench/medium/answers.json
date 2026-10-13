@@ -190,15 +190,106 @@
         "=14. Income limitation. Multiply line 13 by 20% (0.20).": 22568,
         "=15. Qualified business income deduction. Enter the smaller of line 10 or line 14. Also enter this amount on the applicable line of your return (see instructions).": 6748,
         "=Row: i. Column: (c) Qualified business income or (loss).": {
-          "any_of": [
-            29739,
-            4000
-          ]
+          "row_layout": "qbi_business_and_rental"
         },
         "=Row: i i. Column: (c) Qualified business income or (loss).": {
-          "any_of": [
-            4000,
-            29739
+          "row_layout": "qbi_business_and_rental"
+        }
+      },
+      "row_layouts": {
+        "qbi_business_and_rental": {
+          "rows": [
+            {
+              "name": "Row: i. Column: (a) Trade, business, or aggregation name.",
+              "identifier": "=Row: i. Column: (b) Taxpayer identification number.",
+              "income": "=Row: i. Column: (c) Qualified business income or (loss)."
+            },
+            {
+              "name": "Row: i i. Column: (a) Trade, business, or aggregation name.",
+              "identifier": "=Row: i i. Column: (b) Taxpayer identification number.",
+              "income": "=Row: i i. Column: (c) Qualified business income or (loss)."
+            },
+            {
+              "name": "Row: i i i. Column: (a) Trade, business, or aggregation name.",
+              "identifier": "=Row: i i i. Column: (b) Taxpayer identification number.",
+              "income": "=Row: i i i. Column: (c) Qualified business income or (loss)."
+            },
+            {
+              "name": "Row: i v. Column: (a) Trade, business, or aggregation name.",
+              "identifier": "=Row: i v. Column: (b) Taxpayer identification number.",
+              "income": "=Row: i v. Column: (c) Qualified business income or (loss)."
+            },
+            {
+              "name": "Row: v. Column: (a) Trade, business, or aggregation name.",
+              "identifier": "=Row: v. Column: (b) Taxpayer identification number.",
+              "income": "=Row: v. Column: (c) Qualified business income or (loss)."
+            }
+          ],
+          "alternatives": [
+            [
+              {
+                "name": {
+                  "contains_any": [
+                    "design",
+                    "graphic",
+                    "freelance"
+                  ]
+                },
+                "identifier": "000-12-3402",
+                "income": 29739
+              },
+              {
+                "name": {
+                  "contains_any": [
+                    "rental",
+                    "larkspur",
+                    "2215 Larkspur"
+                  ]
+                },
+                "identifier": {
+                  "any_of": [
+                    "000-12-3401",
+                    "000-12-3402"
+                  ]
+                },
+                "income": 4000
+              }
+            ],
+            [
+              {
+                "name": {
+                  "contains_any": [
+                    "design",
+                    "graphic",
+                    "freelance"
+                  ]
+                },
+                "identifier": "000-12-3402",
+                "income": 29739
+              },
+              {
+                "name": {
+                  "contains_any": [
+                    "rental",
+                    "larkspur",
+                    "2215 Larkspur"
+                  ]
+                },
+                "identifier": "000-12-3401",
+                "income": 2000
+              },
+              {
+                "name": {
+                  "contains_any": [
+                    "rental",
+                    "larkspur",
+                    "2215 Larkspur"
+                  ]
+                },
+                "identifier": "000-12-3402",
+                "income": 2000
+              }
+            ]
           ]
         }
       }
@@ -323,6 +414,18 @@
         {
           "form": "f8995",
           "field": "=Row: i i. Column: (c) Qualified business income or (loss)."
+        },
+        {
+          "form": "f8995",
+          "field": "=Row: i i i. Column: (c) Qualified business income or (loss)."
+        },
+        {
+          "form": "f8995",
+          "field": "=Row: i v. Column: (c) Qualified business income or (loss)."
+        },
+        {
+          "form": "f8995",
+          "field": "=Row: v. Column: (c) Qualified business income or (loss)."
         }
       ]
     }

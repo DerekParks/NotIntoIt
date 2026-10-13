@@ -157,6 +157,51 @@ The model did not call `get_form_instructions`; this run tests the latest tool
 set and shows validator-assisted recovery, but does not demonstrate use of the
 new instruction mapping. It is one run, not evidence of consistent reliability.
 
+## LTJ Flash Next run with final review reports
+
+`openai/flash-next-hybrid` on LTJ completed one medium attempt in **3037.6
+seconds** (50.6 minutes), with **83 tool calls**, **124/124** under the current
+layout-aware grader (**123/124** originally), and
+the correct **$2,711 refund**. Reported API cost was $0 (local serving; hardware
+and electricity costs are not measured). The new tool build was local/unreleased;
+its binary/module hashes are retained with the run. Artifacts are under
+`bench/runs/medium/20261013-120859-pi-openai_flash-next-hybrid-0/`.
+
+The model made 11 instruction calls, two validation calls and one final-review
+call. Validation caught two missing Form 8995 header identities; the model
+repaired both. The final review report retained `needs_review` for unsupported
+Form 4562, with zero blocking errors and 113 deterministic checks. Independent
+validation agreed; all 20 captured PDF/W-2/instruction hashes matched the archived
+files. The final response disclosed the unvalidated form and disclaimed filing
+readiness, although its opening “prepared, validated” and “Forms filed” wording
+was broader than the actual status. Nothing was signed or filed.
+
+The one keyed miss is representational: Form 8995 has $29,739 of business QBI
+and two owner-specific rental entries of $2,000 each, totaling the correct
+$33,739. The case now explicitly states equal 50/50 rental ownership. The grader
+accepts either a single $4,000 rental row or two $2,000 rows with distinct spouse
+identifiers, alongside Morgan's $29,739 business row, in any row order. This is a
+bounded benchmark equivalence based on the [Form 8995 business/owner instructions](https://www.irs.gov/instructions/i8995),
+not a determination that every split presentation is appropriate. The generic
+`row_layouts` answer-key matcher consumes every active row exactly once and checks
+names, owner IDs and amounts; extra rows, duplicate owners and unequal splits fail.
+Unused blank or numeric-zero-only rows are allowed. The original reconciliation
+also incorrectly summed only the first two rows; it now sums all five as printed
+on Form 8995. Original score/grade artifacts are preserved;
+`grade-layout-aware.json` records the current **124/124** result and grader/key hashes.
+`return_complete` still fails due to unnecessary populated Form 4562.
+
+Two explanatory errors remain: the model incorrectly suggested the prior 2022
+July placed-in-service depreciation should be $5,416.67 rather than $4,583.33,
+and incorrectly said rental QJV treatment needs separate Schedules E per spouse.
+Under the [mid-month convention](https://www.irs.gov/publications/p527), July
+provides half July plus August–December (5.5 months); the given annual-method
+record is consistent. [Schedule E's QJV instructions](https://www.irs.gov/instructions/i1040se)
+specify separate property-interest columns on Schedule E, rather than a separate
+Schedule E for each spouse. These mistakes did not change the current refund,
+but show that source access and accurate report statuses do not certify all
+free-form advice. The model recorded no formal sourced disputes.
+
 ## Run and validate
 
 ```sh

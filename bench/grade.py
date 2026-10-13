@@ -2,6 +2,7 @@
 usage: python3 bench/grade.py <answers.json> <workspace>/<year>/forms [--nii path]"""
 
 import json
+import math
 import re
 import subprocess
 import sys
@@ -20,7 +21,8 @@ def amount(raw):
     negative = s.startswith("(") and s.endswith(")") or s.startswith("-")
     s = s.strip("()-")
     try:
-        return -float(s) if negative else float(s)
+        value = -float(s) if negative else float(s)
+        return value if math.isfinite(value) else None
     except ValueError:
         return None
 
@@ -47,6 +49,8 @@ def matches(want, got, key: str, tol: float) -> bool:
     """Whether a field's value satisfies an answer: a string, number, checkbox state,
     {"contains": text}, or {"any_of": [answers]} where "" stands for a blank field. A number never
     matches a blank field."""
+    if isinstance(want, dict) and "contains_any" in want:
+        return any(text.lower() in str(got or "").lower() for text in want["contains_any"])
     if isinstance(want, dict) and "any_of" in want:
         return any(matches(w, got, key, tol) for w in want["any_of"])
     if isinstance(want, dict):
@@ -61,11 +65,51 @@ def matches(want, got, key: str, tol: float) -> bool:
     return g == w or bool(first_name and w and re.fullmatch(re.escape(w) + r"[a-z]?\.?", g))
 
 
+def row_layout(form_fields: list[dict], spec: dict, tol: float):
+    """Match an entire populated table against declared, unordered alternatives.
+
+    Every active row is consumed once. Correct totals cannot hide duplicate owners,
+    extra rows, missing identifiers, or offsetting incorrect amounts.
+    """
+    numeric_columns = {column for layout in spec['alternatives'] for row in layout
+                       for column, value in row.items()
+                       if isinstance(value, (int, float)) and not isinstance(value, bool)}
+    actual = []
+    for selectors in spec['rows']:
+        row = {}
+        for column, selector in selectors.items():
+            hits = find(form_fields, selector)
+            if len(hits) != 1:
+                raise ValueError(f'row column {selector!r} matched {len(hits)} fields')
+            row[column] = hits[0].get('value')
+        if not any(str(v or '').strip() for v in row.values()):
+            continue
+        # An otherwise empty row with a numeric zero is an unused table row.
+        if all(not str(value or '').strip() or (column in numeric_columns and amount(value) == 0)
+               for column, value in row.items()):
+            continue
+        actual.append(row)
+
+    def assign(expected, remaining):
+        if not expected:
+            return not remaining
+        pattern, *rest = expected
+        return any(
+            pattern.keys() == row.keys()
+            and all(matches(want, row[column], column, tol) for column, want in pattern.items())
+            and assign(rest, remaining[:i] + remaining[i + 1:])
+            for i, row in enumerate(remaining)
+        )
+
+    return actual, any(len(pattern) == len(actual) and assign(pattern, actual)
+                       for pattern in spec['alternatives'])
+
+
 def grade(answers: dict, forms_dir: Path, nii: str) -> dict:
     tol = answers.get("tolerance_dollars", 1)
     results, problems = [], []
     missing, blank, unreadable = [], [], []
-    cache = {}
+    cache, layouts = {}, {}
     def read(stem):
         if stem not in cache:
             pdf = Path(forms_dir) / f"{stem}.pdf"
@@ -87,6 +131,18 @@ def grade(answers: dict, forms_dir: Path, nii: str) -> dict:
                 results.append((stem, key, spec["fields"][key], "BLANK FORM" if pdf.exists() else "MISSING FORM", False))
             continue
         for key, want in spec["fields"].items():
+            if isinstance(want, dict) and 'row_layout' in want:
+                layout_name = want['row_layout']
+                layout_key = (stem, layout_name)
+                if layout_key not in layouts:
+                    try:
+                        layouts[layout_key] = row_layout(ff, spec['row_layouts'][layout_name], tol)
+                    except (KeyError, ValueError) as e:
+                        problems.append(f'{stem}: invalid row layout {layout_name!r}: {e}')
+                        layouts[layout_key] = (str(e), False)
+                got, ok = layouts[layout_key]
+                results.append((stem, key, want, got, ok))
+                continue
             hits = find(ff, key)
             if len(hits) != 1:
                 problems.append(f"{stem}: answer key {key!r} matched {len(hits)} fields")

@@ -14,6 +14,8 @@ from grade import fields, find, grade
 
 
 def sample(want):
+    if isinstance(want, dict) and 'contains_any' in want:
+        return want['contains_any'][0]
     if isinstance(want, dict):
         return sample(want['any_of'][0]) if 'any_of' in want else want['contains']
     return want
@@ -27,10 +29,22 @@ def validate(answers, forms_dir, nii):
             ff = fields(nii, src)
             values = {}
             for key, want in spec['fields'].items():
+                if isinstance(want, dict) and 'row_layout' in want:
+                    continue
                 hits = find(ff, key)
                 if len(hits) != 1:
                     raise ValueError(f'{stem}: {key!r} matched {len(hits)} fields')
                 values[hits[0]['name']] = sample(want)
+            for layout in spec.get('row_layouts', {}).values():
+                # Seed the first accepted presentation and clear unused rows, so
+                # round-trips are independent of values in the input template PDF.
+                expected = layout['alternatives'][0]
+                for i, row in enumerate(layout['rows']):
+                    for column, selector in row.items():
+                        hits = find(ff, selector)
+                        if len(hits) != 1:
+                            raise ValueError(f'{stem}: {selector!r} matched {len(hits)} fields')
+                        values[hits[0]['name']] = sample(expected[i][column]) if i < len(expected) else ''
             dst = workspace / src.name
             shutil.copy2(src, dst)
             values_file = workspace / 'values.json'

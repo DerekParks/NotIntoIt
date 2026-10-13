@@ -36,7 +36,7 @@ line. Supplies are consumable art materials; office expense is postage and
 stationery. All client meals had a documented business purpose and Morgan was
 present; none were entertainment or employee meals.
 
-We jointly own one long-term residential rental. We handle tenant screening,
+We jointly own one long-term residential rental, with equal 50% ownership interests. We handle tenant screening,
 leases, collection, maintenance coordination, inspections and tenant issues
 regularly throughout each year (300 documented rental-service hours in 2025).
 This is an ongoing section 162 rental trade or business for this exercise;
