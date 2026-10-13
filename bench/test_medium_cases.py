@@ -6,6 +6,8 @@ import unittest
 from decimal import Decimal
 from pathlib import Path
 
+from grade import matches
+
 
 class MediumPacketTests(unittest.TestCase):
     def test_source_documents_reconcile_to_keyed_income_and_payments(self):
@@ -58,3 +60,13 @@ class MediumPacketTests(unittest.TestCase):
         self.assertIn('f1040sse', key['not_required'])
         office = [v for k, v in key['forms']['f1040sc']['fields'].items() if k.startswith('=30. Use')]
         self.assertEqual(office, [0])
+
+    def test_business_loss_unused_se_lines_accept_blank_or_zero_only(self):
+        key = json.loads((Path(__file__).parent / 'medium-business-loss/answers.json').read_text())
+        for form, prefix in [('f1040', '=23.'), ('f1040s1', '=15.'), ('f1040s1', '=26.')]:
+            selector = next(k for k in key['forms'][form]['fields'] if k.startswith(prefix))
+            want = key['forms'][form]['fields'][selector]
+            for value in [None, '', '0', '0.00']:
+                self.assertTrue(matches(want, value, selector, 1))
+            for value in ['10', 'NaN', 'not a number']:
+                self.assertFalse(matches(want, value, selector, 1))

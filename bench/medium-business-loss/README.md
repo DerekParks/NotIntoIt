@@ -2,6 +2,9 @@
 
 Independent runnable variation of the medium family case.
 
+Unused zero SE tax, SE deduction and total-adjustment lines accept blank or zero.
+This allowance does not apply to missing income, outcome or identity fields.
+
 $10,000 receipts minus $13,000 ordinary expenses = $3,000 loss. Simplified home-office deduction is zero. No SE tax; $4,000 rental QBI offsets the business loss, leaving $1,000 QBI.
 
 AGI $111,600; QBI deduction $200; taxable income $79,900; income tax $9,114; total tax $4,714; payments $16,000; refund **$11,286**. Income below $100,000 uses the IRS Tax Table, not direct bracket tax.

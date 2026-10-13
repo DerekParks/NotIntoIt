@@ -36,3 +36,34 @@ The validator mutation test starts each trial from a clean synthetic joint retur
 using actual IRS field metadata. It changes one field per trial (14 text-field
 mutations and one extra filing-status checkbox), requires a specific finding,
 and keeps formatting, explicit-zero and reordered-QBI controls passing.
+
+## Sonnet smoke runs — October 13, 2026
+
+Claude Code's `sonnet` alias resolved to `claude-sonnet-5-5`. One attempt per
+case used local binary built from commit `d039726`; no retries were needed.
+
+| Case | Current field score | Actual refund | Report integrity | Report status | Seconds | Reported cost |
+|---|---:|---:|---:|---|---:|---:|
+| Rental loss | 126/126 | $9,506.54 | 9/9 | `needs_review` | 77.5 | $0.4681 |
+| Mixed use | 124/124 | $1,654.54 | 9/9 | `needs_review` | 77.6 | $0.4747 |
+| Business loss | 110/110 | $11,286.00 | 9/9 | `checks_passed` | 64.5 | $0.3689 |
+| Estimated payments | 124/124 | $7,210.54 | 9/9 | `checks_passed` | 73.8 | $0.4461 |
+
+Total reported cost: **$1.757848**, across **293.4 seconds** of model runs.
+All outcomes meet the existing $1 tolerance. Three runs retained cents instead
+of applying the key's whole-dollar rounding. None produced blocking validator
+errors or unnecessary populated forms. Rental-loss limits and personal-use
+allocation remain manual review items, correctly reflected by the reports.
+
+The business-loss attempt originally scored **107/110** because it left three
+unused zero SE/adjustment lines blank. This case now explicitly accepts blank or
+zero on Form 1040 line 23 and Schedule 1 lines 15 and 26; nonzero/malformed entries
+still fail. Original `meta.json`, `grade.json`, PDFs and transcripts are unchanged;
+`grade-rechecked.json` records the **110/110** regrade. The allowance has a
+regression test and passes the answer-key PDF round-trip.
+
+Artifacts are under `bench/runs/<case>/20261013-<timestamp>-claude-sonnet-0/`;
+`bench/runs/sonnet-variants-summary.json` records exact costs, run paths and binary
+hash. These files are ignored by Git. One attempt per case is a smoke test;
+free-form advice and source interpretation were not graded, and passing bounded
+checks does not certify filing readiness.

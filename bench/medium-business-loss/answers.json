@@ -45,7 +45,12 @@
         "=19. Child tax credit or credit for other dependents from Schedule 8812.": 4400,
         "=21. Add lines 19 and 20.": 4400,
         "=22. Subtract line 21 from line 18. If zero or less, enter 0.": 4714,
-        "=23. Other taxes, including self-employment tax, from Schedule 2, line 21.": 0,
+        "=23. Other taxes, including self-employment tax, from Schedule 2, line 21.": {
+          "any_of": [
+            0,
+            ""
+          ]
+        },
         "=24. Add lines 22 and 23. This is your total tax.": 4714,
         "=Payments and Refundable Credits. 25. Federal income tax withheld from: a. Form(s) W-2.": 12000,
         "=25d. Add lines 25a through 25c.": 12000,
@@ -137,8 +142,18 @@
         "=3. Business income or (loss). Attach Schedule C.": -3000,
         "=5. Rental real estate, royalties, partnerships, S corporations, trusts, etc. Attach Schedule E.": 4000,
         "=10. Combine lines 1 through 7 and 9. This is your additional income. Enter here and on Form 1040, 1040-S R, or 1040-N R, line 8.": 1000,
-        "=15. Deductible part of self-employment tax. Attach Schedule S E.": 0,
-        "=26. Add lines 11 through 23 and 25. These are your adjustments to income. Enter here and on Form 1040, 1040-S R, or 1040-N R, line 10.": 0
+        "=15. Deductible part of self-employment tax. Attach Schedule S E.": {
+          "any_of": [
+            0,
+            ""
+          ]
+        },
+        "=26. Add lines 11 through 23 and 25. These are your adjustments to income. Enter here and on Form 1040, 1040-S R, or 1040-N R, line 10.": {
+          "any_of": [
+            0,
+            ""
+          ]
+        }
       }
     },
     "f8995": {
