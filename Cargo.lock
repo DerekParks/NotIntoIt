@@ -2200,7 +2200,7 @@ checksum = "650eef8c711430f1a879fdd01d4745a7deea475becfb90269c06775983bbf086"
 
 [[package]]
 name = "nii"
-version = "0.1.3"
+version = "0.1.4"
 dependencies = [
  "anyhow",
  "base64 0.23.1",
@@ -2227,11 +2227,11 @@ dependencies = [
 
 [[package]]
 name = "nii-core"
-version = "0.1.3"
+version = "0.1.4"
 
 [[package]]
 name = "nii-corpus"
-version = "0.1.3"
+version = "0.1.4"
 dependencies = [
  "anyhow",
  "nii-core",
@@ -2245,7 +2245,7 @@ dependencies = [
 
 [[package]]
 name = "nii-embed"
-version = "0.1.3"
+version = "0.1.4"
 dependencies = [
  "anyhow",
  "fastembed",
@@ -2254,7 +2254,7 @@ dependencies = [
 
 [[package]]
 name = "nii-pdf"
-version = "0.1.3"
+version = "0.1.4"
 dependencies = [
  "anyhow",
  "flate2",
@@ -2270,7 +2270,7 @@ dependencies = [
 
 [[package]]
 name = "nii-search"
-version = "0.1.3"
+version = "0.1.4"
 dependencies = [
  "anyhow",
  "nii-core",
@@ -2280,7 +2280,7 @@ dependencies = [
 
 [[package]]
 name = "nii-testkit"
-version = "0.1.3"
+version = "0.1.4"
 
 [[package]]
 name = "no_std_io2"
@@ -3557,7 +3557,7 @@ dependencies = [
 
 [[package]]
 name = "spikes"
-version = "0.1.3"
+version = "0.1.4"
 dependencies = [
  "anyhow",
  "fastembed",
