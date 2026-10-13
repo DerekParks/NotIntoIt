@@ -1377,7 +1377,16 @@ fn qbi<'a>(c: &mut Checker<'a>, f: &'a Form, main: Option<&'a Form>) {
     }
 }
 fn rental<'a>(c: &mut Checker<'a>, f: &'a Form) {
+    let mut has_property_loss = false;
     for column in ["A", "B", "C"] {
+        if c.number(f, &format!("Row: {column}. Column: Personal Use Days."))
+            .is_some_and(|m| m.cents > 0)
+        {
+            c.report.add(
+                "review", "rental_personal_use", &f.file, None, "2. Personal use days",
+                "Verify rental/personal expense allocation and dwelling-unit-used-as-a-home limitations; this checker does not establish the allowable allocation.".into(),
+            );
+        }
         let select = |row: u8| format!("Row: {row}.||Column: Properties. {column}.");
         let terms: Vec<_> = (5..=19).map(select).collect();
         let refs: Vec<_> = terms.iter().map(String::as_str).collect();
@@ -1389,6 +1398,7 @@ fn rental<'a>(c: &mut Checker<'a>, f: &'a Form) {
         ) {
             c.check(f, &select(21), a.cents + b.cents - d.cents, "arithmetic_mismatch");
         }
+        has_property_loss |= c.number(f, &select(21)).is_some_and(|m| m.cents < 0);
     }
     for (total, row) in [
         ("23a. Total", 3),
@@ -1417,7 +1427,7 @@ fn rental<'a>(c: &mut Checker<'a>, f: &'a Form) {
         c.check(f, "26. Total rental", a.cents - b.cents.abs(), "arithmetic_mismatch");
     }
     // Deductible losses cannot be recomputed without basis/at-risk/passive-use facts.
-    if c.number(f, "25. Losses.").is_some_and(|m| m.cents != 0) {
+    if has_property_loss || c.number(f, "25. Losses.").is_some_and(|m| m.cents != 0) {
         c.report.add("review","rental_loss_limits",&f.file,None,"25. Losses","Verify basis, at-risk, passive-loss and personal-use limitations; this checker does not establish loss eligibility.".into());
     }
 }
@@ -1762,6 +1772,96 @@ mod tests {
             withheld: 3_000_000,
             social: 17_610_000,
         }
+    }
+
+    #[test]
+    fn one_field_mutations_of_a_clean_return_detect_specific_errors() {
+        assert_clean(&report(&business(), &[employee()], true));
+        // Each trial starts from the same clean return and edits one field only.
+        let trials = [
+            (
+                "f1040",
+                "Your social security number.",
+                "000999999",
+                "owner_not_on_return",
+            ),
+            (
+                "f1040",
+                "Spouse's social security number.",
+                "000111111",
+                "duplicate_identifier",
+            ),
+            ("f1040", "Your first name and middle initial.", "", "missing_identity"),
+            (
+                "f1040",
+                "25. Federal income tax withheld from: a.",
+                "31000",
+                "source_w2_withholding_mismatch",
+            ),
+            ("f1040", "1a. Total amount", "180500", "source_w2_wages_mismatch"),
+            ("f1040", "8. Additional income", "11000", "transfer_mismatch"),
+            ("f1040", "26. 2025 estimated tax payments", "500", "arithmetic_mismatch"),
+            ("f1040", "35a. Amount.", "8000", "refund_allocation_mismatch"),
+            ("f1040", "Amount You Owe. 37.", "-100", "negative_payment_or_refund"),
+            ("f1040sc", "3. Subtract line 2", "10050", "arithmetic_mismatch"),
+            (
+                "f1040sse",
+                "8a. Total social security wages",
+                "176100",
+                "se_owner_w2_mismatch",
+            ),
+            ("f1040s1", "3. Business income", "10500", "transfer_mismatch"),
+            ("f8995", "Row: i. Column: (c)", "9393", "arithmetic_mismatch"),
+            ("f1040", "25d. Add lines", "NaN", "invalid_amount"),
+        ];
+        for (kind, selector, value, expected) in trials {
+            let mut forms = business();
+            set(forms.iter_mut().find(|f| f.kind == kind).unwrap(), selector, value);
+            let r = report(&forms, &[employee()], true);
+            assert_eq!(r.status, "blocked", "{kind}: {selector}={value}: {:#?}", r.findings);
+            assert!(
+                r.findings.iter().any(|f| f.code == expected),
+                "{kind}: {selector}: expected {expected}: {:#?}",
+                r.findings
+            );
+        }
+        let mut forms = business();
+        check_box(&mut forms[0], "Head of household");
+        let r = report(&forms, &[employee()], true);
+        assert!(r.findings.iter().any(|f| f.code == "filing_status_count"));
+    }
+
+    #[test]
+    fn valid_formatting_zero_and_qbi_row_variations_do_not_trigger_errors() {
+        let mut forms = business();
+        set(&mut forms[0], "Your social security number.", "000-11-1111");
+        set(&mut forms[0], "Spouse's social security number.", "000-22-2222");
+        set(&mut forms[0], "25d. Add lines", "$30,000.00");
+        set(&mut forms[0], "Amount You Owe. 37.", "0");
+        let q = forms.iter_mut().find(|f| f.kind == "f8995").unwrap();
+        set(q, "Row: i. Column: (c)", "0");
+        set(q, "Row: v. Column: (c)", "9,293");
+        assert_clean(&report(&forms, &[employee()], true));
+    }
+
+    #[test]
+    fn rental_losses_and_personal_use_require_review_even_without_a_claimed_loss() {
+        let mut e = form("f1040se", "");
+        header(&mut e, "000111111");
+        set(&mut e, "Row: 9.||Column: Properties. A.", "100");
+        set(&mut e, "Row: 20.||Column: Properties. A.", "100");
+        set(&mut e, "Row: 21.||Column: Properties. A.", "-100");
+        set(&mut e, "23e. Total", "100");
+        let m = main_return(0, 0, 0);
+        let r = report(&[m, e], &[], true);
+        assert_eq!(r.blocking_errors, 0, "{:#?}", r.findings);
+        assert!(r.findings.iter().any(|f| f.code == "rental_loss_limits"));
+        let mut e = form("f1040se", "");
+        header(&mut e, "000111111");
+        set(&mut e, "Row: A. Column: Personal Use Days.", "30");
+        let r = report(&[main_return(0, 0, 0), e], &[], true);
+        assert_eq!(r.blocking_errors, 0, "{:#?}", r.findings);
+        assert!(r.findings.iter().any(|f| f.code == "rental_personal_use"));
     }
 
     #[test]

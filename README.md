@@ -293,7 +293,30 @@ nii --workspace ~/Taxes review --year 2025 --w2 2025/documents/w2-alex.txt --w2-
 The CLI saves both artifacts and exits nonzero for `blocked` or `needs_review`.
 TaxBench preserves generated review reports and instruction PDFs with each run.
 
+Medium runs also save `review-grade.json`, separate from field accuracy. The
+grader reruns validation with the case's declared W-2 inventory, compares the
+complete validation result and report status, checks PDF/source inventories and
+hashes, and rejects waived disputes. An honest blocked report can pass integrity;
+that does not mean the return passes validation. Missing reports fail, while cases
+without `review_checks` are explicitly `not_configured`. These checks do not grade
+free-form advice, source relevance, receipt authenticity, or the Markdown's prose.
+
 ## TaxBench
+
+Four additional 2025 family cases extend `medium`: `medium-rental-loss`
+(active-participation loss), `medium-mixed-use` (vacation-home allocation),
+`medium-business-loss` (negative Schedule C and QBI netting), and
+`medium-estimated-payments` (cash estimates plus a prior-year refund credit).
+Each has its own complete input packet, answer key, source notes and run command.
+Their expected refunds are $9,507, $1,655, $11,286 and $7,211, respectively.
+Rental losses and personal-use days explicitly require validator review; correct
+field values do not certify eligibility or allocation.
+
+Validator regression tests mutate one field at a time in a clean family business
+return: owner IDs, missing identity, filing status, wages/withholding, schedule
+transfers, arithmetic, QBI rows, refund allocation and malformed amounts. Controls
+exercise formatted identifiers/currency, explicit zeros and reordered QBI rows.
+These tests use IRS field metadata rather than benchmark answer-key values.
 
 How small a model can still do your taxes? `bench/` runs an agent on a
 fictional taxpayer in an isolated workspace (only the taxpayer's notes and

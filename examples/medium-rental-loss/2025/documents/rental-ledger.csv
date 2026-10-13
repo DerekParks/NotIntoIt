@@ -1,0 +1,8 @@
+category,description,amount
+income,Rent collected including December payment,19000.00
+expense,Mortgage interest paid to bank,5000.00
+expense,County property taxes,2500.00
+expense,Landlord insurance,1000.00
+expense,Repairs to existing plumbing,1500.00
+nondeductible,Mortgage principal payments,4000.00
+liability,Refundable tenant security deposit held in segregated account,2000.00

@@ -20,6 +20,7 @@ from datetime import datetime
 from pathlib import Path
 
 from grade import grade
+from review_grade import grade_review
 
 BENCH = Path(__file__).resolve().parent
 REPO = BENCH.parent
@@ -192,6 +193,8 @@ def run_once(case: str, agent: str, model: str, nii: Path, timeout: int, index: 
             artifacts = workspace / year / name
             if artifacts.exists():
                 shutil.copytree(artifacts, out / name)
+        review_grade = grade_review(workspace, year, nii, spec.get('review_checks'))
+        (out / 'review-grade.json').write_text(json.dumps(review_grade, indent=2))
 
     report = grade(answers, out / "forms", str(nii))
     status = outcome(exit_code, stdout)
@@ -203,6 +206,7 @@ def run_once(case: str, agent: str, model: str, nii: Path, timeout: int, index: 
         "net_refund": report["net_refund"], "outcome_error": report["outcome_error"],
         "outcome_correct": report["outcome_correct"], "usage": usage(stdout),
         "return_complete": report["return_complete"],
+        "review_grade": review_grade,
         "consistency_problems": report["consistency_problems"],
         "unneeded_forms": report["unneeded_forms"], "command": cmd,
     }

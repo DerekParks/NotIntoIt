@@ -1,0 +1,10 @@
+Rivera residential rental: 2215 Larkspur Lane, Denver, CO 80207
+Single-family residence, jointly owned 50/50 by Alex and Morgan Rivera.
+Purchased and placed in service July 1, 2022; rented continuously since then.
+Fair rental days in 2025: 365. Personal-use days: 0.
+Original cost: 330000.00, allocated to land 55000.00 and building 275000.00.
+No other basis adjustments. The building uses MACRS GDS 27.5-year straight-line,
+mid-month convention. Prior preparer's depreciation record: 2022 4583.33,
+2023 10000.00, 2024 10000.00. Continue this method for a full year in 2025.
+No assets placed in service, improvements, or dispositions in 2025.
+No prior suspended passive losses, at-risk losses, or QBI loss carryforwards.

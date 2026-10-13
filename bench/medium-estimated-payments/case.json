@@ -1,0 +1,15 @@
+{
+  "tax_year": 2025,
+  "difficulty": "medium",
+  "inputs": "examples/medium-estimated-payments/2025",
+  "copy": [
+    "intake.md",
+    "documents"
+  ],
+  "review_checks": {
+    "w2_documents": [
+      "2025/documents/w2-alex.txt"
+    ],
+    "w2_complete": true
+  }
+}

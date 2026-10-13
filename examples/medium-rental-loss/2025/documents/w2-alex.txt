@@ -1,0 +1,15 @@
+FICTIONAL W-2 TRANSCRIPTION — tax year 2025
+Employer: Mountain View Analytics Inc., 500 Market Street, Denver CO 80202
+Employer EIN: 00-1234567
+Employee: Alex Rivera, SSN 000-12-3401
+Employee address: 1428 Elm Street, Denver CO 80203
+Box 1 wages: 65000.00
+Box 2 federal income tax withheld: 12000.00
+Box 3 Social Security wages: 70000.00
+Box 4 Social Security tax withheld: 4340.00
+Box 5 Medicare wages: 70000.00
+Box 6 Medicare tax withheld: 1015.00
+Box 12 code D: 5000.00
+Box 13 retirement plan: checked
+Box 10 dependent care benefits: 0.00
+Other boxes have no federal reportable amounts.

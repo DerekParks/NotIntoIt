@@ -1,0 +1,11 @@
+category,description,amount
+receipts,Client payments also reported on 1099-NEC,36000.00
+receipts,Other client payments not reported on information returns,10000.00
+expense,Advertising,1000.00
+expense,Consumable supplies,2500.00
+expense,Office postage and stationery,2000.00
+expense,Business liability insurance,1000.00
+expense,Documented client business meals actual cost,2000.00
+expense,Business-only phone and data,2000.00
+personal,Family groceries paid from same checking account,1800.00
+personal,Owner draw to household account,6000.00

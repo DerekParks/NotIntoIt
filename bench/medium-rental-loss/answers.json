@@ -1,0 +1,435 @@
+{
+  "taxpayer": "Alex and Morgan Rivera",
+  "tax_year": 2025,
+  "headline": {
+    "total_tax": 6493,
+    "withheld": 12000,
+    "estimated_payments": 4000,
+    "refund": 9507
+  },
+  "forms": {
+    "f1040": {
+      "required": true,
+      "fields": {
+        "=Your first name and middle initial.": "Alex",
+        "=Your social security number.": "000123401",
+        "=If joint return, spouse's first name and middle initial.": "Morgan",
+        "=Spouse's social security number.": "000123402",
+        "=Home address (number and street). If you have a P.O. box, see instructions.": {
+          "contains": "1428 Elm"
+        },
+        "=Married filing jointly (even if only one had income).": true,
+        "=Filing Status. Check only one box. Single.": false,
+        "=Head of household (H O H).": false,
+        "=Married filing separately (M F S).": false,
+        "=Row: (1) First name. Column: Dependent 1.": "Sofia",
+        "=Row: (1) First name. Column: Dependent 2.": "Mateo",
+        "=Row: (3) S S N. Column: Dependent 1.": "000123403",
+        "=Row: (3) S S N. Column: Dependent 2.": "000123404",
+        "=Row: (7) Credits. Column: Dependent 1. Child tax credit.": true,
+        "=Row: (7) Credits. Column: Dependent 2. Child tax credit.": true,
+        "=Income. Attach Form(s) W-2 here. Also attach Forms W-2G and 1099-R if tax was withheld. If you did not get a Form W-2, see instructions. 1a. Total amount from Form(s) W-2, box 1 (see instructions).": 65000,
+        "=1z. Add lines 1a through 1h.": 65000,
+        "=2b. Taxable interest.": 600,
+        "=8. Additional income from Schedule 1, line 10.": 31000,
+        "=9. Add lines 1z, 2b, 3b, 4b, 5b, 6b, 7a, and 8. This is your total income.": 96600,
+        "=10. Adjustments to income from Schedule 1, line 26.": 2261,
+        "=11a. Subtract line 10 from line 9. This is your adjusted gross income.": 94339,
+        "=Page 2. Tax and Credits. 11b. Amount from line 11a (adjusted gross income).": 94339,
+        "=12e. Standard deduction or itemized deductions (from Schedule A). Standard deduction for\u2014 Single or Married filing separately, $15,750. Married filing jointly or Qualifying surviving spouse, $31,500. Head of household, $23,625. If you checked a box on line 12a, 12b, 12c, or 12d, see inst.": 31500,
+        "=13a. Qualified business income deduction from Form 8995 or Form 8995-A.": 5748,
+        "=14. Add lines 12e, 13a, and 13b.": 37248,
+        "=15. Subtract line 14 from line 11b. If zero or less, enter 0. This is your taxable income.": 57091,
+        "=16. Amount.": 6372,
+        "=18. Add lines 16 and 17.": 6372,
+        "=19. Child tax credit or credit for other dependents from Schedule 8812.": 4400,
+        "=21. Add lines 19 and 20.": 4400,
+        "=22. Subtract line 21 from line 18. If zero or less, enter 0.": 1972,
+        "=23. Other taxes, including self-employment tax, from Schedule 2, line 21.": 4521,
+        "=24. Add lines 22 and 23. This is your total tax.": 6493,
+        "=Payments and Refundable Credits. 25. Federal income tax withheld from: a. Form(s) W-2.": 12000,
+        "=25d. Add lines 25a through 25c.": 12000,
+        "=26. 2025 estimated tax payments and amount applied from 2024 return.": 4000,
+        "=33. Add lines 25d, 26, and 32. These are your total payments.": 16000,
+        "=Refund. 34. If line 33 is more than line 24, subtract line 24 from line 33. This is the amount you overpaid.": 9507,
+        "=35a. Amount.": 9507,
+        "=Amount You Owe. 37. Subtract line 33 from line 24. This is the amount you owe. For details on how to pay, go to www.irs.gov/Payments or see instructions.": {
+          "any_of": [
+            0,
+            ""
+          ]
+        }
+      }
+    },
+    "f1040sc": {
+      "required": true,
+      "fields": {
+        "=Page 1. Name of proprietor.": {
+          "contains": "Morgan"
+        },
+        "=Social security number (S S N).": "000123402",
+        "=F. Accounting method: (1) Cash.": true,
+        "=G. Did you \"materially participate\" in the operation of this business during 2025? Yes.": true,
+        "=I. No.": true,
+        "=1. Gross receipts or sales.": 46000,
+        "=3. Subtract line 2 from line 1.": 46000,
+        "=5. Gross profit. Subtract line 4 from line 3.": 46000,
+        "=7. Gross income. Add lines 5 and 6.": 46000,
+        "=Part I I. Expenses. Enter expenses for business use of your home only on line 30. 8. Advertising.": 1000,
+        "=9. Car and truck expenses (see instructions).": 3500,
+        "=15. Insurance (other than health).": 1000,
+        "=18. Office expense (see instructions).": 2000,
+        "=22. Supplies (not included in Part I I I).": 2500,
+        "=24b. Deductible meals (see instructions).": 1000,
+        "=25. Utilities.": 2000,
+        "=28. Total expenses before expenses for business use of home. Add lines 8 through 27b.": 13000,
+        "=29. Tentative profit or (loss). Subtract line 28 from line 7.": 33000,
+        "=30. Expenses for business use of your home. Do not report these expenses elsewhere. Attach Form 8829 unless using the simplified method. See instructions. Simplified method filers only: Enter the total square footage of (a) your home:": 2000,
+        "=30. and (b) the part of your home used for business:": 200,
+        "=30. Use the Simplified Method Worksheet in the instructions to figure the amount to enter on line 30.": 1000,
+        "=31. Net profit or (loss). Subtract line 30 from line 29. If a profit, enter on both Schedule 1 (Form 1040), line 3, and on Schedule S E, line 2. (If you checked the box on line 1, see instructions.) Estates and trusts, enter on Form 1041, line 3. If a loss, you must go to line 32.": 32000,
+        "=44. Of the total number of miles you drove your vehicle during 2025, enter the number of miles you used your vehicle for: a Business.": 5000,
+        "=44b. Commuting (see instructions).": {
+          "any_of": [
+            0,
+            ""
+          ]
+        },
+        "=44c. Other.": 7000,
+        "=47a. Do you have evidence to support your deduction? Yes.": true,
+        "=47b. If \"Yes,\" is the evidence written? Yes.": true
+      }
+    },
+    "f1040se": {
+      "required": true,
+      "fields": {
+        "=1a. Row: A. Column: Physical address of each property (street, city, state, Z I P code).": {
+          "contains": "2215 Larkspur"
+        },
+        "=1b. Row: A. Column: Type of Property (from list below).": 1,
+        "=2. For each rental real estate property listed above, report the number of fair rental and personal use days. Check the Q J V box only if you meet the requirements to file as a qualified joint venture. See instructions. Row: A. Column: Fair Rental Days.": 365,
+        "=Row: A. Column: Personal Use Days.": {
+          "any_of": [
+            0,
+            ""
+          ]
+        },
+        "=Income. Row: 3. Rents received. Properties. Column: A.": 19000,
+        "=Row: 9. Insurance. Column: Properties. A.": 1000,
+        "=Row: 12. Mortgage interest paid to banks, etc. (see instructions). Column: Properties. A.": 5000,
+        "=Row: 14. Repairs. Column: Properties. A.": 1500,
+        "=Row: 16. Taxes. Column: Properties. A.": 2500,
+        "=Row: 18. Depreciation expense or depletion. Column: Properties. A.": 10000,
+        "=Row: 20. Total expenses. Add lines 5 through 19. Column: Properties. A.": 20000,
+        "=Row: 21. Subtract line 20 from line 3 (rents) and/or 4 (royalties). If result is a (loss), see instructions to find out if you must file Form 6198. Column: Properties. A.": -1000,
+        "=23a. Total of all amounts reported on line 3 for all rental properties.": 19000,
+        "=23c. Total of all amounts reported on line 12 for all properties.": 5000,
+        "=23d. Total of all amounts reported on line 18 for all properties.": 10000,
+        "=23e. Total of all amounts reported on line 20 for all properties.": 20000,
+        "=24. Income. Add positive amounts shown on line 21. Do not include any losses.": 0,
+        "=26. Total rental real estate and royalty income or (loss). Combine lines 24 and 25. Enter the result here. If Parts I I, I I I, and I V, and line 40 on page 2 do not apply to you, also enter this amount on Schedule 1 (Form 1040), line 5. Otherwise, include this amount in the total on line 41 on page 2.": -1000,
+        "=Row: 22. Deductible rental real estate loss after limitation, if any, on Form 8582 (see instructions). Column: Open parenthesis. Properties. A. Close parenthesis.": 1000,
+        "=25. Losses. Add royalty losses from line 21 and rental real estate losses from line 22. Enter total losses here. Open parenthesis. Close parenthesis.": 1000
+      }
+    },
+    "f1040sse": {
+      "required": true,
+      "fields": {
+        "=Page 1. Name of person with self-employment income (as shown on Form 1040, 1040-S R, 1040-S S, or 1040-N R).": {
+          "contains": "Morgan"
+        },
+        "=Social security number of person with self-employment income.": "000123402",
+        "=Skip line 2 if you use the nonfarm optional method in Part I I. See instructions. 2. Net profit or (loss) from Schedule C, line 31; and Schedule K-1 (Form 1065), box 14, code A (other than farming). See instructions for other income to report or if you are a minister or member of a religious order.": 32000,
+        "=3. Combine lines 1a, 1b, and 2.": 32000,
+        "=4a. If line 3 is more than zero, multiply line 3 by 92.35% (0.9235). Otherwise, enter amount from line 3. Note: If line 4a is less than $400 due to Conservation Reserve Program payments on line 1b, see instructions.": 29552,
+        "=4c. Combine lines 4a and 4b. If less than $400, stop; you don't owe self-employment tax. Exception: If less than $400 and you had church employee income, enter 0 and continue.": 29552,
+        "=6. Add lines 4c and 5b.": 29552,
+        "=8a. Total social security wages and tips (total of boxes 3 and 7 on Form(s) W-2) and railroad retirement (tier 1) compensation. If $176,100 or more, skip lines 8b through 10, and go to line 11.": {
+          "any_of": [
+            0,
+            ""
+          ]
+        },
+        "=9. Subtract line 8d from line 7. If zero or less, enter 0 here and on line 10 and go to line 11.": 176100,
+        "=10. Multiply the smaller of line 6 or line 9 by 12.4% (0.124).": 3664,
+        "=11. Multiply line 6 by 2.9% (0.029).": 857,
+        "=12. Self-employment tax. Add lines 10 and 11. Enter here and on Schedule 2 (Form 1040), line 4, or Form 1040-S S, Part I, line 3.": 4521,
+        "=13. Deduction for one-half of self-employment tax. Multiply line 12 by 50% (0.50). Enter here and on Schedule 1 (Form 1040), line 15.": 2261
+      }
+    },
+    "f1040s1": {
+      "required": true,
+      "fields": {
+        "=3. Business income or (loss). Attach Schedule C.": 32000,
+        "=5. Rental real estate, royalties, partnerships, S corporations, trusts, etc. Attach Schedule E.": -1000,
+        "=10. Combine lines 1 through 7 and 9. This is your additional income. Enter here and on Form 1040, 1040-S R, or 1040-N R, line 8.": 31000,
+        "=15. Deductible part of self-employment tax. Attach Schedule S E.": 2261,
+        "=26. Add lines 11 through 23 and 25. These are your adjustments to income. Enter here and on Form 1040, 1040-S R, or 1040-N R, line 10.": 2261
+      }
+    },
+    "f1040s2": {
+      "required": true,
+      "fields": {
+        "=4. Amount.": 4521,
+        "=21. Add lines 4, 7 through 16, 18, and 19. These are your total other taxes. Enter here and on Form 1040 or 1040-S R, line 23; or Form 1040-N R, line 23b.": 4521
+      }
+    },
+    "f8995": {
+      "required": true,
+      "fields": {
+        "=2. Total qualified business income or (loss). Combine lines 1 i through 1 v, column (c).": 28739,
+        "=4. Total qualified business income. Combine lines 2 and 3. If zero or less, enter 0.": 28739,
+        "=5. Qualified business income component. Multiply line 4 by 20% (0.20).": 5748,
+        "=10. Qualified business income deduction before the income limitation. Add lines 5 and 9.": 5748,
+        "=11. Taxable income before qualified business income deduction (see instructions).": 62839,
+        "=12. Enter your net capital gain, if any, increased by any qualified dividends (see instructions).": {
+          "any_of": [
+            0,
+            ""
+          ]
+        },
+        "=13. Subtract line 12 from line 11. If zero or less, enter 0.": 62839,
+        "=14. Income limitation. Multiply line 13 by 20% (0.20).": 12568,
+        "=15. Qualified business income deduction. Enter the smaller of line 10 or line 14. Also enter this amount on the applicable line of your return (see instructions).": 5748,
+        "=Row: i. Column: (c) Qualified business income or (loss).": {
+          "row_layout": "qbi_business_and_rental"
+        },
+        "=Row: i i. Column: (c) Qualified business income or (loss).": {
+          "row_layout": "qbi_business_and_rental"
+        }
+      },
+      "row_layouts": {
+        "qbi_business_and_rental": {
+          "rows": [
+            {
+              "name": "Row: i. Column: (a) Trade, business, or aggregation name.",
+              "identifier": "=Row: i. Column: (b) Taxpayer identification number.",
+              "income": "=Row: i. Column: (c) Qualified business income or (loss)."
+            },
+            {
+              "name": "Row: i i. Column: (a) Trade, business, or aggregation name.",
+              "identifier": "=Row: i i. Column: (b) Taxpayer identification number.",
+              "income": "=Row: i i. Column: (c) Qualified business income or (loss)."
+            },
+            {
+              "name": "Row: i i i. Column: (a) Trade, business, or aggregation name.",
+              "identifier": "=Row: i i i. Column: (b) Taxpayer identification number.",
+              "income": "=Row: i i i. Column: (c) Qualified business income or (loss)."
+            },
+            {
+              "name": "Row: i v. Column: (a) Trade, business, or aggregation name.",
+              "identifier": "=Row: i v. Column: (b) Taxpayer identification number.",
+              "income": "=Row: i v. Column: (c) Qualified business income or (loss)."
+            },
+            {
+              "name": "Row: v. Column: (a) Trade, business, or aggregation name.",
+              "identifier": "=Row: v. Column: (b) Taxpayer identification number.",
+              "income": "=Row: v. Column: (c) Qualified business income or (loss)."
+            }
+          ],
+          "alternatives": [
+            [
+              {
+                "name": {
+                  "contains_any": [
+                    "design",
+                    "graphic",
+                    "freelance"
+                  ]
+                },
+                "identifier": "000-12-3402",
+                "income": 29739
+              },
+              {
+                "name": {
+                  "contains_any": [
+                    "rental",
+                    "larkspur",
+                    "2215 Larkspur"
+                  ]
+                },
+                "identifier": {
+                  "any_of": [
+                    "000-12-3401",
+                    "000-12-3402"
+                  ]
+                },
+                "income": -1000
+              }
+            ],
+            [
+              {
+                "name": {
+                  "contains_any": [
+                    "design",
+                    "graphic",
+                    "freelance"
+                  ]
+                },
+                "identifier": "000-12-3402",
+                "income": 29739
+              },
+              {
+                "name": {
+                  "contains_any": [
+                    "rental",
+                    "larkspur",
+                    "2215 Larkspur"
+                  ]
+                },
+                "identifier": "000-12-3401",
+                "income": -500.0
+              },
+              {
+                "name": {
+                  "contains_any": [
+                    "rental",
+                    "larkspur",
+                    "2215 Larkspur"
+                  ]
+                },
+                "identifier": "000-12-3402",
+                "income": -500.0
+              }
+            ]
+          ]
+        }
+      }
+    },
+    "f1040s8": {
+      "required": true,
+      "fields": {
+        "=Part I. Child Tax Credit and Credit for Other Dependents. 1. Enter the amount from line 11a of your Form 1040, 1040-S R, or 1040-N R.": 94339,
+        "=3. Add lines 1 and 2d.": 94339,
+        "=4. Number of qualifying children under age 17 with the required social security number.": 2,
+        "=5. Multiply line 4 by $2,200.": 4400,
+        "=8. Add lines 5 and 7.": 4400,
+        "=9. Enter the amount shown below for your filing status. Married filing jointly\u2014$400,000. All other filing statuses\u2014$200,000.": 400000,
+        "=14. Enter the smaller of line 12 or line 13. This is your child tax credit and credit for other dependents. Enter this amount on Form 1040, 1040-S R, or 1040-N R, line 19.": 4400
+      }
+    }
+  },
+  "not_required": [
+    "f1040sa",
+    "f1040sb",
+    "f1040s3",
+    "f8829",
+    "f4562",
+    "f8582",
+    "f8995a",
+    "f8959",
+    "f8960",
+    "f2210"
+  ],
+  "tolerance_dollars": 1,
+  "outcome": {
+    "form": "f1040",
+    "refund": "Refund. 34.",
+    "owe": "Amount You Owe. 37.",
+    "expected": 9507
+  },
+  "reconciliations": [
+    {
+      "name": "Schedule 1 income flows to Form 1040",
+      "total": {
+        "form": "f1040",
+        "field": "=8. Additional income from Schedule 1, line 10."
+      },
+      "parts": [
+        {
+          "form": "f1040s1",
+          "field": "=3. Business income or (loss). Attach Schedule C."
+        },
+        {
+          "form": "f1040s1",
+          "field": "=5. Rental real estate, royalties, partnerships, S corporations, trusts, etc. Attach Schedule E."
+        }
+      ]
+    },
+    {
+      "name": "Self-employment tax flows to Schedule 2",
+      "total": {
+        "form": "f1040s2",
+        "field": "=4. Amount."
+      },
+      "parts": [
+        {
+          "form": "f1040sse",
+          "field": "=12. Self-employment tax. Add lines 10 and 11. Enter here and on Schedule 2 (Form 1040), line 4, or Form 1040-S S, Part I, line 3."
+        }
+      ]
+    },
+    {
+      "name": "Schedule 2 flows to Form 1040",
+      "total": {
+        "form": "f1040",
+        "field": "=23. Other taxes, including self-employment tax, from Schedule 2, line 21."
+      },
+      "parts": [
+        {
+          "form": "f1040s2",
+          "field": "=21. Add lines 4, 7 through 16, 18, and 19. These are your total other taxes. Enter here and on Form 1040 or 1040-S R, line 23; or Form 1040-N R, line 23b."
+        }
+      ]
+    },
+    {
+      "name": "QBI flows to Form 1040",
+      "total": {
+        "form": "f1040",
+        "field": "=13a. Qualified business income deduction from Form 8995 or Form 8995-A."
+      },
+      "parts": [
+        {
+          "form": "f8995",
+          "field": "=15. Qualified business income deduction. Enter the smaller of line 10 or line 14. Also enter this amount on the applicable line of your return (see instructions)."
+        }
+      ]
+    },
+    {
+      "name": "Total payments include estimates",
+      "total": {
+        "form": "f1040",
+        "field": "=33. Add lines 25d, 26, and 32. These are your total payments."
+      },
+      "parts": [
+        {
+          "form": "f1040",
+          "field": "=25d. Add lines 25a through 25c."
+        },
+        {
+          "form": "f1040",
+          "field": "=26. 2025 estimated tax payments and amount applied from 2024 return."
+        }
+      ]
+    },
+    {
+      "name": "QBI business rows sum to total regardless of order",
+      "total": {
+        "form": "f8995",
+        "field": "=2. Total qualified business income or (loss). Combine lines 1 i through 1 v, column (c)."
+      },
+      "parts": [
+        {
+          "form": "f8995",
+          "field": "=Row: i. Column: (c) Qualified business income or (loss)."
+        },
+        {
+          "form": "f8995",
+          "field": "=Row: i i. Column: (c) Qualified business income or (loss)."
+        },
+        {
+          "form": "f8995",
+          "field": "=Row: i i i. Column: (c) Qualified business income or (loss)."
+        },
+        {
+          "form": "f8995",
+          "field": "=Row: i v. Column: (c) Qualified business income or (loss)."
+        },
+        {
+          "form": "f8995",
+          "field": "=Row: v. Column: (c) Qualified business income or (loss)."
+        }
+      ]
+    }
+  ]
+}
