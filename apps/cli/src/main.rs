@@ -3,6 +3,7 @@ mod forms;
 mod index;
 mod instructions;
 mod mcp;
+mod review;
 #[cfg(test)]
 mod testutil;
 mod validate;
@@ -55,6 +56,17 @@ enum Command {
     },
     /// Run the MCP server on stdio (builds the search index in the background).
     Mcp,
+    /// Save a sourced final review report and fingerprints of current return PDFs.
+    Review {
+        #[arg(long)]
+        year: u16,
+        #[arg(long)]
+        forms_dir: Option<String>,
+        #[arg(long = "w2")]
+        w2_documents: Vec<String>,
+        #[arg(long)]
+        w2_complete: bool,
+    },
     /// Check filled 2025 federal forms for missing fields, arithmetic, and transfers. Does not edit forms.
     Validate {
         #[arg(long)]
@@ -219,6 +231,27 @@ fn run(cli: Cli) -> Result<()> {
             search(&data_dir, &db_path, &query.join(" "), limit, source)
         }
         Command::Form { command } => form(&data_dir, &workspace, command),
+        Command::Review {
+            year,
+            forms_dir,
+            w2_documents,
+            w2_complete,
+        } => {
+            let report = review::create(
+                &workspace,
+                year,
+                forms_dir.as_deref(),
+                &w2_documents,
+                w2_complete,
+                &[],
+                &[],
+            )?;
+            println!("{}", serde_json::to_string_pretty(&report)?);
+            if report.status != "checks_passed" {
+                bail!("return review {}: see {}", report.status, report.json_path);
+            }
+            Ok(())
+        }
         Command::Validate {
             year,
             forms_dir,

@@ -129,7 +129,7 @@ requirements still apply.
 | `list_form_fields` | Lists a form's fields with a plain-English description of each (from the IRS form's own accessibility text), type, page, length limit, and current value. Long forms list a page at a time so the listing fits in a client's tool-output limit. |
 | `fill_form` | Fills fields by name, or any unambiguous abbreviation of one (a suffix, a path missing a subform, indexes left off). Writes every valid value, rejects the rest one by one with the reason (unknown or ambiguous names with "did you mean", over-length values, wrong types), and echoes each written value next to its line's description. Can be called repeatedly. |
 | `view_pdf` | Renders a page with its filled values as an image, lists those values as text, and can open the PDF in your viewer. |
-
+| `create_review_report` | Reruns validation against current PDFs/W-2s, records file hashes, and saves JSON/readable reports in `<year>/review/`. Lists unresolved findings with IRS instruction links and pages actually delivered in this MCP session. Sourced disputes remain pending manual review and never waive findings; both `blocked` and `needs_review` are tool errors with structured reports. |
 | `validate_return` | Read-only deterministic checks of proposed 2025 calendar-year PDFs: identity/status fields, dollar arithmetic, schedule transfers, and each SE owner's wages against supplied W-2s. Returns structured errors/review items and exact field names for repairs; blocking findings are MCP tool errors. No answer key or model call. |
 | `calculate` | Arithmetic for form lines with explicit rounding, so the model never adds in its head. |
 | `compute_tax` | Form 1040 line 16 for 2024 and 2025 (Tax Table, Tax Computation Worksheet, or Qualified Dividends and Capital Gain Tax Worksheet), every line shown. Reproduces all 2,060 rows of each year's official Tax Table. |
@@ -252,6 +252,46 @@ Rules reference the [2025 IRS Form 1040](https://www.irs.gov/pub/irs-prior/f1040
 The validator independently blocked both saved medium attempts (six and nine
 errors). Corrected copies of the eight proposed forms passed 113 checks; original PDFs were unchanged.
 These are validator tests, not new model benchmark scores.
+
+### Final review report and sourced disputes
+
+After the last edit, call `create_review_report` with the same `tax_year`,
+`forms_dir`, `w2_documents`, and `w2_complete` used for validation. The tool saves
+`<year>/review/return-review.json` and `return-review.md`, reruns validation, and
+captures SHA-256 hashes of the proposed PDFs and supplied W-2s. An edit after
+that snapshot requires a new report. Blank/reference and unsupported PDFs remain
+visible in the inventory; the report identifies which files the validator covered.
+
+Use `status` and `allowed_final_statement` in the assistant's final response.
+`blocked` and `needs_review` do not support completion claims. Even
+`checks_passed` certifies only the listed deterministic checks, not filing readiness
+or whether every form is necessary. Models can still ignore instructions in chat;
+the tool's recorded status and artifacts remain independent of their claims.
+
+Before disputing a finding or recommending reversing a correction, call
+`get_form_instructions` for the filing year and relevant page/section. Optional
+`disputes` entries identify the current finding with `code`, `form`, `field`,
+`rationale`, `source_pdf`, `page`, and an exact `quote` of 10–2000 characters.
+The server checks that this session actually delivered the cited page/quote and
+that the instruction PDF is unchanged. Wrong-year sources, unseen pages, invented
+quotes and changed files are marked `source_required`. A verified access record
+becomes `pending_manual_review`, never a rule waiver: relevance and legal
+interpretation are not automatically adjudicated. Existing findings remain intact.
+
+IRS links attached to findings are lookup directions, not assertions that the
+PDF exists or has been read. Source access records show delivered text, not human
+review or applicability. Records live only in the current MCP session; restarting
+requires rereading sources before recording a dispute. All report destinations
+and cited local PDFs must remain inside the tax workspace.
+
+CLI equivalent (no MCP-session source access or dispute records):
+
+```sh
+nii --workspace ~/Taxes review --year 2025 --w2 2025/documents/w2-alex.txt --w2-complete
+```
+
+The CLI saves both artifacts and exits nonzero for `blocked` or `needs_review`.
+TaxBench preserves generated review reports and instruction PDFs with each run.
 
 ## TaxBench
 

@@ -167,16 +167,30 @@ Do not create speculative extra forms or overwrite working copies unnecessarily.
 
 Before declaring completion, run validate_return on the final proposed return
 PDFs with the applicable W-2 source paths. Set w2_complete only when my answers
-or intake confirm all W-2s are present. Repair each blocking finding and run the
-validator again after any edits. Report needs_review items and skipped coverage
-explicitly; checks_passed means only its listed deterministic checks passed,
-not that eligibility or the entire return has been certified. Do not claim that
-unresolved checks passed or that missing source records establish zero income.
+or intake confirm all W-2s are present. Repair each blocking finding and rerun
+validation after edits.
 
-Finish with the refund or balance, the completed form paths, unresolved items,
-and concrete points I should review. Never sign, e-file, or represent unverified
-forms as filing-ready. Interview progress belongs to the conversation; this prompt
-is guidance for the assistant, not a deterministic tax decision engine.
+If you disagree with a finding or think a repair should be reversed, first call
+get_form_instructions for this filing year and read the relevant page or section.
+Cite the exact returned PDF path, page, and supporting excerpt. Record the
+finding's code, form path and field plus your rationale in create_review_report's
+disputes parameter. Do not present a disagreement as authoritative tax advice or
+silently waive it. A delivered quote proves source access, not its interpretation;
+all disputes remain pending manual review and the original findings stay intact.
+
+After all edits, call create_review_report with the same W-2 sources/inventory
+confirmation. It reruns validation against the current files, captures their
+hashes, and saves JSON and readable reports under <tax_year>/review/. Use its
+status and allowed_final_statement in your final response, link both reports and
+form paths, state the refund/balance, and list every unresolved finding/dispute.
+blocked and needs_review reports do not support a completion claim. checks_passed
+covers only the listed deterministic checks, not form necessity, eligibility or
+filing readiness. Do not claim unresolved or skipped checks passed. Regenerate
+the report after any later PDF or W-2 edit; never rely on an earlier snapshot.
+
+Never sign, e-file, or represent unverified forms as filing-ready. Interview
+progress belongs to the conversation; this prompt is guidance for the assistant,
+not a deterministic tax decision engine.
 
 For form-specific questions, use get_form_instructions with the filing tax_year.
 Use search or page to find the relevant line in shared booklets. If instructions

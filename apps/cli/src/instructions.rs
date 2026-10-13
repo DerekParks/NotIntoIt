@@ -1,8 +1,10 @@
 //! Year-pinned IRS instruction PDFs, kept separate from return forms.
 use anyhow::{Context, Result, bail};
+use serde::Serialize;
+use sha2::{Digest, Sha256};
 use std::path::Path;
 
-fn mapping(form: &str) -> Result<(String, &'static str)> {
+pub(crate) fn mapping(form: &str) -> Result<(String, &'static str)> {
     let stem = nii_pdf::irs::form_stem(form)?;
     for line in include_str!("../instruction-mappings.tsv")
         .lines()
@@ -26,7 +28,28 @@ fn mapping(form: &str) -> Result<(String, &'static str)> {
     ))
 }
 
-/// Exact-year retrieval deliberately never substitutes an earlier edition.
+pub(crate) fn sha256(bytes: &[u8]) -> String {
+    Sha256::digest(bytes).iter().map(|b| format!("{b:02x}")).collect()
+}
+
+/// Records text actually returned by this tool, not an assistant's claimed citation.
+#[derive(Clone, Debug, Serialize)]
+pub struct ReadEvidence {
+    pub tax_year: u16,
+    pub document_stem: String,
+    pub url: String,
+    pub pdf: String,
+    pub sha256: String,
+    pub pages_returned: Vec<u32>,
+    #[serde(skip)]
+    pub delivered_text: Vec<(u32, String)>,
+}
+
+pub struct Retrieved {
+    pub text: String,
+    pub evidence: ReadEvidence,
+}
+
 pub fn read(
     data_dir: &Path,
     workspace: &Path,
@@ -35,6 +58,18 @@ pub fn read(
     page: Option<u32>,
     search: Option<&str>,
 ) -> Result<String> {
+    Ok(read_with_evidence(data_dir, workspace, form, year, page, search)?.text)
+}
+
+/// Exact-year retrieval deliberately never substitutes an earlier edition.
+pub fn read_with_evidence(
+    data_dir: &Path,
+    workspace: &Path,
+    form: &str,
+    year: u16,
+    page: Option<u32>,
+    search: Option<&str>,
+) -> Result<Retrieved> {
     if !(1900..=2100).contains(&year) {
         bail!("tax year must be between 1900 and 2100");
     }
@@ -78,10 +113,27 @@ pub fn read(
     } else {
         ""
     };
-    Ok(format!(
+    let text = format!(
         "Requested form: {form}; tax year: {year}\nResolution: {kind}\nSource: {url}\nPDF: {}\nExact-year archive retrieved; verify the title's tax year/revision and applicability, especially for continuous-use forms. No prior-year fallback.{supplement}\n{output}",
         path.display()
-    ))
+    );
+    let delivered_text = selected_pages(&pages, page, search)
+        .into_iter()
+        .filter(|(_, text)| text.trim().chars().count() >= 20)
+        .map(|(i, text)| ((i + 1) as u32, text.chars().take(12000).collect::<String>()))
+        .collect::<Vec<_>>();
+    Ok(Retrieved {
+        text,
+        evidence: ReadEvidence {
+            tax_year: year,
+            document_stem: stem,
+            url,
+            pdf: path.strip_prefix(&root)?.display().to_string(),
+            sha256: sha256(&bytes),
+            pages_returned: delivered_text.iter().map(|(p, _)| *p).collect(),
+            delivered_text,
+        },
+    })
 }
 
 fn download(url: &str) -> Result<Vec<u8>> {
@@ -94,6 +146,18 @@ fn download(url: &str) -> Result<Vec<u8>> {
         bail!("{url} did not return a PDF");
     }
     Ok(bytes)
+}
+
+fn selected_pages<'a>(pages: &'a [String], page: Option<u32>, search: Option<&str>) -> Vec<(usize, &'a String)> {
+    let query = search.map(str::to_lowercase);
+    pages
+        .iter()
+        .enumerate()
+        .filter(|(i, text)| {
+            page.is_none_or(|p| p as usize == i + 1) && query.as_ref().is_none_or(|q| text.to_lowercase().contains(q))
+        })
+        .take(if search.is_some() { 3 } else { 1 })
+        .collect()
 }
 
 fn render(pages: &[String], page: Option<u32>, search: Option<&str>) -> Result<String> {
@@ -113,13 +177,12 @@ fn render(pages: &[String], page: Option<u32>, search: Option<&str>) -> Result<S
     if matches.is_empty() {
         return Ok(format!("No matching pages in this {}-page document.", pages.len()));
     }
-    let limit = if search.is_some() { 3 } else { 1 };
     let mut out = format!(
         "{} pages total; {} matching pages. Call again with page or search to navigate.\n",
         pages.len(),
         matches.len()
     );
-    for (i, t) in matches.into_iter().take(limit) {
+    for (i, t) in selected_pages(pages, page, search) {
         out.push_str(&format!("\n--- page {} of {} ---\n", i + 1, pages.len()));
         if t.trim().is_empty() {
             out.push_str("No text layer; use view_pdf with this PDF and page.\n");
@@ -195,6 +258,22 @@ mod tests {
             );
         }
     }
+    #[test]
+    fn evidence_pages_match_text_delivered_and_respect_limits() {
+        let pages = vec![
+            "Header".into(),
+            "Joint Returns: separate schedules".into(),
+            "Joint Returns: wages".into(),
+            "Joint Returns: more".into(),
+            "Joint Returns: omitted".into(),
+        ];
+        let selected = selected_pages(&pages, None, Some("Joint Returns"));
+        assert_eq!(selected.iter().map(|(p, _)| p + 1).collect::<Vec<_>>(), vec![2, 3, 4]);
+        assert!(!render(&pages, None, Some("Joint Returns")).unwrap().contains("omitted"));
+        assert_eq!(selected_pages(&pages, Some(3), None)[0].0, 2);
+        assert!(selected_pages(&pages, None, Some("absent")).is_empty());
+    }
+
     #[test]
     fn pagination_search_and_bounds() {
         let pages = vec![

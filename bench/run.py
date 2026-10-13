@@ -188,6 +188,10 @@ def run_once(case: str, agent: str, model: str, nii: Path, timeout: int, index: 
         forms = workspace / year / "forms"
         if forms.exists():
             shutil.copytree(forms, out / "forms")
+        for name in ("review", "instructions"):
+            artifacts = workspace / year / name
+            if artifacts.exists():
+                shutil.copytree(artifacts, out / name)
 
     report = grade(answers, out / "forms", str(nii))
     status = outcome(exit_code, stdout)

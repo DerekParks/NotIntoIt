@@ -19,7 +19,7 @@ use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{Arc, Mutex};
 use std::time::{Duration, Instant};
 
-use crate::{documents, forms, index, validate};
+use crate::{documents, forms, index, review, validate};
 
 const RENDER_WIDTH: u32 = 1200;
 const OTHER_BUILD_POLL: Duration = Duration::from_secs(5);
@@ -52,6 +52,12 @@ Before declaring completion, call validate_return on the final PDFs. Correct eve
 run it again after edits. Supply the W-2 source paths and set w2_complete only after the user/documents \
 establish that every W-2 is present. checks_passed covers only the listed checks, not filing readiness. \
 Report remaining review items explicitly; never claim unresolved or skipped checks passed.
+Before disputing a finding or recommending undoing a repair, read the relevant year's IRS instructions with \
+get_form_instructions and cite the delivered page and exact excerpt. Unsupported opinions do not override \
+validation. After all edits, call create_review_report with the same W-2 sources. Use its status and \
+allowed_final_statement in the final response and link its report paths. blocked and needs_review reports \
+are incomplete; report every unresolved finding/dispute. Do not claim all checks passed based only on a \
+correct refund. Any later PDF or W-2 edit requires a new report.
 
 Law: search_tax_law covers Title 26 and the current IRS instructions and publications. Pass tax_year for the \
 return being prepared to flag mismatched guidance editions. Cite what you rely on. \
@@ -86,6 +92,7 @@ pub struct NiiServer {
     paths: Arc<Paths>,
     index: Arc<IndexTracker>,
     query_embedder: Arc<Mutex<Option<nii_embed::Embedder>>>,
+    instruction_reads: Arc<Mutex<Vec<crate::instructions::ReadEvidence>>>,
     tool_router: ToolRouter<Self>,
     prompt_router: PromptRouter<Self>,
 }
@@ -206,6 +213,16 @@ pub struct ValidateReturnArgs {
     w2_complete: bool,
 }
 
+#[derive(Deserialize, JsonSchema)]
+pub struct ReviewArgs {
+    #[serde(flatten)]
+    validation: ValidateReturnArgs,
+    /// Disagreements with current findings. Cite a page and exact quote returned by
+    /// get_form_instructions in this MCP session. Never waives a finding.
+    #[serde(default)]
+    disputes: Vec<review::Dispute>,
+}
+
 #[tool_router]
 impl NiiServer {
     fn new(paths: Paths) -> Self {
@@ -213,6 +230,7 @@ impl NiiServer {
             paths: Arc::new(paths),
             index: Arc::new(IndexTracker::default()),
             query_embedder: Arc::new(Mutex::new(None)),
+            instruction_reads: Arc::new(Mutex::new(Vec::new())),
             tool_router: Self::tool_router(),
             prompt_router: Self::prompt_router(),
         }
@@ -226,15 +244,22 @@ impl NiiServer {
         Parameters(args): Parameters<InstructionsArgs>,
     ) -> Result<CallToolResult, McpError> {
         let paths = self.paths.clone();
+        let reads = self.instruction_reads.clone();
         blocking(move || {
-            Ok(vec![ContentBlock::text(crate::instructions::read(
+            let retrieved = crate::instructions::read_with_evidence(
                 &paths.data_dir,
                 &paths.workspace,
                 &args.form,
                 args.tax_year,
                 args.page,
                 args.search.as_deref(),
-            )?)])
+            )?;
+            let receipt = serde_json::to_string(&retrieved.evidence)?;
+            reads.lock().unwrap_or_else(|e| e.into_inner()).push(retrieved.evidence);
+            Ok(vec![ContentBlock::text(format!(
+                "{}\n\nSource access recorded for final review: {receipt}",
+                retrieved.text
+            ))])
         })
         .await
     }
@@ -505,6 +530,44 @@ impl NiiServer {
             }
             Ok(Err(e)) => Ok(CallToolResult::error(vec![ContentBlock::text(format!("{e:#}"))])),
             Err(e) => Err(McpError::internal_error(format!("validation task failed: {e}"), None)),
+        }
+    }
+
+    #[tool(
+        description = "Create and save a final return review report from the current PDFs and W-2 sources. Reruns validation, captures file hashes, lists unresolved findings and IRS source links, and records instruction pages actually returned in this MCP session. Optional sourced disputes remain pending manual review and never override findings. Returns blocked/needs_review/checks_passed plus the allowed final statement and JSON/Markdown paths. Run after all edits; later edits invalidate the report. Does not certify filing readiness."
+    )]
+    async fn create_review_report(&self, Parameters(args): Parameters<ReviewArgs>) -> Result<CallToolResult, McpError> {
+        let paths = self.paths.clone();
+        let reads = self.instruction_reads.lock().unwrap_or_else(|e| e.into_inner()).clone();
+        let result = tokio::task::spawn_blocking(move || {
+            let a = args.validation;
+            review::create(
+                &paths.workspace,
+                a.tax_year,
+                a.forms_dir.as_deref(),
+                &a.w2_documents,
+                a.w2_complete,
+                &reads,
+                &args.disputes,
+            )
+        })
+        .await;
+        match result {
+            Ok(Ok(report)) => {
+                let content = vec![ContentBlock::text(
+                    serde_json::to_string_pretty(&report).map_err(|e| McpError::internal_error(e.to_string(), None))?,
+                )];
+                let mut result = if report.status != "checks_passed" {
+                    CallToolResult::error(content)
+                } else {
+                    CallToolResult::success(content)
+                };
+                result.structured_content =
+                    Some(serde_json::to_value(report).map_err(|e| McpError::internal_error(e.to_string(), None))?);
+                Ok(result)
+            }
+            Ok(Err(e)) => Ok(CallToolResult::error(vec![ContentBlock::text(format!("{e:#}"))])),
+            Err(e) => Err(McpError::internal_error(format!("review task failed: {e}"), None)),
         }
     }
 
@@ -1335,6 +1398,51 @@ mod tests {
             text,
             "The tax-law index is not ready yet: parsing the Internal Revenue Code into sections. Try again shortly."
         );
+    }
+
+    #[tokio::test]
+    async fn final_review_is_discoverable_and_keeps_blocked_and_review_statuses_as_tool_errors() {
+        let s = fetched("final-review").await;
+        let schema = serde_json::to_value(s.tool_router.list_all()).unwrap();
+        let tool = schema
+            .as_array()
+            .unwrap()
+            .iter()
+            .find(|t| t["name"] == "create_review_report")
+            .unwrap();
+        assert!(tool["inputSchema"]["properties"]["tax_year"].is_object());
+        assert!(tool["inputSchema"]["properties"]["disputes"].is_object());
+        let result = s
+            .create_review_report(Parameters(ReviewArgs {
+                validation: ValidateReturnArgs {
+                    tax_year: 2025,
+                    forms_dir: None,
+                    w2_documents: vec![],
+                    w2_complete: false,
+                },
+                disputes: vec![],
+            }))
+            .await
+            .unwrap();
+        let value = serde_json::to_value(result).unwrap();
+        assert_eq!(value["isError"], true);
+        assert_eq!(value["structuredContent"]["status"], "blocked");
+        assert!(s.paths.workspace.join("2025/review/return-review.json").exists());
+        let result = s
+            .create_review_report(Parameters(ReviewArgs {
+                validation: ValidateReturnArgs {
+                    tax_year: 2024,
+                    forms_dir: Some("2025/forms".into()),
+                    w2_documents: vec![],
+                    w2_complete: false,
+                },
+                disputes: vec![],
+            }))
+            .await
+            .unwrap();
+        let value = serde_json::to_value(result).unwrap();
+        assert_eq!(value["isError"], true);
+        assert_eq!(value["structuredContent"]["status"], "needs_review");
     }
 
     #[test]
