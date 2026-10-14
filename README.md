@@ -253,6 +253,27 @@ The validator independently blocked both saved medium attempts (six and nine
 errors). Corrected copies of the eight proposed forms passed 113 checks; original PDFs were unchanged.
 These are validator tests, not new model benchmark scores.
 
+### Home-office checks and deduction interview
+
+The validator checks the simplified home-office income limit when Schedule C's
+square-footage entries identify that method: absent reported asset activity, a
+deduction above positive tentative profit is a blocking
+`home_office_income_limit` finding. The shared deduction box alone does not identify
+the method. Actual/unknown methods and reported asset activity produce
+`home_office_limit_review`, because qualifying home-use gains can affect the
+worksheet limit. This is a bounded check of reported forms, not a determination
+that all relevant gains, locations or expenses were disclosed. Source:
+[2025 Schedule C Simplified Method Worksheet](https://www.irs.gov/instructions/i1040sc).
+
+The `tax-wizard` deduction interview requires a source-based standard-versus-itemized
+comparison: eligibility, age/blindness/dependent adjustments, allowable Schedule A
+categories after limits, missing records, both totals and the selected treatment.
+It handles unavailable standard deductions and deliberate itemization elections;
+the separate Schedule 1-A senior deduction is not added to the standard deduction.
+This interview guides the assistant; it does not make Schedule A eligibility or
+method selection a deterministic validator check. Source:
+[2025 Schedule A instructions](https://www.irs.gov/instructions/i1040sca).
+
 ### Final review report and sourced disputes
 
 After the last edit, call `create_review_report` with the same `tax_year`,
@@ -375,6 +396,11 @@ joint 2025 return: two children, wages, a freelance business with mileage, meals
 and a simplified home office, and a depreciating residential rental. It grades
 124 fields across eight forms and six reconciliations; the expected refund is
 $2,711. Two preliminary OpenRouter DeepSeek V4 Pro runs scored 119/124 and 116/124; both got the refund right, and neither passed the complete-return checks. Reported total cost: $0.43. A third run with the validator scored 124/124 and repaired all blocking findings ($0.66; 418 seconds). It still populated an unnecessary Form 4562 and gave misleading final guidance, so `return_complete` remained false. It did not use the new instructions tool.
+
+The [medium benchmark model card](bench/MEDIUM_MODEL_CARD.md) records seven
+Sonnet 5.5 attempts across five cases, costs, grading definitions, the observed
+business-loss failure and its validator mitigation. It also summarizes the earlier
+DeepSeek/LTJ runs and documents what remains unevaluated.
 
 ```sh
 python3 bench/run.py medium --agent claude --model sonnet --runs 3

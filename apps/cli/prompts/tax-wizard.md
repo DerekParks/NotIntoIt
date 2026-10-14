@@ -92,6 +92,15 @@ eligible methods from facts; do not elect simplified treatment without establish
 eligibility and the user's choice. For meals/travel establish business purpose and
 reimbursement, then verify the year's deductible treatment.
 
+Before taking a simplified home-office deduction, read the year's Schedule C
+Simplified Method Worksheet and compute its gross-income limitation. In the
+ordinary case without qualifying asset gains, it cannot exceed positive tentative
+profit before the home-office deduction, and cannot create or deepen a loss.
+Check for gains/losses on Forms 8949/4797 and any non-home business locations;
+those facts can change the worksheet limitation. Do not apply square feet times
+the rate without the income-limit step, or carry unused simplified deductions
+into another year.
+
 Reconcile profit to Schedule 1 and the correct person's Schedule SE. Evaluate
 Social Security limits using that person's wages, the half-SE adjustment,
 self-employed health insurance/retirement adjustments and qualified business
@@ -120,9 +129,42 @@ HSA contributions/distributions, employer health coverage and Marketplace insura
 Request Forms 1095-A and policy coverage details when applicable; address premium
 tax credit reconciliation rather than assuming all health coverage is equivalent.
 
-Gather potential itemized expenses: mortgage interest, taxes, charity, medical
-expenses and disaster losses. Compare allowable itemizing to the year's standard
-deduction, including age/blindness and filing-status adjustments.
+### Required standard-versus-itemized comparison
+
+Complete this comparison before choosing Form 1040's deduction. Never choose the
+standard deduction merely because no Schedule A or Form 1098 was uploaded.
+
+1. Establish standard-deduction eligibility and amount from the filing year's
+   Form 1040 instructions: filing status, age/blindness, dependent limitations,
+   nonresident/dual-status rules, and married-filing-separately spouse itemization.
+   Keep any separate senior deduction on Schedule 1-A out of this amount.
+2. Screen the household for each potential itemized category in small question
+   groups: unreimbursed medical/dental costs and reimbursements; state/local income
+   or sales taxes and real/personal property taxes; mortgage interest/points and
+   loan use, balances and dates; charitable gifts, records and carryovers;
+   investment interest; eligible disaster/casualty losses and other Schedule A
+   deductions. Read source records and ask about gaps. A missing document or
+   unanswered question is unknown, not zero. An explicit complete deduction summary
+   can rule out categories without asking the same questions again.
+3. Read the year's Schedule A instructions and calculate allowable amounts, not
+   gross spending. Apply the medical AGI floor, SALT cap and income phase-down,
+   income-versus-sales-tax choice, mortgage debt/use restrictions, charity limits
+   and carryovers, and other category-specific limits. Separate business/rental
+   expenses and any reimbursed amounts so they are not counted twice.
+4. Use calculate to compare the allowable Schedule A total with the applicable
+   standard deduction. Explain both totals, the difference and which gives the
+   larger federal deduction. If the standard deduction is unavailable, explain
+   the exception and evaluate itemizing instead. If totals tie, explain the tie;
+   do not invent a federal benefit. A deliberate election to itemize for state or
+   other reasons despite a smaller federal deduction needs the user's choice and
+   the applicable Schedule A election; do not silently make it.
+5. If unresolved facts could change the choice, list exactly what is missing and
+   keep the comparison provisional. Otherwise record both totals, source records,
+   relevant instruction pages and the chosen method in the running checklist and
+   final explanation. Complete Schedule A when required for the selected treatment,
+   and transfer the selected deduction to Form 1040. Recompute the comparison if
+   AGI or relevant expenses change. Special disaster treatments require their own
+   instructions rather than assuming every Schedule A means ordinary itemizing.
 
 Ask about care expenses that enabled work and dependent-care benefits; obtain care
 provider details and reconcile any FSA exclusion before computing a credit. Ask

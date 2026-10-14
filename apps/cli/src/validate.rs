@@ -719,7 +719,10 @@ fn validate_forms(forms: &[Form], w2s: &[W2], report: Report) -> Result<Report> 
             }
         }
         match f.kind.as_str() {
-            "f1040sc" => schedule_c(&mut c, f),
+            "f1040sc" => {
+                schedule_c(&mut c, f);
+                home_office_limit(&mut c, f, forms);
+            }
             "f1040sse" => schedule_se(&mut c, f, w2s),
             "f1040s1" => schedule_1(&mut c, f),
             "f1040s2" => schedule_2(&mut c, f),
@@ -1124,6 +1127,47 @@ fn schedule_c<'a>(c: &mut Checker<'a>, f: &'a Form) {
         "30. Use the Simplified Method Worksheet",
         false,
     );
+}
+
+fn home_office_limit<'a>(c: &mut Checker<'a>, f: &'a Form, forms: &'a [Form]) {
+    let line = "30. Use the Simplified Method Worksheet";
+    let Some(deduction) = c.number(f, line) else { return };
+    if deduction.cents <= 0 {
+        return;
+    }
+    // Both methods use the same deduction box. Square-footage entries are the
+    // PDF's explicit "Simplified method filers only" indicators.
+    let simplified = ["30. Expenses for business use of your home.", "30. and (b)"]
+        .iter()
+        .any(|s| c.number(f, s).is_some_and(|v| v.cents > 0));
+    let asset_activity = forms.iter().any(|other| {
+        matches!(other.kind.as_str(), "f4797" | "f8949" | "f1040sd") && other.fields.iter().any(present)
+            || other.fields.iter().any(|field| {
+                let description = norm(field.description.as_deref().unwrap_or(""));
+                let gain_line = (other.kind == "f1040" && description.starts_with("7a. Capital gain"))
+                    || (other.kind == "f1040s1"
+                        && (description.starts_with("4. Other gains") || description == "4. Amount."));
+                gain_line && field.value.as_deref().and_then(money).is_some_and(|n| n != 0)
+            })
+    });
+    let field = c.field(f, line, None);
+    if !simplified || asset_activity {
+        c.report.add(
+            "review", "home_office_limit_review", &f.file, field, line,
+            "Verify the applicable home-office worksheet income limit. Actual-method deductions and reported asset activity cannot be resolved from Schedule C tentative profit alone; qualifying home-use gains can change the simplified-method limit.".into(),
+        );
+        return;
+    }
+    if let Some(profit) = c.number(f, "29. Tentative profit") {
+        c.report.checks_run += 1;
+        let limit = profit.cents.max(0);
+        if deduction.cents > limit + TOLERANCE {
+            c.report.add(
+                "error", "home_office_income_limit", &f.file, field, line,
+                format!("Simplified home-office deduction {} exceeds the positive tentative-profit limit {} with no reported asset activity. It cannot create or deepen a loss. Use the Schedule C Simplified Method Worksheet; report and review any qualifying asset gains before applying an exception.", fmt(deduction.cents), fmt(limit)),
+            );
+        }
+    }
 }
 
 fn schedule_se<'a>(c: &mut Checker<'a>, f: &'a Form, w2s: &[W2]) {
@@ -1867,6 +1911,70 @@ mod tests {
     #[test]
     fn zero_dollar_blanks_and_no_dependents_are_valid() {
         assert_clean(&report(&[main_return(0, 0, 0)], &[], true));
+    }
+
+    #[test]
+    fn simplified_home_office_is_limited_without_rejecting_zero_or_valid_profit() {
+        for (profit, deduction, blocked) in [
+            (-3000, 1000, true),
+            (0, 1000, true),
+            (500, 1000, true),
+            (-3000, 0, false),
+            (0, 0, false),
+            (500, 500, false),
+            (3000, 1000, false),
+        ] {
+            let mut sc = form("f1040sc", "");
+            set(&mut sc, "29. Tentative profit", &profit.to_string());
+            set(
+                &mut sc,
+                "30. Use the Simplified Method Worksheet",
+                &deduction.to_string(),
+            );
+            set(&mut sc, "30. and (b)", "200");
+            let forms = [sc];
+            let mut c = Checker {
+                report: Report::new(2025, true),
+                mapped: BTreeMap::new(),
+                computed: BTreeMap::new(),
+            };
+            home_office_limit(&mut c, &forms[0], &forms);
+            c.report.finish();
+            assert_eq!(
+                c.report.blocking_errors > 0,
+                blocked,
+                "profit={profit}, deduction={deduction}: {:?}",
+                c.report.findings
+            );
+            if blocked {
+                assert_eq!(c.report.findings[0].code, "home_office_income_limit");
+                assert!(c.report.findings[0].field.is_some());
+            } else {
+                assert!(c.report.findings.is_empty());
+            }
+        }
+    }
+
+    #[test]
+    fn home_office_method_and_asset_gain_exceptions_require_review_instead_of_false_blocks() {
+        for (area, gains) in [(0, 0), (200, 5000)] {
+            let mut sc = form("f1040sc", "");
+            set(&mut sc, "29. Tentative profit", "-3000");
+            set(&mut sc, "30. Use the Simplified Method Worksheet", "1000");
+            set(&mut sc, "30. and (b)", &area.to_string());
+            let mut s1 = form("f1040s1", "");
+            set(&mut s1, "4. Amount.", &gains.to_string());
+            let forms = [sc, s1];
+            let mut c = Checker {
+                report: Report::new(2025, true),
+                mapped: BTreeMap::new(),
+                computed: BTreeMap::new(),
+            };
+            home_office_limit(&mut c, &forms[0], &forms);
+            c.report.finish();
+            assert_eq!(c.report.blocking_errors, 0);
+            assert_eq!(c.report.findings[0].code, "home_office_limit_review");
+        }
     }
     #[test]
     fn complete_family_business_return_passes_without_any_answer_key() {
