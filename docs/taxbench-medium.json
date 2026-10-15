@@ -1,0 +1,1265 @@
+{
+  "budget_usd": 8,
+  "timestamp": "20261014-181747",
+  "models": [
+    "claude-sonnet-5-5",
+    "openrouter/openai/gpt-6-luna",
+    "openrouter/deepseek/deepseek-v4-pro-0813"
+  ],
+  "commit": "25b0e1489d057375ec9f605353107d5968fc741b",
+  "binary_sha256": "823dcab7acab7caae99dffdaa30f057e5871a98237438fdb5e1503ece40c9786",
+  "runs": [
+    {
+      "case": "medium",
+      "agent": "claude",
+      "model": "claude-sonnet-5-5",
+      "status": "completed",
+      "seconds": 110.4,
+      "score": 124,
+      "total": 124,
+      "net_refund": 2711.0,
+      "outcome_correct": true,
+      "outcome_error": 0.0,
+      "return_complete": false,
+      "usage": {
+        "input": 72254,
+        "cached": 944758,
+        "output": 16278,
+        "cost": 0.5461918
+      },
+      "review_grade": {
+        "status": "passed",
+        "passed": 9,
+        "total": 9,
+        "checks": [
+          {
+            "name": "report_present_and_parseable",
+            "passed": true
+          },
+          {
+            "name": "tax_year",
+            "passed": true
+          },
+          {
+            "name": "readable_report_present",
+            "passed": true
+          },
+          {
+            "name": "independent_validation_matches",
+            "passed": true
+          },
+          {
+            "name": "status_matches_findings",
+            "passed": true
+          },
+          {
+            "name": "complete_file_inventory",
+            "passed": true
+          },
+          {
+            "name": "snapshot_hashes_match",
+            "passed": true
+          },
+          {
+            "name": "instruction_receipt_hashes_and_year",
+            "passed": true
+          },
+          {
+            "name": "disputes_remain_unresolved",
+            "passed": true
+          }
+        ],
+        "limits": "Checks report integrity, not prose accuracy, quote relevance, or filing readiness. Source receipt authenticity is not independently established."
+      },
+      "tool_calls": 61,
+      "path": "bench/runs/medium/20261014-175039-claude-claude-sonnet-5-5-0",
+      "budget_cap_usd": 0.65,
+      "budget_stopped": false,
+      "review_status": "needs_review",
+      "blocking_errors": 0,
+      "review_items": 1,
+      "resolved_models": [
+        "claude-sonnet-5-5"
+      ],
+      "field_misses": [],
+      "unneeded_forms": [
+        "f4562"
+      ],
+      "consistency_problems": [],
+      "expected_refund": 2711,
+      "observed_models": [
+        "claude-sonnet-5-5"
+      ]
+    },
+    {
+      "case": "medium",
+      "agent": "pi",
+      "model": "openrouter/openai/gpt-6-luna",
+      "status": "completed",
+      "seconds": 233.6,
+      "score": 124,
+      "total": 124,
+      "net_refund": 2711.0,
+      "outcome_correct": true,
+      "outcome_error": 0.0,
+      "return_complete": true,
+      "usage": {
+        "input": 75,
+        "cached": 1421069,
+        "output": 20335,
+        "cost": 0.03897856499999999
+      },
+      "review_grade": {
+        "status": "passed",
+        "passed": 9,
+        "total": 9,
+        "checks": [
+          {
+            "name": "report_present_and_parseable",
+            "passed": true
+          },
+          {
+            "name": "tax_year",
+            "passed": true
+          },
+          {
+            "name": "readable_report_present",
+            "passed": true
+          },
+          {
+            "name": "independent_validation_matches",
+            "passed": true
+          },
+          {
+            "name": "status_matches_findings",
+            "passed": true
+          },
+          {
+            "name": "complete_file_inventory",
+            "passed": true
+          },
+          {
+            "name": "snapshot_hashes_match",
+            "passed": true
+          },
+          {
+            "name": "instruction_receipt_hashes_and_year",
+            "passed": true
+          },
+          {
+            "name": "disputes_remain_unresolved",
+            "passed": true
+          }
+        ],
+        "limits": "Checks report integrity, not prose accuracy, quote relevance, or filing readiness. Source receipt authenticity is not independently established."
+      },
+      "tool_calls": 95,
+      "path": "bench/runs/medium/20261014-175039-pi-openrouter_openai_gpt-6-luna-0",
+      "budget_cap_usd": 0.2,
+      "budget_stopped": false,
+      "review_status": "checks_passed",
+      "blocking_errors": 0,
+      "review_items": 0,
+      "field_misses": [],
+      "unneeded_forms": [],
+      "consistency_problems": [],
+      "expected_refund": 2711,
+      "observed_models": [
+        "openai/gpt-6-luna"
+      ]
+    },
+    {
+      "case": "medium",
+      "agent": "pi",
+      "model": "openrouter/deepseek/deepseek-v4-pro-0813",
+      "status": "completed",
+      "seconds": 462.8,
+      "score": 124,
+      "total": 124,
+      "net_refund": 2711.0,
+      "outcome_correct": true,
+      "outcome_error": 0.0,
+      "return_complete": false,
+      "usage": {
+        "input": 98069,
+        "cached": 1137920,
+        "output": 60866,
+        "cost": 0.21027446
+      },
+      "review_grade": {
+        "status": "passed",
+        "passed": 9,
+        "total": 9,
+        "checks": [
+          {
+            "name": "report_present_and_parseable",
+            "passed": true
+          },
+          {
+            "name": "tax_year",
+            "passed": true
+          },
+          {
+            "name": "readable_report_present",
+            "passed": true
+          },
+          {
+            "name": "independent_validation_matches",
+            "passed": true
+          },
+          {
+            "name": "status_matches_findings",
+            "passed": true
+          },
+          {
+            "name": "complete_file_inventory",
+            "passed": true
+          },
+          {
+            "name": "snapshot_hashes_match",
+            "passed": true
+          },
+          {
+            "name": "instruction_receipt_hashes_and_year",
+            "passed": true
+          },
+          {
+            "name": "disputes_remain_unresolved",
+            "passed": true
+          }
+        ],
+        "limits": "Checks report integrity, not prose accuracy, quote relevance, or filing readiness. Source receipt authenticity is not independently established."
+      },
+      "tool_calls": 54,
+      "path": "bench/runs/medium/20261014-175039-pi-openrouter_deepseek_deepseek-v4-pro-0813-0",
+      "budget_cap_usd": 0.8,
+      "budget_stopped": false,
+      "review_status": "checks_passed",
+      "blocking_errors": 0,
+      "review_items": 0,
+      "field_misses": [],
+      "unneeded_forms": [
+        "f1040sb",
+        "f1040s3"
+      ],
+      "consistency_problems": [],
+      "expected_refund": 2711,
+      "observed_models": [
+        "deepseek/deepseek-v4-pro-0813"
+      ]
+    },
+    {
+      "case": "medium-rental-loss",
+      "agent": "claude",
+      "model": "claude-sonnet-5-5",
+      "status": "completed",
+      "seconds": 79.5,
+      "score": 123,
+      "total": 126,
+      "net_refund": 9506.54,
+      "outcome_correct": true,
+      "outcome_error": 0.46,
+      "return_complete": false,
+      "usage": {
+        "input": 68147,
+        "cached": 562675,
+        "output": 12464,
+        "cost": 0.45343949999999994
+      },
+      "review_grade": {
+        "status": "passed",
+        "passed": 9,
+        "total": 9,
+        "checks": [
+          {
+            "name": "report_present_and_parseable",
+            "passed": true
+          },
+          {
+            "name": "tax_year",
+            "passed": true
+          },
+          {
+            "name": "readable_report_present",
+            "passed": true
+          },
+          {
+            "name": "independent_validation_matches",
+            "passed": true
+          },
+          {
+            "name": "status_matches_findings",
+            "passed": true
+          },
+          {
+            "name": "complete_file_inventory",
+            "passed": true
+          },
+          {
+            "name": "snapshot_hashes_match",
+            "passed": true
+          },
+          {
+            "name": "instruction_receipt_hashes_and_year",
+            "passed": true
+          },
+          {
+            "name": "disputes_remain_unresolved",
+            "passed": true
+          }
+        ],
+        "limits": "Checks report integrity, not prose accuracy, quote relevance, or filing readiness. Source receipt authenticity is not independently established."
+      },
+      "tool_calls": 42,
+      "path": "bench/runs/medium-rental-loss/20261014-175822-claude-claude-sonnet-5-5-0",
+      "budget_cap_usd": 0.65,
+      "budget_stopped": false,
+      "review_status": "needs_review",
+      "blocking_errors": 0,
+      "review_items": 1,
+      "resolved_models": [
+        "claude-sonnet-5-5"
+      ],
+      "field_misses": [
+        {
+          "form": "f1040se",
+          "selector": "=24. Income. Add positive amounts shown on line 21. Do not include any losses.",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "form": "f1040se",
+          "selector": "=Row: 22. Deductible rental real estate loss after limitation, if any, on Form 8582 (see instructions). Column: Open parenthesis. Properties. A. Close parenthesis.",
+          "expected": 1000,
+          "actual": "-1000"
+        },
+        {
+          "form": "f1040se",
+          "selector": "=25. Losses. Add royalty losses from line 21 and rental real estate losses from line 22. Enter total losses here. Open parenthesis. Close parenthesis.",
+          "expected": 1000,
+          "actual": "-1000"
+        }
+      ],
+      "unneeded_forms": [],
+      "consistency_problems": [],
+      "expected_refund": 9507,
+      "observed_models": [
+        "claude-sonnet-5-5"
+      ]
+    },
+    {
+      "case": "medium-rental-loss",
+      "agent": "pi",
+      "model": "openrouter/openai/gpt-6-luna",
+      "status": "completed",
+      "seconds": 201.0,
+      "score": 124,
+      "total": 126,
+      "net_refund": 9507.0,
+      "outcome_correct": true,
+      "outcome_error": 0.0,
+      "return_complete": false,
+      "usage": {
+        "input": 69,
+        "cached": 947383,
+        "output": 18435,
+        "cost": 0.030940979999999996
+      },
+      "review_grade": {
+        "status": "passed",
+        "passed": 9,
+        "total": 9,
+        "checks": [
+          {
+            "name": "report_present_and_parseable",
+            "passed": true
+          },
+          {
+            "name": "tax_year",
+            "passed": true
+          },
+          {
+            "name": "readable_report_present",
+            "passed": true
+          },
+          {
+            "name": "independent_validation_matches",
+            "passed": true
+          },
+          {
+            "name": "status_matches_findings",
+            "passed": true
+          },
+          {
+            "name": "complete_file_inventory",
+            "passed": true
+          },
+          {
+            "name": "snapshot_hashes_match",
+            "passed": true
+          },
+          {
+            "name": "instruction_receipt_hashes_and_year",
+            "passed": true
+          },
+          {
+            "name": "disputes_remain_unresolved",
+            "passed": true
+          }
+        ],
+        "limits": "Checks report integrity, not prose accuracy, quote relevance, or filing readiness. Source receipt authenticity is not independently established."
+      },
+      "tool_calls": 70,
+      "path": "bench/runs/medium-rental-loss/20261014-175822-pi-openrouter_openai_gpt-6-luna-0",
+      "budget_cap_usd": 0.2,
+      "budget_stopped": false,
+      "review_status": "needs_review",
+      "blocking_errors": 0,
+      "review_items": 1,
+      "field_misses": [
+        {
+          "form": "f1040se",
+          "selector": "=Row: 22. Deductible rental real estate loss after limitation, if any, on Form 8582 (see instructions). Column: Open parenthesis. Properties. A. Close parenthesis.",
+          "expected": 1000,
+          "actual": "-1000"
+        },
+        {
+          "form": "f1040se",
+          "selector": "=25. Losses. Add royalty losses from line 21 and rental real estate losses from line 22. Enter total losses here. Open parenthesis. Close parenthesis.",
+          "expected": 1000,
+          "actual": "-1000"
+        }
+      ],
+      "unneeded_forms": [],
+      "consistency_problems": [],
+      "expected_refund": 9507,
+      "observed_models": [
+        "openai/gpt-6-luna"
+      ]
+    },
+    {
+      "case": "medium-rental-loss",
+      "agent": "pi",
+      "model": "openrouter/deepseek/deepseek-v4-pro-0813",
+      "status": "completed",
+      "seconds": 1043.7,
+      "score": 124,
+      "total": 126,
+      "net_refund": 9507.0,
+      "outcome_correct": true,
+      "outcome_error": 0.0,
+      "return_complete": false,
+      "usage": {
+        "input": 101264,
+        "cached": 1453056,
+        "output": 71439,
+        "cost": 0.240250692
+      },
+      "review_grade": {
+        "status": "passed",
+        "passed": 9,
+        "total": 9,
+        "checks": [
+          {
+            "name": "report_present_and_parseable",
+            "passed": true
+          },
+          {
+            "name": "tax_year",
+            "passed": true
+          },
+          {
+            "name": "readable_report_present",
+            "passed": true
+          },
+          {
+            "name": "independent_validation_matches",
+            "passed": true
+          },
+          {
+            "name": "status_matches_findings",
+            "passed": true
+          },
+          {
+            "name": "complete_file_inventory",
+            "passed": true
+          },
+          {
+            "name": "snapshot_hashes_match",
+            "passed": true
+          },
+          {
+            "name": "instruction_receipt_hashes_and_year",
+            "passed": true
+          },
+          {
+            "name": "disputes_remain_unresolved",
+            "passed": true
+          }
+        ],
+        "limits": "Checks report integrity, not prose accuracy, quote relevance, or filing readiness. Source receipt authenticity is not independently established."
+      },
+      "tool_calls": 56,
+      "path": "bench/runs/medium-rental-loss/20261014-175822-pi-openrouter_deepseek_deepseek-v4-pro-0813-0",
+      "budget_cap_usd": 0.8,
+      "budget_stopped": false,
+      "review_status": "needs_review",
+      "blocking_errors": 0,
+      "review_items": 1,
+      "field_misses": [
+        {
+          "form": "f1040se",
+          "selector": "=Row: 22. Deductible rental real estate loss after limitation, if any, on Form 8582 (see instructions). Column: Open parenthesis. Properties. A. Close parenthesis.",
+          "expected": 1000,
+          "actual": "-1000"
+        },
+        {
+          "form": "f1040se",
+          "selector": "=25. Losses. Add royalty losses from line 21 and rental real estate losses from line 22. Enter total losses here. Open parenthesis. Close parenthesis.",
+          "expected": 1000,
+          "actual": "-1000"
+        }
+      ],
+      "unneeded_forms": [],
+      "consistency_problems": [],
+      "expected_refund": 9507,
+      "observed_models": [
+        "deepseek/deepseek-v4-pro-0813"
+      ]
+    },
+    {
+      "case": "medium-mixed-use",
+      "agent": "claude",
+      "model": "claude-sonnet-5-5",
+      "status": "completed",
+      "seconds": 72.8,
+      "score": 124,
+      "total": 124,
+      "net_refund": 1654.54,
+      "outcome_correct": true,
+      "outcome_error": 0.46,
+      "return_complete": true,
+      "usage": {
+        "input": 67324,
+        "cached": 400047,
+        "output": 11623,
+        "cost": 0.42548269999999994
+      },
+      "review_grade": {
+        "status": "passed",
+        "passed": 9,
+        "total": 9,
+        "checks": [
+          {
+            "name": "report_present_and_parseable",
+            "passed": true
+          },
+          {
+            "name": "tax_year",
+            "passed": true
+          },
+          {
+            "name": "readable_report_present",
+            "passed": true
+          },
+          {
+            "name": "independent_validation_matches",
+            "passed": true
+          },
+          {
+            "name": "status_matches_findings",
+            "passed": true
+          },
+          {
+            "name": "complete_file_inventory",
+            "passed": true
+          },
+          {
+            "name": "snapshot_hashes_match",
+            "passed": true
+          },
+          {
+            "name": "instruction_receipt_hashes_and_year",
+            "passed": true
+          },
+          {
+            "name": "disputes_remain_unresolved",
+            "passed": true
+          }
+        ],
+        "limits": "Checks report integrity, not prose accuracy, quote relevance, or filing readiness. Source receipt authenticity is not independently established."
+      },
+      "tool_calls": 39,
+      "path": "bench/runs/medium-mixed-use/20261014-181546-claude-claude-sonnet-5-5-0",
+      "budget_cap_usd": 0.65,
+      "budget_stopped": false,
+      "review_status": "needs_review",
+      "blocking_errors": 0,
+      "review_items": 1,
+      "resolved_models": [
+        "claude-sonnet-5-5"
+      ],
+      "field_misses": [],
+      "unneeded_forms": [],
+      "consistency_problems": [],
+      "expected_refund": 1655,
+      "observed_models": [
+        "claude-sonnet-5-5"
+      ]
+    },
+    {
+      "case": "medium-mixed-use",
+      "agent": "pi",
+      "model": "openrouter/openai/gpt-6-luna",
+      "status": "completed",
+      "seconds": 234.2,
+      "score": 124,
+      "total": 124,
+      "net_refund": 1655.0,
+      "outcome_correct": true,
+      "outcome_error": 0.0,
+      "return_complete": true,
+      "usage": {
+        "input": 78,
+        "cached": 1305594,
+        "output": 17019,
+        "cost": 0.034822365
+      },
+      "review_grade": {
+        "status": "passed",
+        "passed": 9,
+        "total": 9,
+        "checks": [
+          {
+            "name": "report_present_and_parseable",
+            "passed": true
+          },
+          {
+            "name": "tax_year",
+            "passed": true
+          },
+          {
+            "name": "readable_report_present",
+            "passed": true
+          },
+          {
+            "name": "independent_validation_matches",
+            "passed": true
+          },
+          {
+            "name": "status_matches_findings",
+            "passed": true
+          },
+          {
+            "name": "complete_file_inventory",
+            "passed": true
+          },
+          {
+            "name": "snapshot_hashes_match",
+            "passed": true
+          },
+          {
+            "name": "instruction_receipt_hashes_and_year",
+            "passed": true
+          },
+          {
+            "name": "disputes_remain_unresolved",
+            "passed": true
+          }
+        ],
+        "limits": "Checks report integrity, not prose accuracy, quote relevance, or filing readiness. Source receipt authenticity is not independently established."
+      },
+      "tool_calls": 75,
+      "path": "bench/runs/medium-mixed-use/20261014-181546-pi-openrouter_openai_gpt-6-luna-0",
+      "budget_cap_usd": 0.2,
+      "budget_stopped": false,
+      "review_status": "needs_review",
+      "blocking_errors": 0,
+      "review_items": 1,
+      "field_misses": [],
+      "unneeded_forms": [],
+      "consistency_problems": [],
+      "expected_refund": 1655,
+      "observed_models": [
+        "openai/gpt-6-luna"
+      ]
+    },
+    {
+      "case": "medium-mixed-use",
+      "agent": "pi",
+      "model": "openrouter/deepseek/deepseek-v4-pro-0813",
+      "status": "completed",
+      "seconds": 412.8,
+      "score": 123,
+      "total": 124,
+      "net_refund": 1655.0,
+      "outcome_correct": true,
+      "outcome_error": 0.0,
+      "return_complete": false,
+      "usage": {
+        "input": 182931,
+        "cached": 1001984,
+        "output": 59207,
+        "cost": 0.260007968
+      },
+      "review_grade": {
+        "status": "passed",
+        "passed": 9,
+        "total": 9,
+        "checks": [
+          {
+            "name": "report_present_and_parseable",
+            "passed": true
+          },
+          {
+            "name": "tax_year",
+            "passed": true
+          },
+          {
+            "name": "readable_report_present",
+            "passed": true
+          },
+          {
+            "name": "independent_validation_matches",
+            "passed": true
+          },
+          {
+            "name": "status_matches_findings",
+            "passed": true
+          },
+          {
+            "name": "complete_file_inventory",
+            "passed": true
+          },
+          {
+            "name": "snapshot_hashes_match",
+            "passed": true
+          },
+          {
+            "name": "instruction_receipt_hashes_and_year",
+            "passed": true
+          },
+          {
+            "name": "disputes_remain_unresolved",
+            "passed": true
+          }
+        ],
+        "limits": "Checks report integrity, not prose accuracy, quote relevance, or filing readiness. Source receipt authenticity is not independently established."
+      },
+      "tool_calls": 50,
+      "path": "bench/runs/medium-mixed-use/20261014-181546-pi-openrouter_deepseek_deepseek-v4-pro-0813-0",
+      "budget_cap_usd": 0.8,
+      "budget_stopped": false,
+      "review_status": "needs_review",
+      "blocking_errors": 0,
+      "review_items": 1,
+      "field_misses": [
+        {
+          "form": "f1040se",
+          "selector": "=1b. Row: A. Column: Type of Property (from list below).",
+          "expected": 1,
+          "actual": "3"
+        }
+      ],
+      "unneeded_forms": [],
+      "consistency_problems": [],
+      "expected_refund": 1655,
+      "observed_models": [
+        "deepseek/deepseek-v4-pro-0813"
+      ]
+    },
+    {
+      "case": "medium-business-loss",
+      "agent": "claude",
+      "model": "claude-sonnet-5-5",
+      "status": "completed",
+      "seconds": 60.3,
+      "score": 109,
+      "total": 110,
+      "net_refund": 11286.0,
+      "outcome_correct": true,
+      "outcome_error": 0.0,
+      "return_complete": false,
+      "usage": {
+        "input": 57313,
+        "cached": 278210,
+        "output": 9902,
+        "cost": 0.35605699999999996
+      },
+      "review_grade": {
+        "status": "passed",
+        "passed": 9,
+        "total": 9,
+        "checks": [
+          {
+            "name": "report_present_and_parseable",
+            "passed": true
+          },
+          {
+            "name": "tax_year",
+            "passed": true
+          },
+          {
+            "name": "readable_report_present",
+            "passed": true
+          },
+          {
+            "name": "independent_validation_matches",
+            "passed": true
+          },
+          {
+            "name": "status_matches_findings",
+            "passed": true
+          },
+          {
+            "name": "complete_file_inventory",
+            "passed": true
+          },
+          {
+            "name": "snapshot_hashes_match",
+            "passed": true
+          },
+          {
+            "name": "instruction_receipt_hashes_and_year",
+            "passed": true
+          },
+          {
+            "name": "disputes_remain_unresolved",
+            "passed": true
+          }
+        ],
+        "limits": "Checks report integrity, not prose accuracy, quote relevance, or filing readiness. Source receipt authenticity is not independently established."
+      },
+      "tool_calls": 33,
+      "path": "bench/runs/medium-business-loss/20261014-182002-claude-claude-sonnet-5-5-0",
+      "budget_cap_usd": 0.65,
+      "budget_stopped": false,
+      "review_status": "checks_passed",
+      "blocking_errors": 0,
+      "review_items": 0,
+      "resolved_models": [
+        "claude-sonnet-5-5"
+      ],
+      "field_misses": [
+        {
+          "form": "f1040",
+          "selector": "=10. Adjustments to income from Schedule 1, line 26.",
+          "expected": 0,
+          "actual": null
+        }
+      ],
+      "unneeded_forms": [],
+      "consistency_problems": [],
+      "expected_refund": 11286,
+      "observed_models": [
+        "claude-sonnet-5-5"
+      ]
+    },
+    {
+      "case": "medium-business-loss",
+      "agent": "pi",
+      "model": "openrouter/openai/gpt-6-luna",
+      "status": "completed",
+      "seconds": 135.1,
+      "score": 110,
+      "total": 110,
+      "net_refund": 11286.0,
+      "outcome_correct": true,
+      "outcome_error": 0.0,
+      "return_complete": true,
+      "usage": {
+        "input": 45,
+        "cached": 488056,
+        "output": 12460,
+        "cost": 0.021747435
+      },
+      "review_grade": {
+        "status": "passed",
+        "passed": 9,
+        "total": 9,
+        "checks": [
+          {
+            "name": "report_present_and_parseable",
+            "passed": true
+          },
+          {
+            "name": "tax_year",
+            "passed": true
+          },
+          {
+            "name": "readable_report_present",
+            "passed": true
+          },
+          {
+            "name": "independent_validation_matches",
+            "passed": true
+          },
+          {
+            "name": "status_matches_findings",
+            "passed": true
+          },
+          {
+            "name": "complete_file_inventory",
+            "passed": true
+          },
+          {
+            "name": "snapshot_hashes_match",
+            "passed": true
+          },
+          {
+            "name": "instruction_receipt_hashes_and_year",
+            "passed": true
+          },
+          {
+            "name": "disputes_remain_unresolved",
+            "passed": true
+          }
+        ],
+        "limits": "Checks report integrity, not prose accuracy, quote relevance, or filing readiness. Source receipt authenticity is not independently established."
+      },
+      "tool_calls": 55,
+      "path": "bench/runs/medium-business-loss/20261014-181747-pi-openrouter_openai_gpt-6-luna-0",
+      "budget_cap_usd": 0.2,
+      "budget_stopped": false,
+      "review_status": "checks_passed",
+      "blocking_errors": 0,
+      "review_items": 0,
+      "field_misses": [],
+      "unneeded_forms": [],
+      "consistency_problems": [],
+      "expected_refund": 11286,
+      "observed_models": [
+        "openai/gpt-6-luna"
+      ]
+    },
+    {
+      "case": "medium-business-loss",
+      "agent": "pi",
+      "model": "openrouter/deepseek/deepseek-v4-pro-0813",
+      "status": "completed",
+      "seconds": 330.3,
+      "score": 110,
+      "total": 110,
+      "net_refund": 11286.0,
+      "outcome_correct": true,
+      "outcome_error": 0.0,
+      "return_complete": true,
+      "usage": {
+        "input": 87344,
+        "cached": 1732864,
+        "output": 48477,
+        "cost": 0.19175450800000002
+      },
+      "review_grade": {
+        "status": "passed",
+        "passed": 9,
+        "total": 9,
+        "checks": [
+          {
+            "name": "report_present_and_parseable",
+            "passed": true
+          },
+          {
+            "name": "tax_year",
+            "passed": true
+          },
+          {
+            "name": "readable_report_present",
+            "passed": true
+          },
+          {
+            "name": "independent_validation_matches",
+            "passed": true
+          },
+          {
+            "name": "status_matches_findings",
+            "passed": true
+          },
+          {
+            "name": "complete_file_inventory",
+            "passed": true
+          },
+          {
+            "name": "snapshot_hashes_match",
+            "passed": true
+          },
+          {
+            "name": "instruction_receipt_hashes_and_year",
+            "passed": true
+          },
+          {
+            "name": "disputes_remain_unresolved",
+            "passed": true
+          }
+        ],
+        "limits": "Checks report integrity, not prose accuracy, quote relevance, or filing readiness. Source receipt authenticity is not independently established."
+      },
+      "tool_calls": 60,
+      "path": "bench/runs/medium-business-loss/20261014-181747-pi-openrouter_deepseek_deepseek-v4-pro-0813-0",
+      "budget_cap_usd": 0.8,
+      "budget_stopped": false,
+      "review_status": "checks_passed",
+      "blocking_errors": 0,
+      "review_items": 0,
+      "field_misses": [],
+      "unneeded_forms": [],
+      "consistency_problems": [],
+      "expected_refund": 11286,
+      "observed_models": [
+        "deepseek/deepseek-v4-pro-0813"
+      ]
+    },
+    {
+      "case": "medium-estimated-payments",
+      "agent": "claude",
+      "model": "claude-sonnet-5-5",
+      "status": "completed",
+      "seconds": 74.3,
+      "score": 124,
+      "total": 124,
+      "net_refund": 7211.0,
+      "outcome_correct": true,
+      "outcome_error": 0.0,
+      "return_complete": true,
+      "usage": {
+        "input": 67077,
+        "cached": 334289,
+        "output": 11689,
+        "cost": 0.4185869
+      },
+      "review_grade": {
+        "status": "passed",
+        "passed": 9,
+        "total": 9,
+        "checks": [
+          {
+            "name": "report_present_and_parseable",
+            "passed": true
+          },
+          {
+            "name": "tax_year",
+            "passed": true
+          },
+          {
+            "name": "readable_report_present",
+            "passed": true
+          },
+          {
+            "name": "independent_validation_matches",
+            "passed": true
+          },
+          {
+            "name": "status_matches_findings",
+            "passed": true
+          },
+          {
+            "name": "complete_file_inventory",
+            "passed": true
+          },
+          {
+            "name": "snapshot_hashes_match",
+            "passed": true
+          },
+          {
+            "name": "instruction_receipt_hashes_and_year",
+            "passed": true
+          },
+          {
+            "name": "disputes_remain_unresolved",
+            "passed": true
+          }
+        ],
+        "limits": "Checks report integrity, not prose accuracy, quote relevance, or filing readiness. Source receipt authenticity is not independently established."
+      },
+      "tool_calls": 40,
+      "path": "bench/runs/medium-estimated-payments/20261014-182029-claude-claude-sonnet-5-5-0",
+      "budget_cap_usd": 0.65,
+      "budget_stopped": false,
+      "review_status": "checks_passed",
+      "blocking_errors": 0,
+      "review_items": 0,
+      "resolved_models": [
+        "claude-sonnet-5-5"
+      ],
+      "field_misses": [],
+      "unneeded_forms": [],
+      "consistency_problems": [],
+      "expected_refund": 7211,
+      "observed_models": [
+        "claude-sonnet-5-5"
+      ]
+    },
+    {
+      "case": "medium-estimated-payments",
+      "agent": "pi",
+      "model": "openrouter/openai/gpt-6-luna",
+      "status": "completed",
+      "seconds": 161.3,
+      "score": 124,
+      "total": 124,
+      "net_refund": 7211.0,
+      "outcome_correct": true,
+      "outcome_error": 0.0,
+      "return_complete": true,
+      "usage": {
+        "input": 51,
+        "cached": 728024,
+        "output": 14574,
+        "cost": 0.02648184
+      },
+      "review_grade": {
+        "status": "passed",
+        "passed": 9,
+        "total": 9,
+        "checks": [
+          {
+            "name": "report_present_and_parseable",
+            "passed": true
+          },
+          {
+            "name": "tax_year",
+            "passed": true
+          },
+          {
+            "name": "readable_report_present",
+            "passed": true
+          },
+          {
+            "name": "independent_validation_matches",
+            "passed": true
+          },
+          {
+            "name": "status_matches_findings",
+            "passed": true
+          },
+          {
+            "name": "complete_file_inventory",
+            "passed": true
+          },
+          {
+            "name": "snapshot_hashes_match",
+            "passed": true
+          },
+          {
+            "name": "instruction_receipt_hashes_and_year",
+            "passed": true
+          },
+          {
+            "name": "disputes_remain_unresolved",
+            "passed": true
+          }
+        ],
+        "limits": "Checks report integrity, not prose accuracy, quote relevance, or filing readiness. Source receipt authenticity is not independently established."
+      },
+      "tool_calls": 60,
+      "path": "bench/runs/medium-estimated-payments/20261014-181747-pi-openrouter_openai_gpt-6-luna-0",
+      "budget_cap_usd": 0.2,
+      "budget_stopped": false,
+      "review_status": "checks_passed",
+      "blocking_errors": 0,
+      "review_items": 0,
+      "field_misses": [],
+      "unneeded_forms": [],
+      "consistency_problems": [],
+      "expected_refund": 7211,
+      "observed_models": [
+        "openai/gpt-6-luna"
+      ]
+    },
+    {
+      "case": "medium-estimated-payments",
+      "agent": "pi",
+      "model": "openrouter/deepseek/deepseek-v4-pro-0813",
+      "status": "completed",
+      "seconds": 575.4,
+      "score": 124,
+      "total": 124,
+      "net_refund": 7211.0,
+      "outcome_correct": true,
+      "outcome_error": 0.0,
+      "return_complete": false,
+      "usage": {
+        "input": 105811,
+        "cached": 3330304,
+        "output": 48705,
+        "cost": 0.23953784800000005
+      },
+      "review_grade": {
+        "status": "passed",
+        "passed": 9,
+        "total": 9,
+        "checks": [
+          {
+            "name": "report_present_and_parseable",
+            "passed": true
+          },
+          {
+            "name": "tax_year",
+            "passed": true
+          },
+          {
+            "name": "readable_report_present",
+            "passed": true
+          },
+          {
+            "name": "independent_validation_matches",
+            "passed": true
+          },
+          {
+            "name": "status_matches_findings",
+            "passed": true
+          },
+          {
+            "name": "complete_file_inventory",
+            "passed": true
+          },
+          {
+            "name": "snapshot_hashes_match",
+            "passed": true
+          },
+          {
+            "name": "instruction_receipt_hashes_and_year",
+            "passed": true
+          },
+          {
+            "name": "disputes_remain_unresolved",
+            "passed": true
+          }
+        ],
+        "limits": "Checks report integrity, not prose accuracy, quote relevance, or filing readiness. Source receipt authenticity is not independently established."
+      },
+      "tool_calls": 73,
+      "path": "bench/runs/medium-estimated-payments/20261014-181747-pi-openrouter_deepseek_deepseek-v4-pro-0813-0",
+      "budget_cap_usd": 0.8,
+      "budget_stopped": false,
+      "review_status": "checks_passed",
+      "blocking_errors": 0,
+      "review_items": 0,
+      "field_misses": [],
+      "unneeded_forms": [
+        "f1040s3"
+      ],
+      "consistency_problems": [],
+      "expected_refund": 7211,
+      "observed_models": [
+        "deepseek/deepseek-v4-pro-0813"
+      ]
+    }
+  ],
+  "total_reported_cost_usd": 3.4945545609999997,
+  "limits": "One attempt per model/case, no retries or resumes. Different agent harnesses. Client caps stop between requests; final request may overshoot. $1 refund tolerance.",
+  "answer_key_sha256": {
+    "medium": "f43c4a767b2c33c23240650f75aaff0c0d73f2044dd8a9c92b6976b92ae9e10c",
+    "medium-rental-loss": "eea29fee1bfb33f07a2a6fd7396e046d65212fa23e23265b6c37a9f5cf61c2f5",
+    "medium-mixed-use": "545e0cd698460e3d63790513e4796421453fca6a560efead81238a418414aa5d",
+    "medium-business-loss": "d214a83747caecadda883cf485f87c1ec158c5dc5d31c30fd899d50b4cbffef6",
+    "medium-estimated-payments": "78970f60833761cfeea80c1170d816ab9f384873be2367f8cd5b6c9986c39418"
+  },
+  "grading_notes": [
+    "Raw original answer-key scores; keys held fixed during the comparison.",
+    "Rental-loss line 22/25 signed negatives versus positive amounts inside printed parentheses lose points; omitted zero lines also lose points unless explicitly allowed by the key.",
+    "The mixed-use key expects property code 1; DeepSeek chose code 3 (vacation/short-term rental). Treat this as a classification/key limitation, not proof of a tax-computation error.",
+    "Form-set completeness includes raw key matches and declared unnecessary forms. Report integrity does not certify tax correctness or filing readiness.",
+    "Raw transcripts/PDFs are local ignored artifacts; this committed snapshot contains the chart inputs. One attempt per model/case; agent harnesses differ."
+  ]
+}
